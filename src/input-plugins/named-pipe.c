@@ -82,7 +82,7 @@ void Input_Named_Pipe(void)
 {
 
 #ifdef HAVE_SYS_PRCTL_H
-    (void)SetThreadName("SaganNGNamedPipe");
+    (void)SetThreadName("JAEnamedpipe");
 #endif
 
     char *input = NULL;

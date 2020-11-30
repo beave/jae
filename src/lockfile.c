@@ -21,10 +21,10 @@
 
 /* lockfile.c
  *
- * Creates a lock file for the Sagan process.    We don't want Sagan to be
+ * Creates a lock file for the JAE process.    We don't want JAE to be
  * running more than once.  Also does a simple 'test' to see if the PID
  * in the lock file is 'running' (via kill -0).   Wrote this to decrease
- * the dependancies of Sagan,  as opposed to using liblockfile.
+ * the dependancies of JAE,  as opposed to using liblockfile.
  *
  */
 
@@ -112,12 +112,12 @@ void CheckLockFile ( void )
 
                     if ( kill(pid, 0) != -1 )
                         {
-                            JAE_Log(ERROR, "[%s, line %d] It appears that Sagan is already running (pid: %d).", __FILE__, __LINE__, pid);
+                            JAE_Log(ERROR, "[%s, line %d] It appears that JAE is already running (pid: %d).", __FILE__, __LINE__, pid);
                         }
                     else
                         {
 
-                            JAE_Log(NORMAL, "[%s, line %d] Lock file is present,  but Sagan isn't at pid %d (Removing stale %s file)", __FILE__, __LINE__, pid, Config->lock_file);
+                            JAE_Log(NORMAL, "[%s, line %d] Lock file is present,  but JAE isn't at pid %d (Removing stale %s file)", __FILE__, __LINE__, pid, Config->lock_file);
 
                             if (unlink(Config->lock_file))
                                 {

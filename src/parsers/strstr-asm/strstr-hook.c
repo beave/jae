@@ -18,9 +18,9 @@
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-/* sagan-strstr-hook.c
+/* strstr-hook.c
  *
- * This "hooks" in the "Sagan_strstr" function for CPUs supporting SSE2.
+ * This "hooks" in the "JAE_strstr" function for CPUs supporting SSE2.
  * This code is based on work by Ondra Bílk and the glibc projects.
  *
  * His code/original post can be found at:
@@ -50,7 +50,7 @@ static void* function_func[]= {  __strstr_sse2_unaligned, __strstr_sse42, NULL};
 
 /* This function takes advantage of CPUs with SSE2 */
 
-char *Sagan_strstr(const char *_x,const char *_y)
+char *JAE_strstr(const char *_x,const char *_y)
 {
     char *x= (char*) _x, *y=(char*)_y;
     char* (*fn)(char *,char *) = function_func[0];
@@ -68,7 +68,7 @@ char *Sagan_strstr(const char *_x,const char *_y)
  *
  */
 
-char *Sagan_strstr(const char *_x, const char *_y)
+char *JAE_strstr(const char *_x, const char *_y)
 {
 
     size_t    len = strlen (_y);
@@ -89,7 +89,7 @@ char *Sagan_strstr(const char *_x, const char *_y)
  * 1/TRUE  == Convert needle
  */
 
-char *Sagan_stristr(const char *_x, const char *_y, bool needle_lower )
+char *JAE_stristr(const char *_x, const char *_y, bool needle_lower )
 {
 
     char *p = NULL;
@@ -105,7 +105,7 @@ char *Sagan_stristr(const char *_x, const char *_y, bool needle_lower )
         To_LowerC(needle_string);
     }
 
-    p = Sagan_strstr( haystack_string, needle_string);
+    p = JAE_strstr( haystack_string, needle_string);
 
     return p;
 
@@ -117,12 +117,12 @@ char *Sagan_stristr(const char *_x, const char *_y, bool needle_lower )
  * To use the system standard strstr()
  ****************************************************************************/
 
-char *Sagan_strstr(const char *_x, const char *_y)
+char *JAE_strstr(const char *_x, const char *_y)
 {
     return (strstr(_x, _y));
 }
 
-char *Sagan_stristr(const char *_x, const char *_y, bool needle_lower )
+char *JAE_stristr(const char *_x, const char *_y, bool needle_lower )
 {
     return (strcasestr(_x, _y));
 }

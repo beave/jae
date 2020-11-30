@@ -20,7 +20,7 @@
 
 /* strstr_sse4_2.S
  *
- * This "hooks" in the "Sagan_strstr" function for CPUs supporting SSE2.
+ * This "hooks" in the "JAE_strstr" function for CPUs supporting SSE2.
  * This code is based on work by Ondra B�lk and the glibc projects.
  *
  * His code/original post can be found at:
@@ -679,9 +679,9 @@ ___m128i_shift_right:
 	.byte	-1
 	.byte	-1
 	.byte	-1
-	.ident	"Sagan builtin __strstr_sse42 function"
+	.ident	"JAE builtin __strstr_sse42 function"
 	.section	.note.GNU-stack,"",@progbits
-	.ident	"Sagan builtin __strstr_sse42 function"
+	.ident	"JAE builtin __strstr_sse42 function"
 	.section	.note.GNU-stack,"",@progbits
 
 #endif

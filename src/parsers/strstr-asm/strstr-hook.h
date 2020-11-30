@@ -20,7 +20,7 @@
 
 /* sagan-strstr-hook.c
  *
- * This "hooks" in the "Sagan_strstr" function for CPUs supporting SSE2.
+ * This "hooks" in the "JAE_strstr" function for CPUs supporting SSE2.
  * This code is based on work by Ondra B�lk and the glibc projects.
  *
  * His code/original post can be found at:
@@ -44,6 +44,6 @@ int __strstr_sse42();
 #endif
 #endif
 
-char *Sagan_strstr(const char *, const char *);
-char *Sagan_stristr(const char *, const char *, bool);
+char *JAE_strstr(const char *, const char *);
+char *JAE_stristr(const char *, const char *, bool);
 

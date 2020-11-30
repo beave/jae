@@ -85,7 +85,7 @@ void Processor (void)
 
 
 #ifdef HAVE_SYS_PRCTL_H
-    (void)SetThreadName("SaganNGProcessor");
+    (void)SetThreadName("JAEprocessor");
 #endif
 
     while (Global_Death == false )

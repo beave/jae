@@ -233,7 +233,7 @@ void Droppriv(void)
         {
 
             /*
-             * We chown certain log files to our Sagan user.  This is done so no files are "owned"
+             * We chown certain log files to our JAE user.  This is done so no files are "owned"
              * by "root".  This prevents problems in the future when doing things like handling
                  * SIGHUP's and what not.
                  *

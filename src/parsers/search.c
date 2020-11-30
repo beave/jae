@@ -61,7 +61,7 @@ bool Search( uint32_t rule_position, uint8_t s_position, char *json )
                     if ( Rules[rule_position].search_case[s_position] == false )
                         {
 
-                            if ( Sagan_stristr( json, Rules[rule_position].search_string[s_position][k], true ) )
+                            if ( JAE_stristr( json, Rules[rule_position].search_string[s_position][k], true ) )
                                 {
 
                                     if ( Rules[rule_position].search_not[s_position] == true )
@@ -78,7 +78,7 @@ bool Search( uint32_t rule_position, uint8_t s_position, char *json )
                     else
                         {
 
-                            if ( Sagan_strstr( json, Rules[rule_position].search_string[s_position][k] ) )
+                            if ( JAE_strstr( json, Rules[rule_position].search_string[s_position][k] ) )
                                 {
 
                                     if ( Rules[rule_position].search_not[s_position] == true )

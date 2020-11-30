@@ -236,7 +236,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                             /* If "file:/" is found, we load values from a file */
 
-                                            if (Sagan_strstr(value, "file:/"))
+                                            if (JAE_strstr(value, "file:/"))
                                                 {
 
                                                     strtok_r(value, ":", &tok);

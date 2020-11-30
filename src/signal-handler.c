@@ -47,7 +47,7 @@ void Signal_Handler( void )
 {
 
 #ifdef HAVE_SYS_PRCTL_H
-    (void)SetThreadName("SaganNGSignal");
+    (void)SetThreadName("JAEsignal");
 #endif
 
     sigset_t signal_set;
@@ -72,7 +72,7 @@ void Signal_Handler( void )
                     Global_Death = true;
 
 
-                    JAE_Log(NORMAL, "\n\n[Received signal %d. Sagan version %s shutting down]-------\n", sig, VERSION);
+                    JAE_Log(NORMAL, "\n\n[Received signal %d. JAE version %s shutting down]-------\n", sig, VERSION);
 
                     Remove_Lock_File();
                     exit(0);

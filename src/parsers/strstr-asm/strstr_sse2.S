@@ -20,7 +20,7 @@
 
 /*  strstr_sse2.S
  *
- * This "hooks" in the "Sagan_strstr" function for CPUs supporting SSE2.
+ * This "hooks" in the "JAE_strstr" function for CPUs supporting SSE2.
  * This code is based on work by Ondra B�lk and the glibc projects.
  *
  * His code/original post can be found at:
@@ -421,7 +421,7 @@ __strstr_sse2_unaligned:
 .LFE0:
 
 .size   __strstr_sse2_unaligned, .-__strstr_sse2_unaligned
-.ident  "Sagan builtin strstr_sse2_unligned function"
+.ident  "JAE builtin strstr_sse2_unligned function"
 .section        .note.GNU-stack,"",@progbits
 
 #endif
