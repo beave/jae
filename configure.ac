@@ -3,7 +3,7 @@
 
 VERSION=`cat src/version.h | grep "#define VERSION " | sed -e 's/^.*\"\(.*\)\"/\1/'`
 
-AC_INIT([sagan], m4_esyscmd_s([cat src/version.h | cut -d\" -f2]))
+AC_INIT([jae], m4_esyscmd_s([cat src/version.h | cut -d\" -f2]))
 AC_CONFIG_SRCDIR([src])
 AC_CANONICAL_SYSTEM
 AC_GNU_SOURCE
@@ -279,11 +279,11 @@ AM_PROG_AS
 
 AC_CHECK_FUNCS([select strstr strchr strcmp strlen sizeof write snprintf strncat strlcat strlcpy getopt_long gethostbyname socket htons connect send recv dup2 strspn strdup memset access ftruncate strerror mmap shm_open gettimeofday])
 
-AC_CHECK_LIB(m, main,,AC_MSG_ERROR(Sagan needs libm!))
+AC_CHECK_LIB(m, main,,AC_MSG_ERROR(JAE needs libm!))
 
 # OSX doesn't have librt - this needs to be fixed!
 
-AC_CHECK_LIB(rt, main,,AC_MSG_ERROR(Sagan needs librt!))
+AC_CHECK_LIB(rt, main,,AC_MSG_ERROR(JAE needs librt!))
 
 # libpthread
 AC_ARG_WITH(libpthread_includes,
@@ -490,7 +490,7 @@ fi
 
 #### End of PCRE ############################################################
 
-# We don't want to use the Sagan_strstr assembly code if this is a 32 bit
+# We don't want to use the JAE_strstr assembly code if this is a 32 bit
 # system.  We force SYSSTRSR="yes" when it is. 
 
 # 32 bit linux. 
@@ -581,7 +581,7 @@ if test "$LIBPCAP" = "yes"; then
        AC_CHECK_HEADER([netinet/ip.h])
        AC_CHECK_HEADER([netinet/udp.h])
        AC_CHECK_LIB(pcap, main,,AC_MSG_ERROR(The libpcap library cannot be found.
-This library is used to run Sagan in a syslog 'sniffer' mode.  Please see
+This library is used to run JAE in a syslog 'sniffer' mode.  Please see
 https://wiki.quadrantsec.com/bin/view/Main/PLog.  To disable this feature use
 the --disable-libpcap flag. ))
        fi
@@ -593,12 +593,12 @@ if test "$BLUEDOT" = "yes"; then
         fi
 
 test "x$prefix" = x. || test "x$prefix" = xNONE && prefix=/usr/local
-AC_DEFINE_UNQUOTED(CONFIG_FILE_PATH, "`eval echo "${sysconfdir}/sagan_ng.yaml"`", [Sagan configuration file]) 
+AC_DEFINE_UNQUOTED(CONFIG_FILE_PATH, "`eval echo "${sysconfdir}/jae.yaml"`", [JAE configuration file]) 
 
-AC_DEFINE_UNQUOTED(PACKAGE_NAME, "sagan" )
-AC_DEFINE_UNQUOTED(PACKAGE_STRING, "Sagan $VERSION")
+AC_DEFINE_UNQUOTED(PACKAGE_NAME, "jae" )
+AC_DEFINE_UNQUOTED(PACKAGE_STRING, "JAE $VERSION")
 AC_DEFINE_UNQUOTED(PACKAGE_BUGREPORT, "cclark@quadrantsec.com" )
-AC_DEFINE_UNQUOTED(PACKAGE_TARNAME, "sagan" )
+AC_DEFINE_UNQUOTED(PACKAGE_TARNAME, "jae" )
 AC_DEFINE_UNQUOTED(PACKAGE_VERSION, "$VERSION" )
 
 AC_CONFIG_FILES([ \
@@ -611,7 +611,7 @@ src/Makefile])
 AC_OUTPUT
 
 AC_MSG_RESULT([])
-AC_MSG_RESULT([  ,-._,-.    Sagan-NG has been configured!])
+AC_MSG_RESULT([  ,-._,-.    JAE has been configured!])
 AC_MSG_RESULT([  \/)"(\/ ])
 AC_MSG_RESULT([   (_o_)     Champ Clark III & The Quadrant InfoSec Team [[quadrantsec.com]]])
 AC_MSG_RESULT([   /   \/)   Copyright (C) 2020 Quadrant Information Security, et al.])

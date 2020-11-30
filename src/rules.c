@@ -34,9 +34,9 @@
 #include <pcre.h>
 
 
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 #include "batch.h"
 #include "util.h"
 #include "rules.h"
@@ -96,17 +96,17 @@ void Load_Ruleset( const char *ruleset )
 
     if ( JSON_Key_String == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
+            JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
         }
 
     if (( rulesfile = fopen(ruleset, "r" )) == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Cannot open rule file (%s - %s)", __FILE__, __LINE__, ruleset, strerror(errno));
+            JAE_Log(ERROR, "[%s, line %d] Cannot open rule file (%s - %s)", __FILE__, __LINE__, ruleset, strerror(errno));
         }
 
     /* Rule set tracking here? */
 
-    Sagan_Log(NORMAL, "Loading %s rule file.", ruleset);
+    JAE_Log(NORMAL, "Loading %s rule file.", ruleset);
 
     while ( fgets(rulebuf, sizeof(rulebuf), rulesfile) != NULL )
         {
@@ -130,7 +130,7 @@ void Load_Ruleset( const char *ruleset )
                     if ( Rules == NULL )
                         {
                             fclose(rulesfile);
-                            Sagan_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Rules. Abort!", __FILE__, __LINE__);
+                            JAE_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Rules. Abort!", __FILE__, __LINE__);
                         }
 
                     memset(&Rules[Counters->rules], 0, sizeof(struct _Rules));
@@ -139,7 +139,7 @@ void Load_Ruleset( const char *ruleset )
 
             if ( Debug->rules )
                 {
-                    Sagan_Log(DEBUG, "[%s, line %d] RULES: ---------=[ Line: %d, Rule: %d ]=-----------------------------------------", __FILE__, __LINE__, line_count, Counters->rules);
+                    JAE_Log(DEBUG, "[%s, line %d] RULES: ---------=[ Line: %d, Rule: %d ]=-----------------------------------------", __FILE__, __LINE__, line_count, Counters->rules);
                 }
 
 
@@ -151,7 +151,7 @@ void Load_Ruleset( const char *ruleset )
                 {
                     free(JSON_Key_String);
                     fclose(rulesfile);
-                    Sagan_Log(ERROR, "[%s, line %d] Failed to parse rule in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
+                    JAE_Log(ERROR, "[%s, line %d] Failed to parse rule in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
                 }
 
             /****************************************************************
@@ -163,7 +163,7 @@ void Load_Ruleset( const char *ruleset )
 
                     if ( Debug->rules )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] RULES: %d Key: %s, Value: %s", __FILE__, __LINE__, i, JSON_Key_String[i].key, JSON_Key_String[i].json);
+                            JAE_Log(DEBUG, "[%s, line %d] RULES: %d Key: %s, Value: %s", __FILE__, __LINE__, i, JSON_Key_String[i].key, JSON_Key_String[i].json);
                         }
 
                     if ( !strcmp( JSON_Key_String[i].key, ".signature_id" ) )
@@ -175,7 +175,7 @@ void Load_Ruleset( const char *ruleset )
                                 {
                                     free(JSON_Key_String);
                                     fclose(rulesfile);
-                                    Sagan_Log(ERROR, "[%s, line %d] Invalid 'signature_id' in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
+                                    JAE_Log(ERROR, "[%s, line %d] Invalid 'signature_id' in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
                                 }
 
                         }
@@ -189,7 +189,7 @@ void Load_Ruleset( const char *ruleset )
                                 {
                                     free(JSON_Key_String);
                                     fclose(rulesfile);
-                                    Sagan_Log(ERROR, "[%s, line %d] Invalid 'revision' in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
+                                    JAE_Log(ERROR, "[%s, line %d] Invalid 'revision' in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
                                 }
 
                         }
@@ -208,7 +208,7 @@ void Load_Ruleset( const char *ruleset )
                                 {
                                     free(JSON_Key_String);
                                     fclose(rulesfile);
-                                    Sagan_Log(ERROR, "[%s, line %d] Error: Could find classification of '%s' in %s at line %d. Abort.", __FILE__, __LINE__, Rules[Counters->rules].classification, ruleset, line_count);
+                                    JAE_Log(ERROR, "[%s, line %d] Error: Could find classification of '%s' in %s at line %d. Abort.", __FILE__, __LINE__, Rules[Counters->rules].classification, ruleset, line_count);
                                 }
 
 
@@ -232,14 +232,14 @@ void Load_Ruleset( const char *ruleset )
                 {
                     free(JSON_Key_String);
                     fclose(rulesfile);
-                    Sagan_Log(ERROR, "[%s, line %d] Error: No 'classification' specified in %s at line %d is invalid.  Abort.", __FILE__, __LINE__, ruleset, line_count);
+                    JAE_Log(ERROR, "[%s, line %d] Error: No 'classification' specified in %s at line %d is invalid.  Abort.", __FILE__, __LINE__, ruleset, line_count);
                 }
 
             if ( Rules[Counters->rules].description[0] == '\0' )
                 {
                     free(JSON_Key_String);
                     fclose(rulesfile);
-                    Sagan_Log(ERROR, "[%s, line %d] Error: No 'description' specified in %s at line %d is invalid.  Abort.", __FILE__, __LINE__, ruleset, line_count);
+                    JAE_Log(ERROR, "[%s, line %d] Error: No 'description' specified in %s at line %d is invalid.  Abort.", __FILE__, __LINE__, ruleset, line_count);
                 }
 
 
@@ -290,13 +290,13 @@ void Load_Ruleset( const char *ruleset )
                                                         {
                                                             free(JSON_Key_String);
                                                             fclose(rulesfile);
-                                                            Sagan_Log(ERROR, "[%s, line %d] Error: Got bad hex value in %s at line %d.  Abort.", __FILE__, __LINE__, ruleset, line_count, Rules[Counters->rules].search_string[search_string_count][0]);
+                                                            JAE_Log(ERROR, "[%s, line %d] Error: Got bad hex value in %s at line %d.  Abort.", __FILE__, __LINE__, ruleset, line_count, Rules[Counters->rules].search_string[search_string_count][0]);
                                                         }
 
 
                                                     if ( Debug->rules )
                                                         {
-                                                            Sagan_Log(DEBUG, "[%s, line %d] RULES: [Single] Rules[%d].search_string[%d][0] == %s", __FILE__, __LINE__, Counters->rules, search_string_count );
+                                                            JAE_Log(DEBUG, "[%s, line %d] RULES: [Single] Rules[%d].search_string[%d][0] == %s", __FILE__, __LINE__, Counters->rules, search_string_count );
                                                         }
 
                                                     Rules[Counters->rules].search_count[search_string_count] = 1;
@@ -330,12 +330,12 @@ void Load_Ruleset( const char *ruleset )
                                                                 {
                                                                     free(JSON_Key_String);
                                                                     fclose(rulesfile);
-                                                                    Sagan_Log(ERROR, "[%s, line %d] Error: Got bad hex value in %s at line %d.  Abort.", __FILE__, __LINE__, ruleset, line_count);
+                                                                    JAE_Log(ERROR, "[%s, line %d] Error: Got bad hex value in %s at line %d.  Abort.", __FILE__, __LINE__, ruleset, line_count);
                                                                 }
 
                                                             if ( Debug->rules )
                                                                 {
-                                                                    Sagan_Log(DEBUG,"[%s, line %d] RULES: [List] Rules[%d].search_string[%d][%d] == %s", __FILE__, __LINE__, Counters->rules, search_string_count, search_count, tmp);
+                                                                    JAE_Log(DEBUG,"[%s, line %d] RULES: [List] Rules[%d].search_string[%d][%d] == %s", __FILE__, __LINE__, Counters->rules, search_string_count, search_count, tmp);
                                                                 }
 
                                                             strlcpy( Rules[Counters->rules].search_string[search_string_count][search_count], tmp, MAX_SEARCH_STRING_SIZE);
@@ -393,7 +393,7 @@ void Load_Ruleset( const char *ruleset )
                                                                 {
                                                                     free(JSON_Key_String);
                                                                     fclose(rulesfile);
-                                                                    Sagan_Log(ERROR, "[%s, line %d] Error: Expected a 'search' 'case' of 'true' or 'false'  but got '%s' in %s at line %d.  Abort.", __FILE__, __LINE__, JSON_Key_String[i].json, ruleset, line_count);
+                                                                    JAE_Log(ERROR, "[%s, line %d] Error: Expected a 'search' 'case' of 'true' or 'false'  but got '%s' in %s at line %d.  Abort.", __FILE__, __LINE__, JSON_Key_String[i].json, ruleset, line_count);
                                                                 }
 
                                                         }
@@ -420,7 +420,7 @@ void Load_Ruleset( const char *ruleset )
                                                                 {
                                                                     free(JSON_Key_String);
                                                                     fclose(rulesfile);
-                                                                    Sagan_Log(ERROR, "[%s, line %d] Error: Expected a 'search' 'type' of 'exact' or 'contains' but got '%s' in %s at line %d.  Abort.", __FILE__, __LINE__, JSON_Key_String[k].json, ruleset, line_count);
+                                                                    JAE_Log(ERROR, "[%s, line %d] Error: Expected a 'search' 'type' of 'exact' or 'contains' but got '%s' in %s at line %d.  Abort.", __FILE__, __LINE__, JSON_Key_String[k].json, ruleset, line_count);
                                                                 }
 
                                                         }
@@ -442,7 +442,7 @@ void Load_Ruleset( const char *ruleset )
 
             if ( Debug->rules )
                 {
-                    Sagan_Log(DEBUG, "[%s, line %d] RULES: Total search items in this rule: %d", __FILE__, __LINE__, Rules[Counters->rules].search_string_count);
+                    JAE_Log(DEBUG, "[%s, line %d] RULES: Total search items in this rule: %d", __FILE__, __LINE__, Rules[Counters->rules].search_string_count);
                 }
 
 
@@ -452,11 +452,11 @@ void Load_Ruleset( const char *ruleset )
                     if ( Debug->rules)
                         {
 
-                            Sagan_Log(DEBUG, "[%s, line %d] RULES: Count of nest search: Rules[%d].search_count[%d] == %d", __FILE__, __LINE__, Counters->rules, a, Rules[Counters->rules].search_count[a]);
+                            JAE_Log(DEBUG, "[%s, line %d] RULES: Count of nest search: Rules[%d].search_count[%d] == %d", __FILE__, __LINE__, Counters->rules, a, Rules[Counters->rules].search_count[a]);
 
                             for ( k = 0; k < Rules[Counters->rules].search_count[a]; k++ )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] RULES: Array Contents: |%d %d.%d|%s|%s", __FILE__, __LINE__, Counters->rules, a, k, Rules[Counters->rules].search_key[a], Rules[Counters->rules].search_string[a][k]);
+                                    JAE_Log(DEBUG, "[%s, line %d] RULES: Array Contents: |%d %d.%d|%s|%s", __FILE__, __LINE__, Counters->rules, a, k, Rules[Counters->rules].search_key[a], Rules[Counters->rules].search_string[a][k]);
 
                                 }
 
@@ -469,7 +469,7 @@ void Load_Ruleset( const char *ruleset )
 
                             if ( Debug->rules )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] RULES: Got mask \"%s\"", __FILE__, __LINE__, Rules[Counters->rules].search_mask[a]);
+                                    JAE_Log(DEBUG, "[%s, line %d] RULES: Got mask \"%s\"", __FILE__, __LINE__, Rules[Counters->rules].search_mask[a]);
                                 }
 
                             for (k = 0; k < Rules[Counters->rules].search_string_count; k++ )
@@ -479,7 +479,7 @@ void Load_Ruleset( const char *ruleset )
 
                                     if ( Debug->rules )
                                         {
-                                            Sagan_Log(DEBUG, "[%s, line %d] RULES: New Rules[%d].search_string[%d][%d] wiht mask \"%s\"", __FILE__, __LINE__, Counters->rules, a, k, Rules[Counters->rules].search_string[a][k]);
+                                            JAE_Log(DEBUG, "[%s, line %d] RULES: New Rules[%d].search_string[%d][%d] wiht mask \"%s\"", __FILE__, __LINE__, Counters->rules, a, k, Rules[Counters->rules].search_string[a][k]);
                                         }
                                 }
                         }
@@ -490,7 +490,7 @@ void Load_Ruleset( const char *ruleset )
                         {
                             free(JSON_Key_String);
                             fclose(rulesfile);
-                            Sagan_Log(ERROR, "[%s, line %d] Error: `search` option lacks a 'key' option in %s at line %d. Abort.", __FILE__, __LINE__, ruleset, line_count);
+                            JAE_Log(ERROR, "[%s, line %d] Error: `search` option lacks a 'key' option in %s at line %d. Abort.", __FILE__, __LINE__, ruleset, line_count);
                         }
 
                 }
@@ -575,7 +575,7 @@ void Load_Ruleset( const char *ruleset )
                                         {
                                             free(JSON_Key_String);
                                             fclose(rulesfile);
-                                            Sagan_Log(ERROR, "[%s, line %d] Bad PCRE statement in %s at line %d. Abort", __FILE__, __LINE__, ruleset, line_count);
+                                            JAE_Log(ERROR, "[%s, line %d] Bad PCRE statement in %s at line %d. Abort", __FILE__, __LINE__, ruleset, line_count);
                                         }
 
                                     /* Clip last / from pcre string */
@@ -612,7 +612,7 @@ void Load_Ruleset( const char *ruleset )
 
                                             if (rc != 0 || jit != 1)
                                                 {
-                                                    Sagan_Log(WARN, "[%s, line %d] PCRE JIT does not support regexp in %s at line %d (pcre: \"%s\"). Continuing without PCRE JIT enabled for this rule.", __FILE__, __LINE__, ruleset, line_count, pcre_rule);
+                                                    JAE_Log(WARN, "[%s, line %d] PCRE JIT does not support regexp in %s at line %d (pcre: \"%s\"). Continuing without PCRE JIT enabled for this rule.", __FILE__, __LINE__, ruleset, line_count, pcre_rule);
                                                 }
 
                                         }
@@ -621,7 +621,7 @@ void Load_Ruleset( const char *ruleset )
 
                                     if (  Rules[Counters->rules].re_pcre[pcre_count]  == NULL )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] PCRE failure in %s at %d [%d: %s].", __FILE__, __LINE__, ruleset, line_count, pcre_erroffset, pcre_error);
+                                            JAE_Log(ERROR, "[%s, line %d] PCRE failure in %s at %d [%d: %s].", __FILE__, __LINE__, ruleset, line_count, pcre_erroffset, pcre_error);
 
                                         }
 
@@ -649,7 +649,7 @@ void Load_Ruleset( const char *ruleset )
 					if ( Rules[Counters->rules].pcre_key[pcre_count][0] == '\0' )
 						{
 
-						Sagan_Log( ERROR, "[%s, line %d] There's no \".key\" specified for \"pre\" in signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
+						JAE_Log( ERROR, "[%s, line %d] There's no \".key\" specified for \"pre\" in signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
 
 						}
 
@@ -681,7 +681,7 @@ void Load_Ruleset( const char *ruleset )
                             free(JSON_Key_String);
                             fclose(rulesfile);
 
-                            Sagan_Log( ERROR, "[%s, line %d] Detected duplicate 'signature_id' %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
+                            JAE_Log( ERROR, "[%s, line %d] Detected duplicate 'signature_id' %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
                         }
                 }
         }
@@ -693,7 +693,7 @@ void Load_Ruleset( const char *ruleset )
 
     if ( Debug->rules )
         {
-            Sagan_Log(DEBUG, "[%s, line %d] RULES: -------=[ Rule load complete! Lines processed: %d, Rules Total: %d ]=-------", __FILE__, __LINE__, line_count, Counters->rules );
+            JAE_Log(DEBUG, "[%s, line %d] RULES: -------=[ Rule load complete! Lines processed: %d, Rules Total: %d ]=-------", __FILE__, __LINE__, line_count, Counters->rules );
         }
 
 }

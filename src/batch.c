@@ -5,7 +5,11 @@
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License Version 2 as
-** published by the Free Software Foundation.  You may not use, modify or                                    ** distribute this program under any other version of the GNU General                                        ** Public License.                                                                                           **                                                                                                           ** This program is distributed in the hope that it will be useful,
+** published by the Free Software Foundation.  You may not use, modify or
+** distribute this program under any other version of the GNU General
+** Public License.
+**
+** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
@@ -26,9 +30,9 @@
 
 
 #include "version.h"
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 #include "counters.h"
 #include "batch.h"
 
@@ -53,7 +57,7 @@ void Batch_Init( void )
 
     if ( Input_Batch == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to allocate memory for _Input_Batch. Abort!", __FILE__, __LINE__);
+            JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _Input_Batch. Abort!", __FILE__, __LINE__);
         }
 
     memset(Input_Batch, 0, sizeof(struct _Input_Batch));

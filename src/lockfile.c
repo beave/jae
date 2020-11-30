@@ -47,10 +47,10 @@
 
 //#include "sagan.h"
 //#include "sagan-defs.h"
-#include "sagan-ng-defs.h"
+#include "jae-defs.h"
 #include "util.h"
 #include "lockfile.h"
-#include "sagan-config.h"
+#include "jae-config.h"
 //#include "signal-handler.h"
 
 #include "version.h"
@@ -77,7 +77,7 @@ void CheckLockFile ( void )
 
     if (!pw)
         {
-            Sagan_Log(ERROR, "Couldn't locate user '%s'. Aborting...", Config->runas);
+            JAE_Log(ERROR, "Couldn't locate user '%s'. Aborting...", Config->runas);
         }
 
     /* Check for lockfile first */
@@ -89,13 +89,13 @@ void CheckLockFile ( void )
 
             if (( lck = fopen(Config->lock_file, "r" )) == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Lock file '%s' is present but can't be read [%s]", __FILE__, __LINE__, Config->lock_file, strerror(errno));
+                    JAE_Log(ERROR, "[%s, line %d] Lock file '%s' is present but can't be read [%s]", __FILE__, __LINE__, Config->lock_file, strerror(errno));
                 }
             else
                 {
                     if (!fgets(buf, sizeof(buf), lck))
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Lock file (%s) is open for reading,  but can't read contents.", __FILE__, __LINE__, Config->lock_file);
+                            JAE_Log(ERROR, "[%s, line %d] Lock file (%s) is open for reading,  but can't read contents.", __FILE__, __LINE__, Config->lock_file);
                         }
 
                     fclose(lck);
@@ -103,7 +103,7 @@ void CheckLockFile ( void )
 
                     if ( pid == 0 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Lock file read but pid value is zero.  Aborting.....", __FILE__, __LINE__);
+                            JAE_Log(ERROR, "[%s, line %d] Lock file read but pid value is zero.  Aborting.....", __FILE__, __LINE__);
                         }
 
                     /* Check to see if process is running.  We use kill with 0 signal
@@ -112,16 +112,16 @@ void CheckLockFile ( void )
 
                     if ( kill(pid, 0) != -1 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] It appears that Sagan is already running (pid: %d).", __FILE__, __LINE__, pid);
+                            JAE_Log(ERROR, "[%s, line %d] It appears that Sagan is already running (pid: %d).", __FILE__, __LINE__, pid);
                         }
                     else
                         {
 
-                            Sagan_Log(NORMAL, "[%s, line %d] Lock file is present,  but Sagan isn't at pid %d (Removing stale %s file)", __FILE__, __LINE__, pid, Config->lock_file);
+                            JAE_Log(NORMAL, "[%s, line %d] Lock file is present,  but Sagan isn't at pid %d (Removing stale %s file)", __FILE__, __LINE__, pid, Config->lock_file);
 
                             if (unlink(Config->lock_file))
                                 {
-                                    Sagan_Log(ERROR, "Unable to delete %s. ", Config->lock_file);
+                                    JAE_Log(ERROR, "Unable to delete %s. ", Config->lock_file);
                                 }
                         }
                 }
@@ -139,7 +139,7 @@ void CheckLockFile ( void )
 
                     if ( mkdir(Config->lock_file_path, 0755) == -1 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Cannot create lock file directory (mkdir %s - %s)", __FILE__, __LINE__, Config->lock_file_path, strerror(errno));
+                            JAE_Log(ERROR, "[%s, line %d] Cannot create lock file directory (mkdir %s - %s)", __FILE__, __LINE__, Config->lock_file_path, strerror(errno));
                         }
 
                     /* Make sure the directory is readable */
@@ -148,7 +148,7 @@ void CheckLockFile ( void )
 
                     if ( ret < 0 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file_path, Config->runas, strerror(errno));
+                            JAE_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file_path, Config->runas, strerror(errno));
                         }
 
 
@@ -158,7 +158,7 @@ void CheckLockFile ( void )
 
             if (( lck = fopen(Config->lock_file, "w" )) == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Cannot create lock file (%s - %s)", __FILE__, __LINE__, Config->lock_file, strerror(errno));
+                    JAE_Log(ERROR, "[%s, line %d] Cannot create lock file (%s - %s)", __FILE__, __LINE__, Config->lock_file, strerror(errno));
                 }
             else
                 {
@@ -175,7 +175,7 @@ void CheckLockFile ( void )
 
                     if ( ret < 0 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file, Config->runas, strerror(errno));
+                            JAE_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file, Config->runas, strerror(errno));
                         }
 
                     /* Let other programs have access to the lockfile */
@@ -184,7 +184,7 @@ void CheckLockFile ( void )
 
                     if ( ret < 0 )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Cannot change permissions of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file, Config->runas, strerror(errno));
+                            JAE_Log(ERROR, "[%s, line %d] Cannot change permissions of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->lock_file, Config->runas, strerror(errno));
 
                         }
 
@@ -199,6 +199,6 @@ void Remove_Lock_File ( void )
 
     if ((stat(Config->lock_file, &lckcheck) == 0) && unlink(Config->lock_file) != 0 )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Cannot remove lock file (%s - %s)\n", __FILE__, __LINE__, Config->lock_file, strerror(errno));
+            JAE_Log(ERROR, "[%s, line %d] Cannot remove lock file (%s - %s)\n", __FILE__, __LINE__, Config->lock_file, strerror(errno));
         }
 }

@@ -32,9 +32,9 @@
 
 #include <json.h>
 
-#include "sagan-ng.h"
-#include "sagan-ng-defs.h"
-#include "sagan-config.h"
+#include "jae.h"
+#include "jae-defs.h"
+#include "jae-config.h"
 #include "version.h"
 #include "debug.h"
 

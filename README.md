@@ -1,4 +1,4 @@
-# sagan-ng
+# JAE - JSON Analysis Engine (Pronounced "jay)
 
 ....
 

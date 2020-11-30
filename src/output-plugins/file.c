@@ -27,9 +27,9 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 #include "rules.h"
 #include "lockfile.h"
 
@@ -44,10 +44,10 @@ void File_Init( void )
     if (( Config->output_file_stream = fopen(Config->output_file, "a" )) == NULL )
         {
             Remove_Lock_File();
-            Sagan_Log(ERROR, "[%s, line %d] Can't for 'file' output %s - %s. Abort.", __FILE__, __LINE__, Config->output_file, strerror(errno));
+            JAE_Log(ERROR, "[%s, line %d] Can't for 'file' output %s - %s. Abort.", __FILE__, __LINE__, Config->output_file, strerror(errno));
         }
 
-    Sagan_Log(NORMAL, "Successfully open %s for 'file' output.", Config->output_file);
+    JAE_Log(NORMAL, "Successfully open %s for 'file' output.", Config->output_file);
 
 
 }

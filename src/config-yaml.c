@@ -40,9 +40,9 @@
 #include <sys/stat.h>
 #include <libgen.h>
 
-#include "sagan-ng.h"
-#include "sagan-ng-defs.h"
-#include "sagan-config.h"
+#include "jae.h"
+#include "jae-defs.h"
+#include "jae-config.h"
 #include "config-yaml.h"
 #include "util.h"
 #include "var.h"
@@ -98,19 +98,19 @@ void Load_YAML_Config( const char *yaml_file )
 
     if (stat(yaml_file, &filecheck) != false )
         {
-            Sagan_Log(ERROR, "[%s, line %d] The configuration file '%s' cannot be found! Abort!", __FILE__, __LINE__, yaml_file);
+            JAE_Log(ERROR, "[%s, line %d] The configuration file '%s' cannot be found! Abort!", __FILE__, __LINE__, yaml_file);
         }
 
     FILE *fh = fopen(yaml_file, "r");
 
     if (!yaml_parser_initialize(&parser))
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to initialize the libyaml parser. Abort!", __FILE__, __LINE__);
+            JAE_Log(ERROR, "[%s, line %d] Failed to initialize the libyaml parser. Abort!", __FILE__, __LINE__);
         }
 
     if (fh == NULL)
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to open the configuration file '%s' Abort!", __FILE__, __LINE__, yaml_file);
+            JAE_Log(ERROR, "[%s, line %d] Failed to open the configuration file '%s' Abort!", __FILE__, __LINE__, yaml_file);
         }
 
     /* Set input file */
@@ -125,7 +125,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     /* Useful YAML vars: parser.context_mark.line+1, parser.context_mark.column+1, parser.problem, parser.problem_mark.line+1, parser.problem_mark.column+1 */
 
-                    Sagan_Log(ERROR, "[%s, line %d] libyaml parse error at line %d in '%s'", __FILE__, __LINE__, parser.problem_mark.line+1, yaml_file);
+                    JAE_Log(ERROR, "[%s, line %d] libyaml parse error at line %d in '%s'", __FILE__, __LINE__, parser.problem_mark.line+1, yaml_file);
 
                 }
 
@@ -136,14 +136,14 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if ( Debug->config )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: YAML_DOCUMENT_START_EVENT", __FILE__, __LINE__);
+                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: YAML_DOCUMENT_START_EVENT", __FILE__, __LINE__);
                         }
 
                     yaml_version_directive_t *ver = event.data.document_start.version_directive;
 
                     if ( ver == NULL )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Invalid configuration file. Configuration must start with \"%%YAML 1.1\"", __FILE__, __LINE__);
+                            JAE_Log(ERROR, "[%s, line %d] Invalid configuration file. Configuration must start with \"%%YAML 1.1\"", __FILE__, __LINE__);
                         }
 
                     int major = ver->major;
@@ -151,7 +151,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if (! (major == YAML_VERSION_MAJOR && minor == YAML_VERSION_MINOR) )
                         {
-                            Sagan_Log(ERROR, "[%s, line %d] Configuration has a invalid YAML version.  Must be 1.1 or above", __FILE__, __LINE__);
+                            JAE_Log(ERROR, "[%s, line %d] Configuration has a invalid YAML version.  Must be 1.1 or above", __FILE__, __LINE__);
                         }
 
                 } /* Document start */
@@ -165,7 +165,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if ( Debug->config )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: YAML_STREAM_END_EVENT", __FILE__, __LINE__);
+                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: YAML_STREAM_END_EVENT", __FILE__, __LINE__);
                         }
                 }
 
@@ -176,7 +176,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if ( Debug->config )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: YAML_MAPPING_START_EVENT", __FILE__, __LINE__);
+                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: YAML_MAPPING_START_EVENT", __FILE__, __LINE__);
                         }
                 }
 
@@ -188,7 +188,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if ( Debug->config )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: YAML_MAPPING_END_EVENT", __FILE__, __LINE__);
+                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: YAML_MAPPING_END_EVENT", __FILE__, __LINE__);
                         }
                 }
 
@@ -203,7 +203,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                     if ( Debug->config )
                         {
-                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: YAML_SCALAR_EVENT - Value: \"%s\"", __FILE__, __LINE__, value);
+                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: YAML_SCALAR_EVENT - Value: \"%s\"", __FILE__, __LINE__, value);
                         }
 
                     /* Load variables! */
@@ -218,7 +218,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                     if ( Var == NULL )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Var. Abort!", __FILE__, __LINE__);
+                                            JAE_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Var. Abort!", __FILE__, __LINE__);
                                         }
 
                                     memset(&Var[Counters->var], 0, sizeof(struct _Var));
@@ -250,12 +250,12 @@ void Load_YAML_Config( const char *yaml_file )
 
                                                     if ( filename == NULL )
                                                         {
-                                                            Sagan_Log(ERROR, "[%s, line %d] Attempted to load variable value via file:/ but no file found. Abort!",  __FILE__, __LINE__);
+                                                            JAE_Log(ERROR, "[%s, line %d] Attempted to load variable value via file:/ but no file found. Abort!",  __FILE__, __LINE__);
                                                         }
 
                                                     if ((varfile = fopen(filename, "r")) == NULL)
                                                         {
-                                                            Sagan_Log(ERROR, "[%s, line %d] Cannot open var file:%s\n", __FILE__,  __LINE__, filename);
+                                                            JAE_Log(ERROR, "[%s, line %d] Cannot open var file:%s\n", __FILE__,  __LINE__, filename);
                                                         }
 
 
@@ -277,7 +277,7 @@ void Load_YAML_Config( const char *yaml_file )
                                                             if ( Debug->config )
                                                                 {
 
-                                                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: Variable from file \"%s\" var \"%s\" loaded: \"%s\"", __FILE__, __LINE__, filename, Var[Counters->var].value, tmpbuf);
+                                                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: Variable from file \"%s\" var \"%s\" loaded: \"%s\"", __FILE__, __LINE__, filename, Var[Counters->var].value, tmpbuf);
                                                                 }
 
                                                             if ( check == 0 )
@@ -305,7 +305,7 @@ void Load_YAML_Config( const char *yaml_file )
                                                     if ( Debug->config )
                                                         {
 
-                                                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: Final load from file for \"%s\" value \"%s\"", __FILE__, __LINE__, Var[Counters->var].key, Var[Counters->var].value);
+                                                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: Final load from file for \"%s\" value \"%s\"", __FILE__, __LINE__, Var[Counters->var].key, Var[Counters->var].value);
 
                                                         }
 
@@ -324,7 +324,7 @@ void Load_YAML_Config( const char *yaml_file )
                                                     if ( Debug->config )
                                                         {
 
-                                                            Sagan_Log(DEBUG, "[%s, line %d] CONFIG: Variable: \"%s == %s\"", __FILE__, __LINE__, Var[Counters->var].key, Var[Counters->var].value);
+                                                            JAE_Log(DEBUG, "[%s, line %d] CONFIG: Variable: \"%s == %s\"", __FILE__, __LINE__, Var[Counters->var].key, Var[Counters->var].value);
                                                         }
 
                                                     __atomic_add_fetch(&Counters->var, 1, __ATOMIC_SEQ_CST);
@@ -351,7 +351,7 @@ void Load_YAML_Config( const char *yaml_file )
                                                                     }
                                                                 else
                                                                     {
-                                                                        Sagan_Log(ERROR, "[%s, line %d] The configuration 'ip' is set to %s which is not a valid IPv4/IPv6 address. Abort", __FILE__, __LINE__, var_to_value);
+                                                                        JAE_Log(ERROR, "[%s, line %d] The configuration 'ip' is set to %s which is not a valid IPv4/IPv6 address. Abort", __FILE__, __LINE__, var_to_value);
                                                                     }
                                                             }
 
@@ -362,7 +362,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                                                 if (  Config->port == 0 )
                                                                     {
-                                                                        Sagan_Log(ERROR, "[%s, line %d] The configuration 'port' is set to %s which is not a valid port. Abort", __FILE__, __LINE__, var_to_value);
+                                                                        JAE_Log(ERROR, "[%s, line %d] The configuration 'port' is set to %s which is not a valid port. Abort", __FILE__, __LINE__, var_to_value);
                                                                     }
 
                                                             }
@@ -404,7 +404,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                                                 if ( Config->proto_int == 0 )
                                                                     {
-                                                                        Sagan_Log(ERROR, "[%s, line %d] The configuration 'proto' is set to %s which is not a valid. Valid options are UDP, TCP or ICMP. Abort", __FILE__, __LINE__, var_to_value);
+                                                                        JAE_Log(ERROR, "[%s, line %d] The configuration 'proto' is set to %s which is not a valid. Valid options are UDP, TCP or ICMP. Abort", __FILE__, __LINE__, var_to_value);
                                                                     }
 
                                                             }
@@ -417,7 +417,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                     if ( Config->max_threads == 0 )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] The configuration 'max_threads' is set to %s which is invalid. Abort", __FILE__, __LINE__, var_to_value);
+                                            JAE_Log(ERROR, "[%s, line %d] The configuration 'max_threads' is set to %s which is invalid. Abort", __FILE__, __LINE__, var_to_value);
                                         }
 
                                 }
@@ -429,7 +429,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                     if ( Config->batch_size == 0 )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] The configuration 'batch_size' is set to %s which is invalid. Abort", __FILE__, __LINE__, var_to_value);
+                                            JAE_Log(ERROR, "[%s, line %d] The configuration 'batch_size' is set to %s which is invalid. Abort", __FILE__, __LINE__, var_to_value);
                                         }
 
                                 }
@@ -460,7 +460,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                     if ( dir == NULL )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] Directory for lock file appears '%s' to be incorrect. Abort",  __FILE__, __LINE__, Config->lock_file);
+                                            JAE_Log(ERROR, "[%s, line %d] Directory for lock file appears '%s' to be incorrect. Abort",  __FILE__, __LINE__, Config->lock_file);
                                         }
 
                                     strlcpy(Config->lock_file_path, dir, sizeof(Config->lock_file_path));
@@ -556,7 +556,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                     if ( Config->input_named_pipe_size == 0 )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] input -> named_pipe has a bad pipe size value of %s. Abort!",  __FILE__, __LINE__, var_to_value);
+                                            JAE_Log(ERROR, "[%s, line %d] input -> named_pipe has a bad pipe size value of %s. Abort!",  __FILE__, __LINE__, var_to_value);
                                         }
 
                                     if ( Config->input_named_pipe_size != 65536 &&
@@ -565,7 +565,7 @@ void Load_YAML_Config( const char *yaml_file )
                                             Config->input_named_pipe_size != 524288 &&
                                             Config->input_named_pipe_size != 1048576 )
                                         {
-                                            Sagan_Log(ERROR, "[%s, line %d] input -> named_pipe has a bad pipe size value of %s. The size can only be 65536, 131072, 262144, 524288, or 1048576. Abort!",  __FILE__, __LINE__, var_to_value);
+                                            JAE_Log(ERROR, "[%s, line %d] input -> named_pipe has a bad pipe size value of %s. The size can only be 65536, 131072, 262144, 524288, or 1048576. Abort!",  __FILE__, __LINE__, var_to_value);
                                         }
 
                                 }
@@ -632,7 +632,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( Debug->config )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: **** Found variables ****", __FILE__, __LINE__);
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found variables ****", __FILE__, __LINE__);
                                 }
 
                             type = YAML_TYPE_VAR;
@@ -645,7 +645,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( Debug->config )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"configuration\" ****", __FILE__, __LINE__);
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"configuration\" ****", __FILE__, __LINE__);
                                 }
 
                             type = YAML_TYPE_CORE;
@@ -658,7 +658,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( Debug->config )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"input\" ****", __FILE__, __LINE__);
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"input\" ****", __FILE__, __LINE__);
                                 }
 
                             type = YAML_TYPE_INPUT;
@@ -671,7 +671,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( Debug->config )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"output\" ****", __FILE__, __LINE__);
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"output\" ****", __FILE__, __LINE__);
                                 }
 
                             type = YAML_TYPE_OUTPUT;
@@ -684,7 +684,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( Debug->config )
                                 {
-                                    Sagan_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"rule-files\" ****", __FILE__, __LINE__);
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"rule-files\" ****", __FILE__, __LINE__);
                                 }
 
                             type = YAML_TYPE_RULES;

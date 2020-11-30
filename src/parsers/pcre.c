@@ -33,7 +33,7 @@
 #include <sys/prctl.h>
 #endif
 
-#include "sagan-ng-defs.h"
+#include "jae-defs.h"
 #include "util.h"
 #include "rules.h"
 #include "counters.h"

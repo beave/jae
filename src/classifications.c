@@ -40,9 +40,9 @@
 
 #include "version.h"
 
-#include "sagan-ng.h"
-#include "sagan-ng-defs.h"
-#include "sagan-config.h"
+#include "jae.h"
+#include "jae-defs.h"
+#include "jae-config.h"
 #include "rules.h"
 #include "classifications.h"
 #include "counters.h"
@@ -73,11 +73,11 @@ void Load_Classifications( void )
 
     __atomic_store_n (&Counters->classifications, 0, __ATOMIC_SEQ_CST);
 
-    Sagan_Log(NORMAL, "Loading classifications.conf file. [%s]", Config->classifications_file);
+    JAE_Log(NORMAL, "Loading classifications.conf file. [%s]", Config->classifications_file);
 
     if (( classfile = fopen(Config->classifications_file, "r" )) == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Cannot open rule file %s. [%s]", __FILE__,  __LINE__, Config->classifications_file, strerror(errno) );
+            JAE_Log(ERROR, "[%s, line %d] Cannot open rule file %s. [%s]", __FILE__,  __LINE__, Config->classifications_file, strerror(errno) );
         }
 
     while(fgets(classbuf, sizeof(classbuf), classfile) != NULL)
@@ -98,7 +98,7 @@ void Load_Classifications( void )
 
             if ( Classifications == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Classifications. Abort!", __FILE__, __LINE__);
+                    JAE_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Classifications. Abort!", __FILE__, __LINE__);
                 }
 
             memset(&Classifications[Counters->classifications], 0, sizeof(struct _Classifications));
@@ -110,7 +110,7 @@ void Load_Classifications( void )
 
             if ( laststring == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
+                    JAE_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
                 }
 
             Remove_Spaces(laststring);
@@ -120,7 +120,7 @@ void Load_Classifications( void )
 
             if ( laststring == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
+                    JAE_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
                 }
 
             strlcpy(Classifications[Counters->classifications].desc, laststring, sizeof(Classifications[Counters->classifications].desc));
@@ -129,7 +129,7 @@ void Load_Classifications( void )
 
             if ( laststring == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
+                    JAE_Log(ERROR, "[%s, line %d] The file %s at line %d is improperly formated. Abort!", __FILE__, __LINE__, Config->classifications_file, linecount);
                 }
 
             strlcpy(tmpbuf2, laststring, sizeof(tmpbuf2));
@@ -137,13 +137,13 @@ void Load_Classifications( void )
 
             if ( Classifications[Counters->classifications].priority == 0 )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Classification error at line number %d in %s", __FILE__, __LINE__, linecount, Config->classifications_file);
+                    JAE_Log(ERROR, "[%s, line %d] Classification error at line number %d in %s", __FILE__, __LINE__, linecount, Config->classifications_file);
                 }
 
             /*
                         if (debug->debugload)
                             {
-                                Sagan_Log(DEBUG, "[D-%d] Classification: %s|%s|%d", Counters->classifications, Classifications[Counters->classifications].shortname, Classifications[Counters->classifications].desc, Classifications[Counters->classifications].priority);
+                                JAE_Log(DEBUG, "[D-%d] Classification: %s|%s|%d", Counters->classifications, Classifications[Counters->classifications].shortname, Classifications[Counters->classifications].desc, Classifications[Counters->classifications].priority);
                             }
             */
 
@@ -152,7 +152,7 @@ void Load_Classifications( void )
         }
     fclose(classfile);
 
-    Sagan_Log(NORMAL, "%d classifications loaded", Counters->classifications);
+    JAE_Log(NORMAL, "%d classifications loaded", Counters->classifications);
 
 }
 

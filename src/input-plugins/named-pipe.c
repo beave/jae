@@ -37,9 +37,9 @@
 #endif
 
 #include "version.h"
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 #include "counters.h"
 #include "util.h"
 #include "batch.h"
@@ -65,13 +65,13 @@ void Input_Named_Pipe_Init(void)
 
     if ( Config->input_named_pipe_chown == true )
         {
-            Sagan_Log(NORMAL, "Changing FIFO '%s' ownership to '%s'.", Config->input_named_pipe, Config->runas);
+            JAE_Log(NORMAL, "Changing FIFO '%s' ownership to '%s'.", Config->input_named_pipe, Config->runas);
 
             ret = chown(Config->input_named_pipe, (unsigned long)pw->pw_uid,(unsigned long)pw->pw_gid);
 
             if ( ret < 0 )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->input_named_pipe, Config->runas, strerror(errno));
+                    JAE_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->input_named_pipe, Config->runas, strerror(errno));
                 }
 
         }
@@ -98,10 +98,10 @@ void Input_Named_Pipe(void)
 
             if (( fd = fopen(Config->input_named_pipe, "r" )) == NULL )
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Cannot open %s. %s.", __FILE__, __LINE__, Config->input_named_pipe, strerror(errno));
+                    JAE_Log(ERROR, "[%s, line %d] Cannot open %s. %s.", __FILE__, __LINE__, Config->input_named_pipe, strerror(errno));
                 }
 
-            Sagan_Log(NORMAL, "Successfully opened named pipe (%s).", Config->input_named_pipe);
+            JAE_Log(NORMAL, "Successfully opened named pipe (%s).", Config->input_named_pipe);
 
 #if defined(HAVE_GETPIPE_SZ) && defined(HAVE_SETPIPE_SZ)
             Set_Pipe_Size(fd);
@@ -120,7 +120,7 @@ void Input_Named_Pipe(void)
                             if ( pipe_error == true )
                                 {
                                     pipe_error = false;
-                                    Sagan_Log(NORMAL, "Named pipe writer has restarted. Processing events.");
+                                    JAE_Log(NORMAL, "Named pipe writer has restarted. Processing events.");
 
 #if defined(HAVE_GETPIPE_SZ) && defined(HAVE_SETPIPE_SZ)
                                     Set_Pipe_Size(fd);
@@ -135,7 +135,7 @@ void Input_Named_Pipe(void)
 
                     if ( pipe_error == false )
                         {
-                            Sagan_Log(WARN, "Named pipe writer closed.  Waiting for writer to restart....");
+                            JAE_Log(WARN, "Named pipe writer closed.  Waiting for writer to restart....");
                             clearerr(fd);
                             pipe_error = true;   /* Set error flag for while(fgets) */
                         }

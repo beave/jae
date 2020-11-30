@@ -26,7 +26,7 @@
 #include <pcre.h>
 
 
-#include "sagan-ng-defs.h"
+#include "jae-defs.h"
 
 //#define         VALID_RULE_OPTIONS "signature_id"
 

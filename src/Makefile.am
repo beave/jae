@@ -2,11 +2,11 @@ ACLOCAL_AMFLAGS = -I m4
 
 AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 
-                bin_PROGRAMS = sagan_ng
-                               sagan_ng_CPPFLAGS = -I$(top_srcdir) $(LIBFASTJSON_CFLAGS) $(LIBESTR_CFLAGS)
-                                       sagan_ng_LDADD = $(LIBFASTJSON_LIBS) $(LIBLOGNORM_LIBS) $(LIBESTR_LIBS)
+                bin_PROGRAMS = jae 
+                               jae_CPPFLAGS = -I$(top_srcdir) $(LIBFASTJSON_CFLAGS) $(LIBESTR_CFLAGS)
+                                       jae_LDADD = $(LIBFASTJSON_LIBS) $(LIBLOGNORM_LIBS) $(LIBESTR_LIBS)
 
-                                               sagan_ng_SOURCES = sagan-ng.c \
+                                               jae_SOURCES = jae.c \
 						       credits.c \
 						       help.c \
                                                        util.c \

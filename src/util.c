@@ -41,10 +41,10 @@
 #include <grp.h>
 
 
-#include "sagan-ng.h"
+#include "jae.h"
 #include "util.h"
-#include "sagan-ng-defs.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae-config.h"
 #include "var.h"
 #include "counters.h"
 
@@ -72,7 +72,7 @@ void To_LowerC(char *const s)
  * Generic "sagan.log" style logging and screen output.
  *******************************************************/
 
-void Sagan_Log (int type, const char *format,... )
+void JAE_Log (int type, const char *format,... )
 {
 
     char buf[5128] = { 0 };
@@ -226,7 +226,7 @@ void Droppriv(void)
 
     if (!pw)
         {
-            Sagan_Log(ERROR, "Couldn't locate user '%s'. Aborting...", Config->runas);
+            JAE_Log(ERROR, "Couldn't locate user '%s'. Aborting...", Config->runas);
         }
 
     if ( getuid() == 0 )
@@ -247,31 +247,31 @@ void Droppriv(void)
                         if ( Config->named_pipe_chown == true )
                             {
 
-                                Sagan_Log(NORMAL, "Changing FIFO '%s' ownership to '%s'.", Config->named_pipe, Config->runas);
+                                JAE_Log(NORMAL, "Changing FIFO '%s' ownership to '%s'.", Config->named_pipe, Config->runas);
 
                                 ret = chown(Config->named_pipe, (unsigned long)pw->pw_uid,(unsigned long)pw->pw_gid);
 
                                 if ( ret < 0 )
                                     {
-                                        Sagan_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->named_pipe, Config->runas, strerror(errno));
+                                        JAE_Log(ERROR, "[%s, line %d] Cannot change ownership of %s to username \"%s\" - %s", __FILE__, __LINE__, Config->named_pipe, Config->runas, strerror(errno));
                                     }
                             }
 
             */
 
 
-            Sagan_Log(NORMAL, "Dropping privileges! [UID: %lu GID: %lu]", (unsigned long)pw->pw_uid, (unsigned long)pw->pw_gid);
+            JAE_Log(NORMAL, "Dropping privileges! [UID: %lu GID: %lu]", (unsigned long)pw->pw_uid, (unsigned long)pw->pw_gid);
 
             if (initgroups(pw->pw_name, pw->pw_gid) != 0 ||
                     setgid(pw->pw_gid) != 0 || setuid(pw->pw_uid) != 0)
                 {
-                    Sagan_Log(ERROR, "[%s, line %d] Could not drop privileges to uid: %lu gid: %lu - %s!", __FILE__, __LINE__, (unsigned long)pw->pw_uid, (unsigned long)pw->pw_gid, strerror(errno));
+                    JAE_Log(ERROR, "[%s, line %d] Could not drop privileges to uid: %lu gid: %lu - %s!", __FILE__, __LINE__, (unsigned long)pw->pw_uid, (unsigned long)pw->pw_gid, strerror(errno));
                 }
 
         }
     else
         {
-            Sagan_Log(NORMAL, "Not dropping privileges.  Already running as a non-privileged user");
+            JAE_Log(NORMAL, "Not dropping privileges.  Already running as a non-privileged user");
         }
 }
 
@@ -298,24 +298,24 @@ void Set_Pipe_Size ( FILE *fd )
             if ( current_fifo_size == Config->input_named_pipe_size )
                 {
 
-                    Sagan_Log(NORMAL, "Named pipe capacity already set to %d bytes.", Config->input_named_pipe_size);
+                    JAE_Log(NORMAL, "Named pipe capacity already set to %d bytes.", Config->input_named_pipe_size);
 
                 }
             else
                 {
 
-                    Sagan_Log(NORMAL, "Named pipe capacity is %d bytes.  Changing to %d bytes.", current_fifo_size, Config->input_named_pipe_size);
+                    JAE_Log(NORMAL, "Named pipe capacity is %d bytes.  Changing to %d bytes.", current_fifo_size, Config->input_named_pipe_size);
 
                     fd_results = fcntl(fd_int, F_SETPIPE_SZ, Config->input_named_pipe_size );
 
                     if ( fd_results == -1 )
                         {
-                            Sagan_Log(WARN, "Named pipe capacity could not be changed.  Continuing anyways...");
+                            JAE_Log(WARN, "Named pipe capacity could not be changed.  Continuing anyways...");
                         }
 
                     if ( fd_results > Config->input_named_pipe_size )
                         {
-                            Sagan_Log(WARN, "Named pipe  capacity was rounded up to the next page size of %d bytes.", fd_results);
+                            JAE_Log(WARN, "Named pipe  capacity was rounded up to the next page size of %d bytes.", fd_results);
                         }
                 }
         }

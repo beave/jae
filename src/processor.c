@@ -29,9 +29,9 @@
 #endif
 
 
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 #include "batch.h"
 #include "util.h"
 
@@ -68,7 +68,7 @@ void Processor (void)
 
     if ( JSON_Key_String == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
+            JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
         }
 
 
@@ -78,7 +78,7 @@ void Processor (void)
 
     if ( Input_Batch_LOCAL == NULL )
         {
-            Sagan_Log(ERROR, "[%s, line %d] Failed to allocate memory for _Input_Batch_LOCAL. Abort!", __FILE__, __LINE__);
+            JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _Input_Batch_LOCAL. Abort!", __FILE__, __LINE__);
         }
 
     memset(Input_Batch_LOCAL, 0, sizeof(struct _Input_Batch));

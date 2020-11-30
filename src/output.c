@@ -26,9 +26,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "sagan-ng-defs.h"
-#include "sagan-ng.h"
-#include "sagan-config.h"
+#include "jae-defs.h"
+#include "jae.h"
+#include "jae-config.h"
 
 #include "parsers/json.h"
 

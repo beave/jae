@@ -35,8 +35,8 @@
 #endif
 
 #include "version.h"
-#include "sagan-ng.h"
-#include "sagan-ng-defs.h"
+#include "jae.h"
+#include "jae-defs.h"
 #include "util.h"
 #include "lockfile.h"
 
@@ -72,7 +72,7 @@ void Signal_Handler( void )
                     Global_Death = true;
 
 
-                    Sagan_Log(NORMAL, "\n\n[Received signal %d. Sagan version %s shutting down]-------\n", sig, VERSION);
+                    JAE_Log(NORMAL, "\n\n[Received signal %d. Sagan version %s shutting down]-------\n", sig, VERSION);
 
                     Remove_Lock_File();
                     exit(0);
@@ -80,7 +80,7 @@ void Signal_Handler( void )
 
 
                 default:
-                    Sagan_Log(NORMAL, "[Received signal %d. Sagan doesn't know how to deal with]", sig);
+                    JAE_Log(NORMAL, "[Received signal %d. Sagan doesn't know how to deal with]", sig);
 
                 }
 

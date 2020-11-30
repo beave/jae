@@ -33,7 +33,7 @@
 #include "config.h"             /* From autoconf */
 #endif
 
-#include "sagan-ng.h"
+#include "jae.h"
 
 #ifdef HAVE_SSE2
 #ifndef WITH_SYSSTRSTR

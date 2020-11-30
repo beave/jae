@@ -79,7 +79,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 target_triplet = @target@
-bin_PROGRAMS = sagan_ng$(EXEEXT)
+bin_PROGRAMS = jae$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp
@@ -98,25 +98,23 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_sagan_ng_OBJECTS = sagan_ng-sagan-ng.$(OBJEXT) \
-	sagan_ng-credits.$(OBJEXT) sagan_ng-help.$(OBJEXT) \
-	sagan_ng-util.$(OBJEXT) sagan_ng-lockfile.$(OBJEXT) \
-	sagan_ng-signal-handler.$(OBJEXT) sagan_ng-batch.$(OBJEXT) \
-	sagan_ng-processor.$(OBJEXT) sagan_ng-util-strlcpy.$(OBJEXT) \
-	sagan_ng-util-strlcat.$(OBJEXT) sagan_ng-config-yaml.$(OBJEXT) \
-	sagan_ng-classifications.$(OBJEXT) sagan_ng-rules.$(OBJEXT) \
-	sagan_ng-output.$(OBJEXT) parsers/sagan_ng-json.$(OBJEXT) \
-	parsers/sagan_ng-search.$(OBJEXT) \
-	parsers/sagan_ng-pcre.$(OBJEXT) \
-	parsers/strstr-asm/sagan_ng-strstr-hook.$(OBJEXT) \
-	parsers/strstr-asm/sagan_ng-strstr_sse2.$(OBJEXT) \
-	parsers/strstr-asm/sagan_ng-strstr_sse4_2.$(OBJEXT) \
-	input-plugins/sagan_ng-named-pipe.$(OBJEXT) \
-	output-plugins/sagan_ng-file.$(OBJEXT) \
-	processors/sagan_ng-engine.$(OBJEXT)
-sagan_ng_OBJECTS = $(am_sagan_ng_OBJECTS)
+am_jae_OBJECTS = jae-jae.$(OBJEXT) jae-credits.$(OBJEXT) \
+	jae-help.$(OBJEXT) jae-util.$(OBJEXT) jae-lockfile.$(OBJEXT) \
+	jae-signal-handler.$(OBJEXT) jae-batch.$(OBJEXT) \
+	jae-processor.$(OBJEXT) jae-util-strlcpy.$(OBJEXT) \
+	jae-util-strlcat.$(OBJEXT) jae-config-yaml.$(OBJEXT) \
+	jae-classifications.$(OBJEXT) jae-rules.$(OBJEXT) \
+	jae-output.$(OBJEXT) parsers/jae-json.$(OBJEXT) \
+	parsers/jae-search.$(OBJEXT) parsers/jae-pcre.$(OBJEXT) \
+	parsers/strstr-asm/jae-strstr-hook.$(OBJEXT) \
+	parsers/strstr-asm/jae-strstr_sse2.$(OBJEXT) \
+	parsers/strstr-asm/jae-strstr_sse4_2.$(OBJEXT) \
+	input-plugins/jae-named-pipe.$(OBJEXT) \
+	output-plugins/jae-file.$(OBJEXT) \
+	processors/jae-engine.$(OBJEXT)
+jae_OBJECTS = $(am_jae_OBJECTS)
 am__DEPENDENCIES_1 =
-sagan_ng_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+jae_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -156,8 +154,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(sagan_ng_SOURCES)
-DIST_SOURCES = $(sagan_ng_SOURCES)
+SOURCES = $(jae_SOURCES)
+DIST_SOURCES = $(jae_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -301,9 +299,9 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPIONS = foreign no-dependencies subdir-objects
-sagan_ng_CPPFLAGS = -I$(top_srcdir) $(LIBFASTJSON_CFLAGS) $(LIBESTR_CFLAGS)
-sagan_ng_LDADD = $(LIBFASTJSON_LIBS) $(LIBLOGNORM_LIBS) $(LIBESTR_LIBS)
-sagan_ng_SOURCES = sagan-ng.c \
+jae_CPPFLAGS = -I$(top_srcdir) $(LIBFASTJSON_CFLAGS) $(LIBESTR_CFLAGS)
+jae_LDADD = $(LIBFASTJSON_LIBS) $(LIBLOGNORM_LIBS) $(LIBESTR_LIBS)
+jae_SOURCES = jae.c \
 						       credits.c \
 						       help.c \
                                                        util.c \
@@ -409,11 +407,11 @@ parsers/$(am__dirstamp):
 parsers/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) parsers/$(DEPDIR)
 	@: > parsers/$(DEPDIR)/$(am__dirstamp)
-parsers/sagan_ng-json.$(OBJEXT): parsers/$(am__dirstamp) \
+parsers/jae-json.$(OBJEXT): parsers/$(am__dirstamp) \
 	parsers/$(DEPDIR)/$(am__dirstamp)
-parsers/sagan_ng-search.$(OBJEXT): parsers/$(am__dirstamp) \
+parsers/jae-search.$(OBJEXT): parsers/$(am__dirstamp) \
 	parsers/$(DEPDIR)/$(am__dirstamp)
-parsers/sagan_ng-pcre.$(OBJEXT): parsers/$(am__dirstamp) \
+parsers/jae-pcre.$(OBJEXT): parsers/$(am__dirstamp) \
 	parsers/$(DEPDIR)/$(am__dirstamp)
 parsers/strstr-asm/$(am__dirstamp):
 	@$(MKDIR_P) parsers/strstr-asm
@@ -421,13 +419,13 @@ parsers/strstr-asm/$(am__dirstamp):
 parsers/strstr-asm/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) parsers/strstr-asm/$(DEPDIR)
 	@: > parsers/strstr-asm/$(DEPDIR)/$(am__dirstamp)
-parsers/strstr-asm/sagan_ng-strstr-hook.$(OBJEXT):  \
+parsers/strstr-asm/jae-strstr-hook.$(OBJEXT):  \
 	parsers/strstr-asm/$(am__dirstamp) \
 	parsers/strstr-asm/$(DEPDIR)/$(am__dirstamp)
-parsers/strstr-asm/sagan_ng-strstr_sse2.$(OBJEXT):  \
+parsers/strstr-asm/jae-strstr_sse2.$(OBJEXT):  \
 	parsers/strstr-asm/$(am__dirstamp) \
 	parsers/strstr-asm/$(DEPDIR)/$(am__dirstamp)
-parsers/strstr-asm/sagan_ng-strstr_sse4_2.$(OBJEXT):  \
+parsers/strstr-asm/jae-strstr_sse4_2.$(OBJEXT):  \
 	parsers/strstr-asm/$(am__dirstamp) \
 	parsers/strstr-asm/$(DEPDIR)/$(am__dirstamp)
 input-plugins/$(am__dirstamp):
@@ -436,8 +434,7 @@ input-plugins/$(am__dirstamp):
 input-plugins/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) input-plugins/$(DEPDIR)
 	@: > input-plugins/$(DEPDIR)/$(am__dirstamp)
-input-plugins/sagan_ng-named-pipe.$(OBJEXT):  \
-	input-plugins/$(am__dirstamp) \
+input-plugins/jae-named-pipe.$(OBJEXT): input-plugins/$(am__dirstamp) \
 	input-plugins/$(DEPDIR)/$(am__dirstamp)
 output-plugins/$(am__dirstamp):
 	@$(MKDIR_P) output-plugins
@@ -445,8 +442,7 @@ output-plugins/$(am__dirstamp):
 output-plugins/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) output-plugins/$(DEPDIR)
 	@: > output-plugins/$(DEPDIR)/$(am__dirstamp)
-output-plugins/sagan_ng-file.$(OBJEXT):  \
-	output-plugins/$(am__dirstamp) \
+output-plugins/jae-file.$(OBJEXT): output-plugins/$(am__dirstamp) \
 	output-plugins/$(DEPDIR)/$(am__dirstamp)
 processors/$(am__dirstamp):
 	@$(MKDIR_P) processors
@@ -454,12 +450,12 @@ processors/$(am__dirstamp):
 processors/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) processors/$(DEPDIR)
 	@: > processors/$(DEPDIR)/$(am__dirstamp)
-processors/sagan_ng-engine.$(OBJEXT): processors/$(am__dirstamp) \
+processors/jae-engine.$(OBJEXT): processors/$(am__dirstamp) \
 	processors/$(DEPDIR)/$(am__dirstamp)
 
-sagan_ng$(EXEEXT): $(sagan_ng_OBJECTS) $(sagan_ng_DEPENDENCIES) $(EXTRA_sagan_ng_DEPENDENCIES) 
-	@rm -f sagan_ng$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(sagan_ng_OBJECTS) $(sagan_ng_LDADD) $(LIBS)
+jae$(EXEEXT): $(jae_OBJECTS) $(jae_DEPENDENCIES) $(EXTRA_jae_DEPENDENCIES) 
+	@rm -f jae$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(jae_OBJECTS) $(jae_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -472,29 +468,29 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-batch.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-classifications.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-config-yaml.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-credits.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-help.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-lockfile.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-output.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-processor.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-rules.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-sagan-ng.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-signal-handler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-util-strlcat.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-util-strlcpy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sagan_ng-util.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@output-plugins/$(DEPDIR)/sagan_ng-file.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/sagan_ng-json.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/sagan_ng-pcre.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/sagan_ng-search.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@processors/$(DEPDIR)/sagan_ng-engine.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-batch.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-classifications.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-config-yaml.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-credits.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-help.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-jae.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-lockfile.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-output.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-processor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-rules.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-signal-handler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-strlcat.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-strlcpy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@input-plugins/$(DEPDIR)/jae-named-pipe.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@output-plugins/$(DEPDIR)/jae-file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/jae-json.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/jae-pcre.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/$(DEPDIR)/jae-search.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@processors/$(DEPDIR)/jae-engine.Po@am__quote@
 
 .S.o:
 @am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -512,33 +508,33 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CPPASCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-parsers/strstr-asm/sagan_ng-strstr_sse2.o: parsers/strstr-asm/strstr_sse2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr_sse2.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr_sse2.o `test -f 'parsers/strstr-asm/strstr_sse2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Po
-@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse2.S' object='parsers/strstr-asm/sagan_ng-strstr_sse2.o' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr_sse2.o: parsers/strstr-asm/strstr_sse2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/jae-strstr_sse2.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Tpo -c -o parsers/strstr-asm/jae-strstr_sse2.o `test -f 'parsers/strstr-asm/strstr_sse2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse2.S' object='parsers/strstr-asm/jae-strstr_sse2.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr_sse2.o `test -f 'parsers/strstr-asm/strstr_sse2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse2.S
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/jae-strstr_sse2.o `test -f 'parsers/strstr-asm/strstr_sse2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse2.S
 
-parsers/strstr-asm/sagan_ng-strstr_sse2.obj: parsers/strstr-asm/strstr_sse2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr_sse2.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr_sse2.obj `if test -f 'parsers/strstr-asm/strstr_sse2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse2.S'; fi`
-@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse2.Po
-@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse2.S' object='parsers/strstr-asm/sagan_ng-strstr_sse2.obj' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr_sse2.obj: parsers/strstr-asm/strstr_sse2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/jae-strstr_sse2.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Tpo -c -o parsers/strstr-asm/jae-strstr_sse2.obj `if test -f 'parsers/strstr-asm/strstr_sse2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse2.S'; fi`
+@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse2.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse2.S' object='parsers/strstr-asm/jae-strstr_sse2.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr_sse2.obj `if test -f 'parsers/strstr-asm/strstr_sse2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse2.S'; fi`
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/jae-strstr_sse2.obj `if test -f 'parsers/strstr-asm/strstr_sse2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse2.S'; fi`
 
-parsers/strstr-asm/sagan_ng-strstr_sse4_2.o: parsers/strstr-asm/strstr_sse4_2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr_sse4_2.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr_sse4_2.o `test -f 'parsers/strstr-asm/strstr_sse4_2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse4_2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Po
-@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse4_2.S' object='parsers/strstr-asm/sagan_ng-strstr_sse4_2.o' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr_sse4_2.o: parsers/strstr-asm/strstr_sse4_2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/jae-strstr_sse4_2.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Tpo -c -o parsers/strstr-asm/jae-strstr_sse4_2.o `test -f 'parsers/strstr-asm/strstr_sse4_2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse4_2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse4_2.S' object='parsers/strstr-asm/jae-strstr_sse4_2.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr_sse4_2.o `test -f 'parsers/strstr-asm/strstr_sse4_2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse4_2.S
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/jae-strstr_sse4_2.o `test -f 'parsers/strstr-asm/strstr_sse4_2.S' || echo '$(srcdir)/'`parsers/strstr-asm/strstr_sse4_2.S
 
-parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj: parsers/strstr-asm/strstr_sse4_2.S
-@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj `if test -f 'parsers/strstr-asm/strstr_sse4_2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse4_2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse4_2.S'; fi`
-@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr_sse4_2.Po
-@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse4_2.S' object='parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr_sse4_2.obj: parsers/strstr-asm/strstr_sse4_2.S
+@am__fastdepCCAS_TRUE@	$(AM_V_CPPAS)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -MT parsers/strstr-asm/jae-strstr_sse4_2.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Tpo -c -o parsers/strstr-asm/jae-strstr_sse4_2.obj `if test -f 'parsers/strstr-asm/strstr_sse4_2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse4_2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse4_2.S'; fi`
+@am__fastdepCCAS_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr_sse4_2.Po
+@AMDEP_TRUE@@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS)source='parsers/strstr-asm/strstr_sse4_2.S' object='parsers/strstr-asm/jae-strstr_sse4_2.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCCAS_FALSE@	DEPDIR=$(DEPDIR) $(CCASDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj `if test -f 'parsers/strstr-asm/strstr_sse4_2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse4_2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse4_2.S'; fi`
+@am__fastdepCCAS_FALSE@	$(AM_V_CPPAS@am__nodep@)$(CCAS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CCASFLAGS) $(CCASFLAGS) -c -o parsers/strstr-asm/jae-strstr_sse4_2.obj `if test -f 'parsers/strstr-asm/strstr_sse4_2.S'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr_sse4_2.S'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr_sse4_2.S'; fi`
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -556,299 +552,299 @@ parsers/strstr-asm/sagan_ng-strstr_sse4_2.obj: parsers/strstr-asm/strstr_sse4_2.
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-sagan_ng-sagan-ng.o: sagan-ng.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-sagan-ng.o -MD -MP -MF $(DEPDIR)/sagan_ng-sagan-ng.Tpo -c -o sagan_ng-sagan-ng.o `test -f 'sagan-ng.c' || echo '$(srcdir)/'`sagan-ng.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-sagan-ng.Tpo $(DEPDIR)/sagan_ng-sagan-ng.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sagan-ng.c' object='sagan_ng-sagan-ng.o' libtool=no @AMDEPBACKSLASH@
+jae-jae.o: jae.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-jae.o -MD -MP -MF $(DEPDIR)/jae-jae.Tpo -c -o jae-jae.o `test -f 'jae.c' || echo '$(srcdir)/'`jae.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-jae.Tpo $(DEPDIR)/jae-jae.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='jae.c' object='jae-jae.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-sagan-ng.o `test -f 'sagan-ng.c' || echo '$(srcdir)/'`sagan-ng.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-jae.o `test -f 'jae.c' || echo '$(srcdir)/'`jae.c
 
-sagan_ng-sagan-ng.obj: sagan-ng.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-sagan-ng.obj -MD -MP -MF $(DEPDIR)/sagan_ng-sagan-ng.Tpo -c -o sagan_ng-sagan-ng.obj `if test -f 'sagan-ng.c'; then $(CYGPATH_W) 'sagan-ng.c'; else $(CYGPATH_W) '$(srcdir)/sagan-ng.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-sagan-ng.Tpo $(DEPDIR)/sagan_ng-sagan-ng.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sagan-ng.c' object='sagan_ng-sagan-ng.obj' libtool=no @AMDEPBACKSLASH@
+jae-jae.obj: jae.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-jae.obj -MD -MP -MF $(DEPDIR)/jae-jae.Tpo -c -o jae-jae.obj `if test -f 'jae.c'; then $(CYGPATH_W) 'jae.c'; else $(CYGPATH_W) '$(srcdir)/jae.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-jae.Tpo $(DEPDIR)/jae-jae.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='jae.c' object='jae-jae.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-sagan-ng.obj `if test -f 'sagan-ng.c'; then $(CYGPATH_W) 'sagan-ng.c'; else $(CYGPATH_W) '$(srcdir)/sagan-ng.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-jae.obj `if test -f 'jae.c'; then $(CYGPATH_W) 'jae.c'; else $(CYGPATH_W) '$(srcdir)/jae.c'; fi`
 
-sagan_ng-credits.o: credits.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-credits.o -MD -MP -MF $(DEPDIR)/sagan_ng-credits.Tpo -c -o sagan_ng-credits.o `test -f 'credits.c' || echo '$(srcdir)/'`credits.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-credits.Tpo $(DEPDIR)/sagan_ng-credits.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='credits.c' object='sagan_ng-credits.o' libtool=no @AMDEPBACKSLASH@
+jae-credits.o: credits.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-credits.o -MD -MP -MF $(DEPDIR)/jae-credits.Tpo -c -o jae-credits.o `test -f 'credits.c' || echo '$(srcdir)/'`credits.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-credits.Tpo $(DEPDIR)/jae-credits.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='credits.c' object='jae-credits.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-credits.o `test -f 'credits.c' || echo '$(srcdir)/'`credits.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-credits.o `test -f 'credits.c' || echo '$(srcdir)/'`credits.c
 
-sagan_ng-credits.obj: credits.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-credits.obj -MD -MP -MF $(DEPDIR)/sagan_ng-credits.Tpo -c -o sagan_ng-credits.obj `if test -f 'credits.c'; then $(CYGPATH_W) 'credits.c'; else $(CYGPATH_W) '$(srcdir)/credits.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-credits.Tpo $(DEPDIR)/sagan_ng-credits.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='credits.c' object='sagan_ng-credits.obj' libtool=no @AMDEPBACKSLASH@
+jae-credits.obj: credits.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-credits.obj -MD -MP -MF $(DEPDIR)/jae-credits.Tpo -c -o jae-credits.obj `if test -f 'credits.c'; then $(CYGPATH_W) 'credits.c'; else $(CYGPATH_W) '$(srcdir)/credits.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-credits.Tpo $(DEPDIR)/jae-credits.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='credits.c' object='jae-credits.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-credits.obj `if test -f 'credits.c'; then $(CYGPATH_W) 'credits.c'; else $(CYGPATH_W) '$(srcdir)/credits.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-credits.obj `if test -f 'credits.c'; then $(CYGPATH_W) 'credits.c'; else $(CYGPATH_W) '$(srcdir)/credits.c'; fi`
 
-sagan_ng-help.o: help.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-help.o -MD -MP -MF $(DEPDIR)/sagan_ng-help.Tpo -c -o sagan_ng-help.o `test -f 'help.c' || echo '$(srcdir)/'`help.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-help.Tpo $(DEPDIR)/sagan_ng-help.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='help.c' object='sagan_ng-help.o' libtool=no @AMDEPBACKSLASH@
+jae-help.o: help.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-help.o -MD -MP -MF $(DEPDIR)/jae-help.Tpo -c -o jae-help.o `test -f 'help.c' || echo '$(srcdir)/'`help.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-help.Tpo $(DEPDIR)/jae-help.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='help.c' object='jae-help.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-help.o `test -f 'help.c' || echo '$(srcdir)/'`help.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-help.o `test -f 'help.c' || echo '$(srcdir)/'`help.c
 
-sagan_ng-help.obj: help.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-help.obj -MD -MP -MF $(DEPDIR)/sagan_ng-help.Tpo -c -o sagan_ng-help.obj `if test -f 'help.c'; then $(CYGPATH_W) 'help.c'; else $(CYGPATH_W) '$(srcdir)/help.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-help.Tpo $(DEPDIR)/sagan_ng-help.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='help.c' object='sagan_ng-help.obj' libtool=no @AMDEPBACKSLASH@
+jae-help.obj: help.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-help.obj -MD -MP -MF $(DEPDIR)/jae-help.Tpo -c -o jae-help.obj `if test -f 'help.c'; then $(CYGPATH_W) 'help.c'; else $(CYGPATH_W) '$(srcdir)/help.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-help.Tpo $(DEPDIR)/jae-help.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='help.c' object='jae-help.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-help.obj `if test -f 'help.c'; then $(CYGPATH_W) 'help.c'; else $(CYGPATH_W) '$(srcdir)/help.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-help.obj `if test -f 'help.c'; then $(CYGPATH_W) 'help.c'; else $(CYGPATH_W) '$(srcdir)/help.c'; fi`
 
-sagan_ng-util.o: util.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util.o -MD -MP -MF $(DEPDIR)/sagan_ng-util.Tpo -c -o sagan_ng-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util.Tpo $(DEPDIR)/sagan_ng-util.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='sagan_ng-util.o' libtool=no @AMDEPBACKSLASH@
+jae-util.o: util.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util.o -MD -MP -MF $(DEPDIR)/jae-util.Tpo -c -o jae-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util.Tpo $(DEPDIR)/jae-util.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='jae-util.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util.o `test -f 'util.c' || echo '$(srcdir)/'`util.c
 
-sagan_ng-util.obj: util.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util.obj -MD -MP -MF $(DEPDIR)/sagan_ng-util.Tpo -c -o sagan_ng-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util.Tpo $(DEPDIR)/sagan_ng-util.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='sagan_ng-util.obj' libtool=no @AMDEPBACKSLASH@
+jae-util.obj: util.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util.obj -MD -MP -MF $(DEPDIR)/jae-util.Tpo -c -o jae-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util.Tpo $(DEPDIR)/jae-util.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='jae-util.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
 
-sagan_ng-lockfile.o: lockfile.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-lockfile.o -MD -MP -MF $(DEPDIR)/sagan_ng-lockfile.Tpo -c -o sagan_ng-lockfile.o `test -f 'lockfile.c' || echo '$(srcdir)/'`lockfile.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-lockfile.Tpo $(DEPDIR)/sagan_ng-lockfile.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lockfile.c' object='sagan_ng-lockfile.o' libtool=no @AMDEPBACKSLASH@
+jae-lockfile.o: lockfile.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-lockfile.o -MD -MP -MF $(DEPDIR)/jae-lockfile.Tpo -c -o jae-lockfile.o `test -f 'lockfile.c' || echo '$(srcdir)/'`lockfile.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-lockfile.Tpo $(DEPDIR)/jae-lockfile.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lockfile.c' object='jae-lockfile.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-lockfile.o `test -f 'lockfile.c' || echo '$(srcdir)/'`lockfile.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-lockfile.o `test -f 'lockfile.c' || echo '$(srcdir)/'`lockfile.c
 
-sagan_ng-lockfile.obj: lockfile.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-lockfile.obj -MD -MP -MF $(DEPDIR)/sagan_ng-lockfile.Tpo -c -o sagan_ng-lockfile.obj `if test -f 'lockfile.c'; then $(CYGPATH_W) 'lockfile.c'; else $(CYGPATH_W) '$(srcdir)/lockfile.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-lockfile.Tpo $(DEPDIR)/sagan_ng-lockfile.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lockfile.c' object='sagan_ng-lockfile.obj' libtool=no @AMDEPBACKSLASH@
+jae-lockfile.obj: lockfile.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-lockfile.obj -MD -MP -MF $(DEPDIR)/jae-lockfile.Tpo -c -o jae-lockfile.obj `if test -f 'lockfile.c'; then $(CYGPATH_W) 'lockfile.c'; else $(CYGPATH_W) '$(srcdir)/lockfile.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-lockfile.Tpo $(DEPDIR)/jae-lockfile.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='lockfile.c' object='jae-lockfile.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-lockfile.obj `if test -f 'lockfile.c'; then $(CYGPATH_W) 'lockfile.c'; else $(CYGPATH_W) '$(srcdir)/lockfile.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-lockfile.obj `if test -f 'lockfile.c'; then $(CYGPATH_W) 'lockfile.c'; else $(CYGPATH_W) '$(srcdir)/lockfile.c'; fi`
 
-sagan_ng-signal-handler.o: signal-handler.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-signal-handler.o -MD -MP -MF $(DEPDIR)/sagan_ng-signal-handler.Tpo -c -o sagan_ng-signal-handler.o `test -f 'signal-handler.c' || echo '$(srcdir)/'`signal-handler.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-signal-handler.Tpo $(DEPDIR)/sagan_ng-signal-handler.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='signal-handler.c' object='sagan_ng-signal-handler.o' libtool=no @AMDEPBACKSLASH@
+jae-signal-handler.o: signal-handler.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-signal-handler.o -MD -MP -MF $(DEPDIR)/jae-signal-handler.Tpo -c -o jae-signal-handler.o `test -f 'signal-handler.c' || echo '$(srcdir)/'`signal-handler.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-signal-handler.Tpo $(DEPDIR)/jae-signal-handler.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='signal-handler.c' object='jae-signal-handler.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-signal-handler.o `test -f 'signal-handler.c' || echo '$(srcdir)/'`signal-handler.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-signal-handler.o `test -f 'signal-handler.c' || echo '$(srcdir)/'`signal-handler.c
 
-sagan_ng-signal-handler.obj: signal-handler.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-signal-handler.obj -MD -MP -MF $(DEPDIR)/sagan_ng-signal-handler.Tpo -c -o sagan_ng-signal-handler.obj `if test -f 'signal-handler.c'; then $(CYGPATH_W) 'signal-handler.c'; else $(CYGPATH_W) '$(srcdir)/signal-handler.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-signal-handler.Tpo $(DEPDIR)/sagan_ng-signal-handler.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='signal-handler.c' object='sagan_ng-signal-handler.obj' libtool=no @AMDEPBACKSLASH@
+jae-signal-handler.obj: signal-handler.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-signal-handler.obj -MD -MP -MF $(DEPDIR)/jae-signal-handler.Tpo -c -o jae-signal-handler.obj `if test -f 'signal-handler.c'; then $(CYGPATH_W) 'signal-handler.c'; else $(CYGPATH_W) '$(srcdir)/signal-handler.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-signal-handler.Tpo $(DEPDIR)/jae-signal-handler.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='signal-handler.c' object='jae-signal-handler.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-signal-handler.obj `if test -f 'signal-handler.c'; then $(CYGPATH_W) 'signal-handler.c'; else $(CYGPATH_W) '$(srcdir)/signal-handler.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-signal-handler.obj `if test -f 'signal-handler.c'; then $(CYGPATH_W) 'signal-handler.c'; else $(CYGPATH_W) '$(srcdir)/signal-handler.c'; fi`
 
-sagan_ng-batch.o: batch.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-batch.o -MD -MP -MF $(DEPDIR)/sagan_ng-batch.Tpo -c -o sagan_ng-batch.o `test -f 'batch.c' || echo '$(srcdir)/'`batch.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-batch.Tpo $(DEPDIR)/sagan_ng-batch.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='batch.c' object='sagan_ng-batch.o' libtool=no @AMDEPBACKSLASH@
+jae-batch.o: batch.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-batch.o -MD -MP -MF $(DEPDIR)/jae-batch.Tpo -c -o jae-batch.o `test -f 'batch.c' || echo '$(srcdir)/'`batch.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-batch.Tpo $(DEPDIR)/jae-batch.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='batch.c' object='jae-batch.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-batch.o `test -f 'batch.c' || echo '$(srcdir)/'`batch.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-batch.o `test -f 'batch.c' || echo '$(srcdir)/'`batch.c
 
-sagan_ng-batch.obj: batch.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-batch.obj -MD -MP -MF $(DEPDIR)/sagan_ng-batch.Tpo -c -o sagan_ng-batch.obj `if test -f 'batch.c'; then $(CYGPATH_W) 'batch.c'; else $(CYGPATH_W) '$(srcdir)/batch.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-batch.Tpo $(DEPDIR)/sagan_ng-batch.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='batch.c' object='sagan_ng-batch.obj' libtool=no @AMDEPBACKSLASH@
+jae-batch.obj: batch.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-batch.obj -MD -MP -MF $(DEPDIR)/jae-batch.Tpo -c -o jae-batch.obj `if test -f 'batch.c'; then $(CYGPATH_W) 'batch.c'; else $(CYGPATH_W) '$(srcdir)/batch.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-batch.Tpo $(DEPDIR)/jae-batch.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='batch.c' object='jae-batch.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-batch.obj `if test -f 'batch.c'; then $(CYGPATH_W) 'batch.c'; else $(CYGPATH_W) '$(srcdir)/batch.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-batch.obj `if test -f 'batch.c'; then $(CYGPATH_W) 'batch.c'; else $(CYGPATH_W) '$(srcdir)/batch.c'; fi`
 
-sagan_ng-processor.o: processor.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-processor.o -MD -MP -MF $(DEPDIR)/sagan_ng-processor.Tpo -c -o sagan_ng-processor.o `test -f 'processor.c' || echo '$(srcdir)/'`processor.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-processor.Tpo $(DEPDIR)/sagan_ng-processor.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processor.c' object='sagan_ng-processor.o' libtool=no @AMDEPBACKSLASH@
+jae-processor.o: processor.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-processor.o -MD -MP -MF $(DEPDIR)/jae-processor.Tpo -c -o jae-processor.o `test -f 'processor.c' || echo '$(srcdir)/'`processor.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-processor.Tpo $(DEPDIR)/jae-processor.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processor.c' object='jae-processor.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-processor.o `test -f 'processor.c' || echo '$(srcdir)/'`processor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-processor.o `test -f 'processor.c' || echo '$(srcdir)/'`processor.c
 
-sagan_ng-processor.obj: processor.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-processor.obj -MD -MP -MF $(DEPDIR)/sagan_ng-processor.Tpo -c -o sagan_ng-processor.obj `if test -f 'processor.c'; then $(CYGPATH_W) 'processor.c'; else $(CYGPATH_W) '$(srcdir)/processor.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-processor.Tpo $(DEPDIR)/sagan_ng-processor.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processor.c' object='sagan_ng-processor.obj' libtool=no @AMDEPBACKSLASH@
+jae-processor.obj: processor.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-processor.obj -MD -MP -MF $(DEPDIR)/jae-processor.Tpo -c -o jae-processor.obj `if test -f 'processor.c'; then $(CYGPATH_W) 'processor.c'; else $(CYGPATH_W) '$(srcdir)/processor.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-processor.Tpo $(DEPDIR)/jae-processor.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processor.c' object='jae-processor.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-processor.obj `if test -f 'processor.c'; then $(CYGPATH_W) 'processor.c'; else $(CYGPATH_W) '$(srcdir)/processor.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-processor.obj `if test -f 'processor.c'; then $(CYGPATH_W) 'processor.c'; else $(CYGPATH_W) '$(srcdir)/processor.c'; fi`
 
-sagan_ng-util-strlcpy.o: util-strlcpy.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util-strlcpy.o -MD -MP -MF $(DEPDIR)/sagan_ng-util-strlcpy.Tpo -c -o sagan_ng-util-strlcpy.o `test -f 'util-strlcpy.c' || echo '$(srcdir)/'`util-strlcpy.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util-strlcpy.Tpo $(DEPDIR)/sagan_ng-util-strlcpy.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcpy.c' object='sagan_ng-util-strlcpy.o' libtool=no @AMDEPBACKSLASH@
+jae-util-strlcpy.o: util-strlcpy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-strlcpy.o -MD -MP -MF $(DEPDIR)/jae-util-strlcpy.Tpo -c -o jae-util-strlcpy.o `test -f 'util-strlcpy.c' || echo '$(srcdir)/'`util-strlcpy.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-strlcpy.Tpo $(DEPDIR)/jae-util-strlcpy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcpy.c' object='jae-util-strlcpy.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util-strlcpy.o `test -f 'util-strlcpy.c' || echo '$(srcdir)/'`util-strlcpy.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-strlcpy.o `test -f 'util-strlcpy.c' || echo '$(srcdir)/'`util-strlcpy.c
 
-sagan_ng-util-strlcpy.obj: util-strlcpy.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util-strlcpy.obj -MD -MP -MF $(DEPDIR)/sagan_ng-util-strlcpy.Tpo -c -o sagan_ng-util-strlcpy.obj `if test -f 'util-strlcpy.c'; then $(CYGPATH_W) 'util-strlcpy.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcpy.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util-strlcpy.Tpo $(DEPDIR)/sagan_ng-util-strlcpy.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcpy.c' object='sagan_ng-util-strlcpy.obj' libtool=no @AMDEPBACKSLASH@
+jae-util-strlcpy.obj: util-strlcpy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-strlcpy.obj -MD -MP -MF $(DEPDIR)/jae-util-strlcpy.Tpo -c -o jae-util-strlcpy.obj `if test -f 'util-strlcpy.c'; then $(CYGPATH_W) 'util-strlcpy.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcpy.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-strlcpy.Tpo $(DEPDIR)/jae-util-strlcpy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcpy.c' object='jae-util-strlcpy.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util-strlcpy.obj `if test -f 'util-strlcpy.c'; then $(CYGPATH_W) 'util-strlcpy.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcpy.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-strlcpy.obj `if test -f 'util-strlcpy.c'; then $(CYGPATH_W) 'util-strlcpy.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcpy.c'; fi`
 
-sagan_ng-util-strlcat.o: util-strlcat.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util-strlcat.o -MD -MP -MF $(DEPDIR)/sagan_ng-util-strlcat.Tpo -c -o sagan_ng-util-strlcat.o `test -f 'util-strlcat.c' || echo '$(srcdir)/'`util-strlcat.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util-strlcat.Tpo $(DEPDIR)/sagan_ng-util-strlcat.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcat.c' object='sagan_ng-util-strlcat.o' libtool=no @AMDEPBACKSLASH@
+jae-util-strlcat.o: util-strlcat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-strlcat.o -MD -MP -MF $(DEPDIR)/jae-util-strlcat.Tpo -c -o jae-util-strlcat.o `test -f 'util-strlcat.c' || echo '$(srcdir)/'`util-strlcat.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-strlcat.Tpo $(DEPDIR)/jae-util-strlcat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcat.c' object='jae-util-strlcat.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util-strlcat.o `test -f 'util-strlcat.c' || echo '$(srcdir)/'`util-strlcat.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-strlcat.o `test -f 'util-strlcat.c' || echo '$(srcdir)/'`util-strlcat.c
 
-sagan_ng-util-strlcat.obj: util-strlcat.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-util-strlcat.obj -MD -MP -MF $(DEPDIR)/sagan_ng-util-strlcat.Tpo -c -o sagan_ng-util-strlcat.obj `if test -f 'util-strlcat.c'; then $(CYGPATH_W) 'util-strlcat.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcat.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-util-strlcat.Tpo $(DEPDIR)/sagan_ng-util-strlcat.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcat.c' object='sagan_ng-util-strlcat.obj' libtool=no @AMDEPBACKSLASH@
+jae-util-strlcat.obj: util-strlcat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-strlcat.obj -MD -MP -MF $(DEPDIR)/jae-util-strlcat.Tpo -c -o jae-util-strlcat.obj `if test -f 'util-strlcat.c'; then $(CYGPATH_W) 'util-strlcat.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcat.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-strlcat.Tpo $(DEPDIR)/jae-util-strlcat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-strlcat.c' object='jae-util-strlcat.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-util-strlcat.obj `if test -f 'util-strlcat.c'; then $(CYGPATH_W) 'util-strlcat.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcat.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-strlcat.obj `if test -f 'util-strlcat.c'; then $(CYGPATH_W) 'util-strlcat.c'; else $(CYGPATH_W) '$(srcdir)/util-strlcat.c'; fi`
 
-sagan_ng-config-yaml.o: config-yaml.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-config-yaml.o -MD -MP -MF $(DEPDIR)/sagan_ng-config-yaml.Tpo -c -o sagan_ng-config-yaml.o `test -f 'config-yaml.c' || echo '$(srcdir)/'`config-yaml.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-config-yaml.Tpo $(DEPDIR)/sagan_ng-config-yaml.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='config-yaml.c' object='sagan_ng-config-yaml.o' libtool=no @AMDEPBACKSLASH@
+jae-config-yaml.o: config-yaml.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-config-yaml.o -MD -MP -MF $(DEPDIR)/jae-config-yaml.Tpo -c -o jae-config-yaml.o `test -f 'config-yaml.c' || echo '$(srcdir)/'`config-yaml.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-config-yaml.Tpo $(DEPDIR)/jae-config-yaml.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='config-yaml.c' object='jae-config-yaml.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-config-yaml.o `test -f 'config-yaml.c' || echo '$(srcdir)/'`config-yaml.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-config-yaml.o `test -f 'config-yaml.c' || echo '$(srcdir)/'`config-yaml.c
 
-sagan_ng-config-yaml.obj: config-yaml.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-config-yaml.obj -MD -MP -MF $(DEPDIR)/sagan_ng-config-yaml.Tpo -c -o sagan_ng-config-yaml.obj `if test -f 'config-yaml.c'; then $(CYGPATH_W) 'config-yaml.c'; else $(CYGPATH_W) '$(srcdir)/config-yaml.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-config-yaml.Tpo $(DEPDIR)/sagan_ng-config-yaml.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='config-yaml.c' object='sagan_ng-config-yaml.obj' libtool=no @AMDEPBACKSLASH@
+jae-config-yaml.obj: config-yaml.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-config-yaml.obj -MD -MP -MF $(DEPDIR)/jae-config-yaml.Tpo -c -o jae-config-yaml.obj `if test -f 'config-yaml.c'; then $(CYGPATH_W) 'config-yaml.c'; else $(CYGPATH_W) '$(srcdir)/config-yaml.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-config-yaml.Tpo $(DEPDIR)/jae-config-yaml.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='config-yaml.c' object='jae-config-yaml.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-config-yaml.obj `if test -f 'config-yaml.c'; then $(CYGPATH_W) 'config-yaml.c'; else $(CYGPATH_W) '$(srcdir)/config-yaml.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-config-yaml.obj `if test -f 'config-yaml.c'; then $(CYGPATH_W) 'config-yaml.c'; else $(CYGPATH_W) '$(srcdir)/config-yaml.c'; fi`
 
-sagan_ng-classifications.o: classifications.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-classifications.o -MD -MP -MF $(DEPDIR)/sagan_ng-classifications.Tpo -c -o sagan_ng-classifications.o `test -f 'classifications.c' || echo '$(srcdir)/'`classifications.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-classifications.Tpo $(DEPDIR)/sagan_ng-classifications.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='classifications.c' object='sagan_ng-classifications.o' libtool=no @AMDEPBACKSLASH@
+jae-classifications.o: classifications.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-classifications.o -MD -MP -MF $(DEPDIR)/jae-classifications.Tpo -c -o jae-classifications.o `test -f 'classifications.c' || echo '$(srcdir)/'`classifications.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-classifications.Tpo $(DEPDIR)/jae-classifications.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='classifications.c' object='jae-classifications.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-classifications.o `test -f 'classifications.c' || echo '$(srcdir)/'`classifications.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-classifications.o `test -f 'classifications.c' || echo '$(srcdir)/'`classifications.c
 
-sagan_ng-classifications.obj: classifications.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-classifications.obj -MD -MP -MF $(DEPDIR)/sagan_ng-classifications.Tpo -c -o sagan_ng-classifications.obj `if test -f 'classifications.c'; then $(CYGPATH_W) 'classifications.c'; else $(CYGPATH_W) '$(srcdir)/classifications.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-classifications.Tpo $(DEPDIR)/sagan_ng-classifications.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='classifications.c' object='sagan_ng-classifications.obj' libtool=no @AMDEPBACKSLASH@
+jae-classifications.obj: classifications.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-classifications.obj -MD -MP -MF $(DEPDIR)/jae-classifications.Tpo -c -o jae-classifications.obj `if test -f 'classifications.c'; then $(CYGPATH_W) 'classifications.c'; else $(CYGPATH_W) '$(srcdir)/classifications.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-classifications.Tpo $(DEPDIR)/jae-classifications.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='classifications.c' object='jae-classifications.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-classifications.obj `if test -f 'classifications.c'; then $(CYGPATH_W) 'classifications.c'; else $(CYGPATH_W) '$(srcdir)/classifications.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-classifications.obj `if test -f 'classifications.c'; then $(CYGPATH_W) 'classifications.c'; else $(CYGPATH_W) '$(srcdir)/classifications.c'; fi`
 
-sagan_ng-rules.o: rules.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-rules.o -MD -MP -MF $(DEPDIR)/sagan_ng-rules.Tpo -c -o sagan_ng-rules.o `test -f 'rules.c' || echo '$(srcdir)/'`rules.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-rules.Tpo $(DEPDIR)/sagan_ng-rules.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rules.c' object='sagan_ng-rules.o' libtool=no @AMDEPBACKSLASH@
+jae-rules.o: rules.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-rules.o -MD -MP -MF $(DEPDIR)/jae-rules.Tpo -c -o jae-rules.o `test -f 'rules.c' || echo '$(srcdir)/'`rules.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-rules.Tpo $(DEPDIR)/jae-rules.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rules.c' object='jae-rules.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-rules.o `test -f 'rules.c' || echo '$(srcdir)/'`rules.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-rules.o `test -f 'rules.c' || echo '$(srcdir)/'`rules.c
 
-sagan_ng-rules.obj: rules.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-rules.obj -MD -MP -MF $(DEPDIR)/sagan_ng-rules.Tpo -c -o sagan_ng-rules.obj `if test -f 'rules.c'; then $(CYGPATH_W) 'rules.c'; else $(CYGPATH_W) '$(srcdir)/rules.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-rules.Tpo $(DEPDIR)/sagan_ng-rules.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rules.c' object='sagan_ng-rules.obj' libtool=no @AMDEPBACKSLASH@
+jae-rules.obj: rules.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-rules.obj -MD -MP -MF $(DEPDIR)/jae-rules.Tpo -c -o jae-rules.obj `if test -f 'rules.c'; then $(CYGPATH_W) 'rules.c'; else $(CYGPATH_W) '$(srcdir)/rules.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-rules.Tpo $(DEPDIR)/jae-rules.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='rules.c' object='jae-rules.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-rules.obj `if test -f 'rules.c'; then $(CYGPATH_W) 'rules.c'; else $(CYGPATH_W) '$(srcdir)/rules.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-rules.obj `if test -f 'rules.c'; then $(CYGPATH_W) 'rules.c'; else $(CYGPATH_W) '$(srcdir)/rules.c'; fi`
 
-sagan_ng-output.o: output.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-output.o -MD -MP -MF $(DEPDIR)/sagan_ng-output.Tpo -c -o sagan_ng-output.o `test -f 'output.c' || echo '$(srcdir)/'`output.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-output.Tpo $(DEPDIR)/sagan_ng-output.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='sagan_ng-output.o' libtool=no @AMDEPBACKSLASH@
+jae-output.o: output.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-output.o -MD -MP -MF $(DEPDIR)/jae-output.Tpo -c -o jae-output.o `test -f 'output.c' || echo '$(srcdir)/'`output.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-output.Tpo $(DEPDIR)/jae-output.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='jae-output.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-output.o `test -f 'output.c' || echo '$(srcdir)/'`output.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-output.o `test -f 'output.c' || echo '$(srcdir)/'`output.c
 
-sagan_ng-output.obj: output.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT sagan_ng-output.obj -MD -MP -MF $(DEPDIR)/sagan_ng-output.Tpo -c -o sagan_ng-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/sagan_ng-output.Tpo $(DEPDIR)/sagan_ng-output.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='sagan_ng-output.obj' libtool=no @AMDEPBACKSLASH@
+jae-output.obj: output.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-output.obj -MD -MP -MF $(DEPDIR)/jae-output.Tpo -c -o jae-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-output.Tpo $(DEPDIR)/jae-output.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='jae-output.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o sagan_ng-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
 
-parsers/sagan_ng-json.o: parsers/json.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-json.o -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-json.Tpo -c -o parsers/sagan_ng-json.o `test -f 'parsers/json.c' || echo '$(srcdir)/'`parsers/json.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-json.Tpo parsers/$(DEPDIR)/sagan_ng-json.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/json.c' object='parsers/sagan_ng-json.o' libtool=no @AMDEPBACKSLASH@
+parsers/jae-json.o: parsers/json.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-json.o -MD -MP -MF parsers/$(DEPDIR)/jae-json.Tpo -c -o parsers/jae-json.o `test -f 'parsers/json.c' || echo '$(srcdir)/'`parsers/json.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-json.Tpo parsers/$(DEPDIR)/jae-json.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/json.c' object='parsers/jae-json.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-json.o `test -f 'parsers/json.c' || echo '$(srcdir)/'`parsers/json.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-json.o `test -f 'parsers/json.c' || echo '$(srcdir)/'`parsers/json.c
 
-parsers/sagan_ng-json.obj: parsers/json.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-json.obj -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-json.Tpo -c -o parsers/sagan_ng-json.obj `if test -f 'parsers/json.c'; then $(CYGPATH_W) 'parsers/json.c'; else $(CYGPATH_W) '$(srcdir)/parsers/json.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-json.Tpo parsers/$(DEPDIR)/sagan_ng-json.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/json.c' object='parsers/sagan_ng-json.obj' libtool=no @AMDEPBACKSLASH@
+parsers/jae-json.obj: parsers/json.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-json.obj -MD -MP -MF parsers/$(DEPDIR)/jae-json.Tpo -c -o parsers/jae-json.obj `if test -f 'parsers/json.c'; then $(CYGPATH_W) 'parsers/json.c'; else $(CYGPATH_W) '$(srcdir)/parsers/json.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-json.Tpo parsers/$(DEPDIR)/jae-json.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/json.c' object='parsers/jae-json.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-json.obj `if test -f 'parsers/json.c'; then $(CYGPATH_W) 'parsers/json.c'; else $(CYGPATH_W) '$(srcdir)/parsers/json.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-json.obj `if test -f 'parsers/json.c'; then $(CYGPATH_W) 'parsers/json.c'; else $(CYGPATH_W) '$(srcdir)/parsers/json.c'; fi`
 
-parsers/sagan_ng-search.o: parsers/search.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-search.o -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-search.Tpo -c -o parsers/sagan_ng-search.o `test -f 'parsers/search.c' || echo '$(srcdir)/'`parsers/search.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-search.Tpo parsers/$(DEPDIR)/sagan_ng-search.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/search.c' object='parsers/sagan_ng-search.o' libtool=no @AMDEPBACKSLASH@
+parsers/jae-search.o: parsers/search.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-search.o -MD -MP -MF parsers/$(DEPDIR)/jae-search.Tpo -c -o parsers/jae-search.o `test -f 'parsers/search.c' || echo '$(srcdir)/'`parsers/search.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-search.Tpo parsers/$(DEPDIR)/jae-search.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/search.c' object='parsers/jae-search.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-search.o `test -f 'parsers/search.c' || echo '$(srcdir)/'`parsers/search.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-search.o `test -f 'parsers/search.c' || echo '$(srcdir)/'`parsers/search.c
 
-parsers/sagan_ng-search.obj: parsers/search.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-search.obj -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-search.Tpo -c -o parsers/sagan_ng-search.obj `if test -f 'parsers/search.c'; then $(CYGPATH_W) 'parsers/search.c'; else $(CYGPATH_W) '$(srcdir)/parsers/search.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-search.Tpo parsers/$(DEPDIR)/sagan_ng-search.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/search.c' object='parsers/sagan_ng-search.obj' libtool=no @AMDEPBACKSLASH@
+parsers/jae-search.obj: parsers/search.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-search.obj -MD -MP -MF parsers/$(DEPDIR)/jae-search.Tpo -c -o parsers/jae-search.obj `if test -f 'parsers/search.c'; then $(CYGPATH_W) 'parsers/search.c'; else $(CYGPATH_W) '$(srcdir)/parsers/search.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-search.Tpo parsers/$(DEPDIR)/jae-search.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/search.c' object='parsers/jae-search.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-search.obj `if test -f 'parsers/search.c'; then $(CYGPATH_W) 'parsers/search.c'; else $(CYGPATH_W) '$(srcdir)/parsers/search.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-search.obj `if test -f 'parsers/search.c'; then $(CYGPATH_W) 'parsers/search.c'; else $(CYGPATH_W) '$(srcdir)/parsers/search.c'; fi`
 
-parsers/sagan_ng-pcre.o: parsers/pcre.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-pcre.o -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-pcre.Tpo -c -o parsers/sagan_ng-pcre.o `test -f 'parsers/pcre.c' || echo '$(srcdir)/'`parsers/pcre.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-pcre.Tpo parsers/$(DEPDIR)/sagan_ng-pcre.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/pcre.c' object='parsers/sagan_ng-pcre.o' libtool=no @AMDEPBACKSLASH@
+parsers/jae-pcre.o: parsers/pcre.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-pcre.o -MD -MP -MF parsers/$(DEPDIR)/jae-pcre.Tpo -c -o parsers/jae-pcre.o `test -f 'parsers/pcre.c' || echo '$(srcdir)/'`parsers/pcre.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-pcre.Tpo parsers/$(DEPDIR)/jae-pcre.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/pcre.c' object='parsers/jae-pcre.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-pcre.o `test -f 'parsers/pcre.c' || echo '$(srcdir)/'`parsers/pcre.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-pcre.o `test -f 'parsers/pcre.c' || echo '$(srcdir)/'`parsers/pcre.c
 
-parsers/sagan_ng-pcre.obj: parsers/pcre.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/sagan_ng-pcre.obj -MD -MP -MF parsers/$(DEPDIR)/sagan_ng-pcre.Tpo -c -o parsers/sagan_ng-pcre.obj `if test -f 'parsers/pcre.c'; then $(CYGPATH_W) 'parsers/pcre.c'; else $(CYGPATH_W) '$(srcdir)/parsers/pcre.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/sagan_ng-pcre.Tpo parsers/$(DEPDIR)/sagan_ng-pcre.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/pcre.c' object='parsers/sagan_ng-pcre.obj' libtool=no @AMDEPBACKSLASH@
+parsers/jae-pcre.obj: parsers/pcre.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-pcre.obj -MD -MP -MF parsers/$(DEPDIR)/jae-pcre.Tpo -c -o parsers/jae-pcre.obj `if test -f 'parsers/pcre.c'; then $(CYGPATH_W) 'parsers/pcre.c'; else $(CYGPATH_W) '$(srcdir)/parsers/pcre.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/$(DEPDIR)/jae-pcre.Tpo parsers/$(DEPDIR)/jae-pcre.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/pcre.c' object='parsers/jae-pcre.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/sagan_ng-pcre.obj `if test -f 'parsers/pcre.c'; then $(CYGPATH_W) 'parsers/pcre.c'; else $(CYGPATH_W) '$(srcdir)/parsers/pcre.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/jae-pcre.obj `if test -f 'parsers/pcre.c'; then $(CYGPATH_W) 'parsers/pcre.c'; else $(CYGPATH_W) '$(srcdir)/parsers/pcre.c'; fi`
 
-parsers/strstr-asm/sagan_ng-strstr-hook.o: parsers/strstr-asm/strstr-hook.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr-hook.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr-hook.o `test -f 'parsers/strstr-asm/strstr-hook.c' || echo '$(srcdir)/'`parsers/strstr-asm/strstr-hook.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/strstr-asm/strstr-hook.c' object='parsers/strstr-asm/sagan_ng-strstr-hook.o' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr-hook.o: parsers/strstr-asm/strstr-hook.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/strstr-asm/jae-strstr-hook.o -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Tpo -c -o parsers/strstr-asm/jae-strstr-hook.o `test -f 'parsers/strstr-asm/strstr-hook.c' || echo '$(srcdir)/'`parsers/strstr-asm/strstr-hook.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/strstr-asm/strstr-hook.c' object='parsers/strstr-asm/jae-strstr-hook.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr-hook.o `test -f 'parsers/strstr-asm/strstr-hook.c' || echo '$(srcdir)/'`parsers/strstr-asm/strstr-hook.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/strstr-asm/jae-strstr-hook.o `test -f 'parsers/strstr-asm/strstr-hook.c' || echo '$(srcdir)/'`parsers/strstr-asm/strstr-hook.c
 
-parsers/strstr-asm/sagan_ng-strstr-hook.obj: parsers/strstr-asm/strstr-hook.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/strstr-asm/sagan_ng-strstr-hook.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Tpo -c -o parsers/strstr-asm/sagan_ng-strstr-hook.obj `if test -f 'parsers/strstr-asm/strstr-hook.c'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr-hook.c'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr-hook.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Tpo parsers/strstr-asm/$(DEPDIR)/sagan_ng-strstr-hook.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/strstr-asm/strstr-hook.c' object='parsers/strstr-asm/sagan_ng-strstr-hook.obj' libtool=no @AMDEPBACKSLASH@
+parsers/strstr-asm/jae-strstr-hook.obj: parsers/strstr-asm/strstr-hook.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/strstr-asm/jae-strstr-hook.obj -MD -MP -MF parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Tpo -c -o parsers/strstr-asm/jae-strstr-hook.obj `if test -f 'parsers/strstr-asm/strstr-hook.c'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr-hook.c'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr-hook.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Tpo parsers/strstr-asm/$(DEPDIR)/jae-strstr-hook.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='parsers/strstr-asm/strstr-hook.c' object='parsers/strstr-asm/jae-strstr-hook.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/strstr-asm/sagan_ng-strstr-hook.obj `if test -f 'parsers/strstr-asm/strstr-hook.c'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr-hook.c'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr-hook.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o parsers/strstr-asm/jae-strstr-hook.obj `if test -f 'parsers/strstr-asm/strstr-hook.c'; then $(CYGPATH_W) 'parsers/strstr-asm/strstr-hook.c'; else $(CYGPATH_W) '$(srcdir)/parsers/strstr-asm/strstr-hook.c'; fi`
 
-input-plugins/sagan_ng-named-pipe.o: input-plugins/named-pipe.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT input-plugins/sagan_ng-named-pipe.o -MD -MP -MF input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Tpo -c -o input-plugins/sagan_ng-named-pipe.o `test -f 'input-plugins/named-pipe.c' || echo '$(srcdir)/'`input-plugins/named-pipe.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Tpo input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='input-plugins/named-pipe.c' object='input-plugins/sagan_ng-named-pipe.o' libtool=no @AMDEPBACKSLASH@
+input-plugins/jae-named-pipe.o: input-plugins/named-pipe.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT input-plugins/jae-named-pipe.o -MD -MP -MF input-plugins/$(DEPDIR)/jae-named-pipe.Tpo -c -o input-plugins/jae-named-pipe.o `test -f 'input-plugins/named-pipe.c' || echo '$(srcdir)/'`input-plugins/named-pipe.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) input-plugins/$(DEPDIR)/jae-named-pipe.Tpo input-plugins/$(DEPDIR)/jae-named-pipe.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='input-plugins/named-pipe.c' object='input-plugins/jae-named-pipe.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o input-plugins/sagan_ng-named-pipe.o `test -f 'input-plugins/named-pipe.c' || echo '$(srcdir)/'`input-plugins/named-pipe.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o input-plugins/jae-named-pipe.o `test -f 'input-plugins/named-pipe.c' || echo '$(srcdir)/'`input-plugins/named-pipe.c
 
-input-plugins/sagan_ng-named-pipe.obj: input-plugins/named-pipe.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT input-plugins/sagan_ng-named-pipe.obj -MD -MP -MF input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Tpo -c -o input-plugins/sagan_ng-named-pipe.obj `if test -f 'input-plugins/named-pipe.c'; then $(CYGPATH_W) 'input-plugins/named-pipe.c'; else $(CYGPATH_W) '$(srcdir)/input-plugins/named-pipe.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Tpo input-plugins/$(DEPDIR)/sagan_ng-named-pipe.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='input-plugins/named-pipe.c' object='input-plugins/sagan_ng-named-pipe.obj' libtool=no @AMDEPBACKSLASH@
+input-plugins/jae-named-pipe.obj: input-plugins/named-pipe.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT input-plugins/jae-named-pipe.obj -MD -MP -MF input-plugins/$(DEPDIR)/jae-named-pipe.Tpo -c -o input-plugins/jae-named-pipe.obj `if test -f 'input-plugins/named-pipe.c'; then $(CYGPATH_W) 'input-plugins/named-pipe.c'; else $(CYGPATH_W) '$(srcdir)/input-plugins/named-pipe.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) input-plugins/$(DEPDIR)/jae-named-pipe.Tpo input-plugins/$(DEPDIR)/jae-named-pipe.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='input-plugins/named-pipe.c' object='input-plugins/jae-named-pipe.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o input-plugins/sagan_ng-named-pipe.obj `if test -f 'input-plugins/named-pipe.c'; then $(CYGPATH_W) 'input-plugins/named-pipe.c'; else $(CYGPATH_W) '$(srcdir)/input-plugins/named-pipe.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o input-plugins/jae-named-pipe.obj `if test -f 'input-plugins/named-pipe.c'; then $(CYGPATH_W) 'input-plugins/named-pipe.c'; else $(CYGPATH_W) '$(srcdir)/input-plugins/named-pipe.c'; fi`
 
-output-plugins/sagan_ng-file.o: output-plugins/file.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT output-plugins/sagan_ng-file.o -MD -MP -MF output-plugins/$(DEPDIR)/sagan_ng-file.Tpo -c -o output-plugins/sagan_ng-file.o `test -f 'output-plugins/file.c' || echo '$(srcdir)/'`output-plugins/file.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) output-plugins/$(DEPDIR)/sagan_ng-file.Tpo output-plugins/$(DEPDIR)/sagan_ng-file.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output-plugins/file.c' object='output-plugins/sagan_ng-file.o' libtool=no @AMDEPBACKSLASH@
+output-plugins/jae-file.o: output-plugins/file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT output-plugins/jae-file.o -MD -MP -MF output-plugins/$(DEPDIR)/jae-file.Tpo -c -o output-plugins/jae-file.o `test -f 'output-plugins/file.c' || echo '$(srcdir)/'`output-plugins/file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) output-plugins/$(DEPDIR)/jae-file.Tpo output-plugins/$(DEPDIR)/jae-file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output-plugins/file.c' object='output-plugins/jae-file.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o output-plugins/sagan_ng-file.o `test -f 'output-plugins/file.c' || echo '$(srcdir)/'`output-plugins/file.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o output-plugins/jae-file.o `test -f 'output-plugins/file.c' || echo '$(srcdir)/'`output-plugins/file.c
 
-output-plugins/sagan_ng-file.obj: output-plugins/file.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT output-plugins/sagan_ng-file.obj -MD -MP -MF output-plugins/$(DEPDIR)/sagan_ng-file.Tpo -c -o output-plugins/sagan_ng-file.obj `if test -f 'output-plugins/file.c'; then $(CYGPATH_W) 'output-plugins/file.c'; else $(CYGPATH_W) '$(srcdir)/output-plugins/file.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) output-plugins/$(DEPDIR)/sagan_ng-file.Tpo output-plugins/$(DEPDIR)/sagan_ng-file.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output-plugins/file.c' object='output-plugins/sagan_ng-file.obj' libtool=no @AMDEPBACKSLASH@
+output-plugins/jae-file.obj: output-plugins/file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT output-plugins/jae-file.obj -MD -MP -MF output-plugins/$(DEPDIR)/jae-file.Tpo -c -o output-plugins/jae-file.obj `if test -f 'output-plugins/file.c'; then $(CYGPATH_W) 'output-plugins/file.c'; else $(CYGPATH_W) '$(srcdir)/output-plugins/file.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) output-plugins/$(DEPDIR)/jae-file.Tpo output-plugins/$(DEPDIR)/jae-file.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output-plugins/file.c' object='output-plugins/jae-file.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o output-plugins/sagan_ng-file.obj `if test -f 'output-plugins/file.c'; then $(CYGPATH_W) 'output-plugins/file.c'; else $(CYGPATH_W) '$(srcdir)/output-plugins/file.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o output-plugins/jae-file.obj `if test -f 'output-plugins/file.c'; then $(CYGPATH_W) 'output-plugins/file.c'; else $(CYGPATH_W) '$(srcdir)/output-plugins/file.c'; fi`
 
-processors/sagan_ng-engine.o: processors/engine.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT processors/sagan_ng-engine.o -MD -MP -MF processors/$(DEPDIR)/sagan_ng-engine.Tpo -c -o processors/sagan_ng-engine.o `test -f 'processors/engine.c' || echo '$(srcdir)/'`processors/engine.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) processors/$(DEPDIR)/sagan_ng-engine.Tpo processors/$(DEPDIR)/sagan_ng-engine.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processors/engine.c' object='processors/sagan_ng-engine.o' libtool=no @AMDEPBACKSLASH@
+processors/jae-engine.o: processors/engine.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT processors/jae-engine.o -MD -MP -MF processors/$(DEPDIR)/jae-engine.Tpo -c -o processors/jae-engine.o `test -f 'processors/engine.c' || echo '$(srcdir)/'`processors/engine.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) processors/$(DEPDIR)/jae-engine.Tpo processors/$(DEPDIR)/jae-engine.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processors/engine.c' object='processors/jae-engine.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o processors/sagan_ng-engine.o `test -f 'processors/engine.c' || echo '$(srcdir)/'`processors/engine.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o processors/jae-engine.o `test -f 'processors/engine.c' || echo '$(srcdir)/'`processors/engine.c
 
-processors/sagan_ng-engine.obj: processors/engine.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT processors/sagan_ng-engine.obj -MD -MP -MF processors/$(DEPDIR)/sagan_ng-engine.Tpo -c -o processors/sagan_ng-engine.obj `if test -f 'processors/engine.c'; then $(CYGPATH_W) 'processors/engine.c'; else $(CYGPATH_W) '$(srcdir)/processors/engine.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) processors/$(DEPDIR)/sagan_ng-engine.Tpo processors/$(DEPDIR)/sagan_ng-engine.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processors/engine.c' object='processors/sagan_ng-engine.obj' libtool=no @AMDEPBACKSLASH@
+processors/jae-engine.obj: processors/engine.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT processors/jae-engine.obj -MD -MP -MF processors/$(DEPDIR)/jae-engine.Tpo -c -o processors/jae-engine.obj `if test -f 'processors/engine.c'; then $(CYGPATH_W) 'processors/engine.c'; else $(CYGPATH_W) '$(srcdir)/processors/engine.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) processors/$(DEPDIR)/jae-engine.Tpo processors/$(DEPDIR)/jae-engine.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='processors/engine.c' object='processors/jae-engine.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(sagan_ng_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o processors/sagan_ng-engine.obj `if test -f 'processors/engine.c'; then $(CYGPATH_W) 'processors/engine.c'; else $(CYGPATH_W) '$(srcdir)/processors/engine.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o processors/jae-engine.obj `if test -f 'processors/engine.c'; then $(CYGPATH_W) 'processors/engine.c'; else $(CYGPATH_W) '$(srcdir)/processors/engine.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

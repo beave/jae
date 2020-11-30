@@ -37,7 +37,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "sagan-ng-defs.h"
+#include "jae-defs.h"
 #include "util.h"
 
 #include "parsers/strstr-asm/strstr-hook.h"
