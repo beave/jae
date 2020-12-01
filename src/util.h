@@ -31,7 +31,7 @@ void Droppriv(void);
 void Between_Quotes(const char *in_str, char *str, size_t size);
 bool Validate_HEX (const char *string);
 bool Pipe_To_Value(const char *in_str, char *str, size_t size );
-void Replace_Sagan(const char *in_str, char *replace, char *str, size_t size);
+void Replace_JAE(const char *in_str, char *replace, char *str, size_t size);
 void Var_To_Value(char *in_str, char *str, size_t size);
 
 #ifdef __OpenBSD__

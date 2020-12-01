@@ -474,7 +474,7 @@ void Load_Ruleset( const char *ruleset )
 
                             for (k = 0; k < Rules[Counters->rules].search_string_count; k++ )
                                 {
-                                    Replace_Sagan( Rules[Counters->rules].search_mask[a], Rules[Counters->rules].search_string[a][k], tmp, sizeof(tmp));
+                                    Replace_JAE( Rules[Counters->rules].search_mask[a], Rules[Counters->rules].search_string[a][k], tmp, sizeof(tmp));
                                     strlcpy( Rules[Counters->rules].search_string[a][k], tmp, MAX_SEARCH_STRING_SIZE);
 
                                     if ( Debug->rules )

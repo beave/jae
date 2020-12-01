@@ -455,11 +455,11 @@ bool Pipe_To_Value(const char *in_str, char *str, size_t size )
 }
 
 /****************************************************************************
- * Replace_Sagan() - Take the %sagan% out of a string and replaces it
+ * Replace_JAE() - Take the %JAE% out of a string and replaces it
  * with *replace
  ****************************************************************************/
 
-void Replace_Sagan( const char *in_str, char *replace, char *str, size_t size )
+void Replace_JAE( const char *in_str, char *replace, char *str, size_t size )
 {
 
     char tmp[2] = { 0 };
@@ -473,8 +473,7 @@ void Replace_Sagan( const char *in_str, char *replace, char *str, size_t size )
             if ( in_str[i] == '%' )
                 {
 
-                    if ( in_str[i+1] == 'S' && in_str[i+2] == 'A' && in_str[i+3] == 'G' &&
-                            in_str[i+4] == 'A' && in_str[i+5] == 'N' && in_str[i+6] == '%' )
+                    if ( in_str[i+1] == 'J' && in_str[i+2] == 'A' && in_str[i+3] == 'E' && in_str[i+4] == '%' )
                         {
 
                             strlcat(new_string, replace, sizeof(new_string));
