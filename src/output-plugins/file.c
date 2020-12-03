@@ -37,7 +37,6 @@
 #include "parsers/json.h"
 
 struct _Config *Config;
-//struct _Rules *Rules;
 
 
 void File_Init( void )
@@ -58,6 +57,8 @@ void File_Init( void )
 
 void File( const char *output_json )
 {
+
+    /* NEEDS FILE LOCKING */
 
     FILE *output_stream;
 

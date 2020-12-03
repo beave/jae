@@ -79,6 +79,33 @@ void Output_JSON_Builder ( struct _JSON_Key_String *JSON_Key_String, uint16_t js
             json_object *jclassification_desc = json_object_new_string( Rules[rule_position].classification_desc );
             json_object_object_add(jobj, "jae.classification_desc", jclassification_desc);
 
+	    if ( Rules[rule_position].add_key_count > 0 ) 
+	    	{
+
+		char add_key_key_tmp[MAX_ADD_KEY_SIZE] = { 0 };
+		char add_key_value_tmp[MAX_ADD_KEY_VALUE_SIZE] = { 0 }; 
+
+		for ( i = 0; i < Rules[rule_position].add_key_count; i++ )
+			{
+
+			/* Assign key to our nest */
+
+			snprintf(add_key_key_tmp, MAX_ADD_KEY_SIZE, "jae.%s", Rules[rule_position].add_key_key[i]);
+
+                        json_object *j = json_object_new_string( Rules[rule_position].add_key_value[i] );
+                        json_object_object_add(jobj, add_key_key_tmp, j);
+
+			}
+
+
+
+		}
+
+
+
+
+
+
 
 	    snprintf( str, size, "%s", json_object_to_json_string(jobj) );
 

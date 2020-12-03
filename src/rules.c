@@ -87,6 +87,10 @@ void Load_Ruleset( const char *ruleset )
     char var_to_value[MAX_VAR_VALUE_SIZE] = { 0 };
     char tmp[MAX_SEARCH_STRING_SIZE] = { 0 };
 
+    char *ptr1 = NULL;
+    uint8_t add_key_count = 0;
+
+
 
     FILE *rulesfile;
 
@@ -509,9 +513,6 @@ void Load_Ruleset( const char *ruleset )
                             if ( !strcmp( JSON_Key_String[i].key, tmpkey ) )
                                 {
 
-//			printf("GOT PCRE: |%s| |%c|\n", JSON_Key_String[i].json, JSON_Key_String[i].json[0]);
-                                    printf("Got match key: |%s|\n", tmpkey);
-
                                     for ( k = 0; k < strlen(JSON_Key_String[i].json); k++ )
                                         {
 
@@ -629,9 +630,6 @@ void Load_Ruleset( const char *ruleset )
 
                                         }
 
-//                                    pcre_count++;
-//                                    Rules[Counters->rules].pcre_count=pcre_count;
-
                                     for ( k = 0; k < json_count; k++ )
                                         {
 
@@ -646,7 +644,6 @@ void Load_Ruleset( const char *ruleset )
                                                     printf("Got key: for %s == |%s|\n", tmpkey, Rules[Counters->rules].pcre_key[pcre_count]);
                                                 }
 
-//					printf("Search for |%s|\n", tmpkey);
 
                                         }
 
@@ -659,13 +656,45 @@ void Load_Ruleset( const char *ruleset )
 
                                     pcre_count++;
                                     Rules[Counters->rules].pcre_count=pcre_count;
-                                    printf("count: %d\n", pcre_count);
 
                                 }
 
                         } /* for ( a = 0; a < MAX_PCRE ... */
 
                 }  /* for ( i = 0; i < json_count; (PCRE) */
+
+		/* "add_key" */
+
+            add_key_count = 0;
+
+            for ( i = 0; i < json_count; i++ )
+                {   
+
+
+		      if (JAE_strstr(JSON_Key_String[i].key, ".add_key."))
+		      	{
+
+			(void)strtok_r(JSON_Key_String[i].key, ".", &ptr1);
+
+			if ( ptr1 == NULL ) 
+				{
+				JAE_Log( ERROR, "[%s, line %d] 'add_key' appears to be invalid at signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
+				}
+
+			strlcpy(Rules[Counters->rules].add_key_key[add_key_count], ptr1, MAX_ADD_KEY_SIZE);
+
+			/* Convert variable */
+
+			Var_To_Value( JSON_Key_String[i].json, var_to_value, sizeof(var_to_value));
+			strlcpy(Rules[Counters->rules].add_key_value[add_key_count], var_to_value, MAX_ADD_KEY_VALUE_SIZE);
+
+			add_key_count++;
+
+			Rules[Counters->rules].add_key_count = add_key_count;
+
+			}
+
+		}
 
             __atomic_add_fetch(&Counters->rules, 1, __ATOMIC_SEQ_CST);
 

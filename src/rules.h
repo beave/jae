@@ -51,6 +51,13 @@
 #define		MAX_PCRE			5	/* Max "pcre" within a signature */
 #define		MAX_PCRE_SIZE			512	/* Max size of a regular expression */
 
+/* "add_key" definitions */
+
+#define		MAX_ADD_KEY			10
+#define		MAX_ADD_KEY_SIZE		32
+#define		MAX_ADD_KEY_VALUE_SIZE		1024
+
+
 typedef struct _Rules _Rules;
 struct _Rules
 {
@@ -86,7 +93,13 @@ struct _Rules
     uint8_t pcre_count;
     pcre *re_pcre[MAX_PCRE];
     pcre_extra *pcre_extra[MAX_PCRE];
-    char pcre_key[MAX_PCRE][MAX_JSON_KEY];
+    char pcre_key[MAX_PCRE][MAX_PCRE_SIZE];
+
+    /* "add_key" */
+
+    uint8_t add_key_count;
+    char add_key_key[MAX_ADD_KEY][MAX_ADD_KEY_SIZE];
+    char add_key_value[MAX_ADD_KEY][MAX_ADD_KEY_VALUE_SIZE];
 
 
 };
