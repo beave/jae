@@ -32,7 +32,9 @@
 
 #include "parsers/json.h"
 
+#include "rules.h"
 #include "output.h"
+#include "json-output-builder.h"
 #include "output-plugins/file.h"
 
 struct _Config *Config;
@@ -51,10 +53,16 @@ void Init_Output ( void )
 void Output( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint32_t rule_position )
 {
 
+    uint16_t i = 0;
+    char output_json[MAX_JSON_SIZE] = { 0 };
+
+    Output_JSON_Builder( JSON_Key_String, json_count, rule_position, output_json, MAX_JSON_SIZE );
+
+    /* Make a call to a "build json" routine */
+
     if ( Config->output_file_flag == true )
         {
-//		printf("**** FIRE ****** on %s:%s\n", Config->sensor_name, Config->cluster_name);
-            File( JSON_Key_String, json_count, rule_position );
+            File( output_json );
         }
 
 }

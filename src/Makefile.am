@@ -20,6 +20,7 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 						       classifications.c \
 						       rules.c \
 						       output.c \
+						       json-output-builder.c \
 					               parsers/json.c \
 						       parsers/search.c \
 						       parsers/pcre.c \

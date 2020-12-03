@@ -69,7 +69,7 @@ void To_LowerC(char *const s)
 
 
 /******************************************************
- * Generic "sagan.log" style logging and screen output.
+ * Generic "jae.log" style logging and screen output.
  *******************************************************/
 
 void JAE_Log (int type, const char *format,... )
@@ -102,8 +102,6 @@ void JAE_Log (int type, const char *format,... )
         }
 
     vsnprintf(buf, sizeof(buf), format, ap);
-    //fprintf(config->sagan_log_stream, "[%s] [%s] - %s\n", chr, curtime, buf);
-    //fflush(config->sagan_log_stream);
 
     if ( Config->daemonize == 0 && Config->quiet == 0 )
         {
@@ -478,7 +476,7 @@ void Replace_JAE( const char *in_str, char *replace, char *str, size_t size )
 
                             strlcat(new_string, replace, sizeof(new_string));
 
-                            i = i + 6;  /* Skip to end of %sagan% */
+                            i = i + 4;  /* Skip to end of %JAE% */
 
                         }
                     else

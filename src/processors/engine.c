@@ -69,16 +69,11 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 					}
 				}
 
-
 			   }
 
 
-		   printf("PCRE count: %d\n", Rules[rule_position].pcre_count);
-
 		   for ( s_position = 0; s_position < Rules[rule_position].pcre_count; s_position++ )
 		   	{
-
-//			printf("|%s|%s|\n", JSON_Key_String[a].key, Rules[rule_position].pcre_key[s_position]);
 
 			if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].pcre_key[s_position] ))
 				{
@@ -87,7 +82,6 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 					{
 					match++;
 					}
-
 				}
 
 			}
@@ -96,14 +90,20 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 
                printf("search_count = %d + pcre_count = %d,  match = %d\n", Rules[rule_position].search_string_count, Rules[rule_position].pcre_count, match);
 
+
+	       /* Was "Search" / "Pcre" successful? */
+
 	       if ( match == Rules[rule_position].search_string_count + Rules[rule_position].pcre_count )
 	       	{
+
+		/* Add alert items to our array */
+
 		printf("** TRIGGER **\n");
+		
+		Output( JSON_Key_String, json_count, rule_position );
+
 		}
-
-
         }
-
 
 }
 

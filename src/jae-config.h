@@ -33,7 +33,7 @@ struct _Config
     /* Non-dependent var's                                                 */
     /***********************************************************************/
 
-//    bool         sagan_reload;
+//    bool         jaen_reload;
     bool         daemonize;
     bool         quiet;
     bool	 pcre_jit;
@@ -80,7 +80,7 @@ struct _Config
     char output_file[MAX_PATH];
     bool output_file_flatten_json;
     bool output_file_append_alert_data;
-    FILE *output_file_stream;
+//    FILE *output_file_stream;
 
 
 

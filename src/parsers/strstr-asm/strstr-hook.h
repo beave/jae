@@ -18,7 +18,7 @@
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-/* sagan-strstr-hook.c
+/* strstr-hook.c
  *
  * This "hooks" in the "JAE_strstr" function for CPUs supporting SSE2.
  * This code is based on work by Ondra B�lk and the glibc projects.

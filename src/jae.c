@@ -340,7 +340,7 @@ int main(int argc, char **argv)
 
     /* Init _Output_ */
 
-    Init_Output();
+//    Init_Output();
 
 //    Droppriv();              /* Become the JAE user */
 
@@ -406,6 +406,8 @@ int main(int argc, char **argv)
         }
 
     Droppriv();
+
+    Init_Output();
 
     while( Global_Death == false)
         {

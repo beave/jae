@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+//#include <json.h>
 
 #include "jae-defs.h"
 #include "jae.h"
@@ -36,36 +37,38 @@
 #include "parsers/json.h"
 
 struct _Config *Config;
+//struct _Rules *Rules;
 
 
 void File_Init( void )
 {
 
-    if (( Config->output_file_stream = fopen(Config->output_file, "a" )) == NULL )
+    FILE *test_stream;
+
+    if (( test_stream = fopen(Config->output_file, "a" )) == NULL )
         {
             Remove_Lock_File();
             JAE_Log(ERROR, "[%s, line %d] Can't for 'file' output %s - %s. Abort.", __FILE__, __LINE__, Config->output_file, strerror(errno));
         }
 
     JAE_Log(NORMAL, "Successfully open %s for 'file' output.", Config->output_file);
-
+    fclose(test_stream);
 
 }
 
-void File( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint32_t rule_position )
+void File( const char *output_json )
 {
 
-    uint16_t i = 0;
-    /*
-        printf("------------------------------------------\n");
+    FILE *output_stream;
 
-        for (i = 0; i < json_count; i++ )
-            {
-                printf("%s|%s\n", JSON_Key_String[i].key, JSON_Key_String[i].json);
-            }
+    if (( output_stream = fopen(Config->output_file, "a" )) == NULL )
+        {
+            Remove_Lock_File();
+            JAE_Log(ERROR, "[%s, line %d] Can't for 'file' output %s - %s. Abort.", __FILE__, __LINE__, Config->output_file, strerror(errno));
+        }
 
-      printf("------------------------------------------\n");
-      */
+    fprintf(output_stream, "%s\n", output_json);
+    fclose(output_stream);
 
 
 }

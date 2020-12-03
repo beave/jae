@@ -45,8 +45,6 @@
 #include <pwd.h>
 #include <stdbool.h>
 
-//#include "sagan.h"
-//#include "sagan-defs.h"
 #include "jae-defs.h"
 #include "util.h"
 #include "lockfile.h"

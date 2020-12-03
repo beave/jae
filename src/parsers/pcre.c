@@ -17,8 +17,8 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-*/                  
-                        
+*/
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"             /* From autoconf */
 #endif
@@ -46,28 +46,17 @@ struct _Rules *Rules;
 bool Pcre( uint32_t rule_position, uint8_t s_position, char *json )
 {
 
-int rc = 0; 
-int ovector[PCRE_OVECCOUNT];
+    int rc = 0;
+    int ovector[PCRE_OVECCOUNT];
 
-printf("JSON: %s\n", json);
+    rc = pcre_exec( Rules[rule_position].re_pcre[s_position], Rules[rule_position].pcre_extra[s_position], json, (int)strlen(json), 0, 0, ovector, PCRE_OVECCOUNT);
 
+    if ( rc > 0 )
+        {
+            return(true);
+        }
 
-uint8_t k = 0;
-
-	for ( k = 0; k < Rules[rule_position].pcre_count; k++ )
-		{
-
-		rc = pcre_exec( Rules[rule_position].re_pcre[k], Rules[rule_position].pcre_extra[k], json, (int)strlen(json), 0, 0, ovector, PCRE_OVECCOUNT);
-
-		if ( rc > 0 )
-			{
-			return(true);
-			}
-
-		}
-
-
-return(false);
+    return(false);
 
 }
 

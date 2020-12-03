@@ -506,8 +506,6 @@ void Load_Ruleset( const char *ruleset )
                             snprintf(tmpkey, MAX_JSON_KEY, ".pcre.%d.expression", a);
                             tmpkey[ sizeof(tmpkey) - 1] = '\0';
 
-                            printf("looking for: %s\n", tmpkey);
-
                             if ( !strcmp( JSON_Key_String[i].key, tmpkey ) )
                                 {
 
@@ -582,9 +580,15 @@ void Load_Ruleset( const char *ruleset )
 
                                     pcre_rule[ strlen(pcre_rule) - 1 ] = '\0';
 
+
+                                    printf("Final: |%s|\n", pcre_rule);
+
                                     /* Compile/study and store the results */
 
                                     Rules[Counters->rules].re_pcre[pcre_count] = pcre_compile( pcre_rule, pcre_options, &pcre_error, &pcre_erroffset, NULL );
+
+                                    pcre_rule[0] = '\0';
+                                    pcre_switch = 0;
 
 #ifdef PCRE_HAVE_JIT
 
@@ -628,34 +632,34 @@ void Load_Ruleset( const char *ruleset )
 //                                    pcre_count++;
 //                                    Rules[Counters->rules].pcre_count=pcre_count;
 
-				    for ( k = 0; k < json_count; k++ )
-				    	{
+                                    for ( k = 0; k < json_count; k++ )
+                                        {
 
-					/* Search for key */
+                                            /* Search for key */
 
-					snprintf(tmpkey, MAX_JSON_KEY, ".pcre.%d.key", a);
-					tmpkey[ sizeof(tmpkey) - 1] = '\0';
+                                            snprintf(tmpkey, MAX_JSON_KEY, ".pcre.%d.key", a);
+                                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
 
-					if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
-						{
-						strlcpy(Rules[Counters->rules].pcre_key[pcre_count], JSON_Key_String[k].json, MAX_JSON_KEY);
-						printf("Got key: for %s == |%s|\n", tmpkey, Rules[Counters->rules].pcre_key[pcre_count]);
-						}
+                                            if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
+                                                {
+                                                    strlcpy(Rules[Counters->rules].pcre_key[pcre_count], JSON_Key_String[k].json, MAX_JSON_KEY);
+                                                    printf("Got key: for %s == |%s|\n", tmpkey, Rules[Counters->rules].pcre_key[pcre_count]);
+                                                }
 
-					printf("Search for |%s|\n", tmpkey);
+//					printf("Search for |%s|\n", tmpkey);
 
-					}
+                                        }
 
-					if ( Rules[Counters->rules].pcre_key[pcre_count][0] == '\0' )
-						{
+                                    if ( Rules[Counters->rules].pcre_key[pcre_count][0] == '\0' )
+                                        {
 
-						JAE_Log( ERROR, "[%s, line %d] There's no \".key\" specified for \"pre\" in signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
+                                            JAE_Log( ERROR, "[%s, line %d] There's no \".key\" specified for \"pre\" in signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
 
-						}
+                                        }
 
-					pcre_count++;
-					Rules[Counters->rules].pcre_count=pcre_count;
-					printf("count: %d\n", pcre_count);
+                                    pcre_count++;
+                                    Rules[Counters->rules].pcre_count=pcre_count;
+                                    printf("count: %d\n", pcre_count);
 
                                 }
 

@@ -104,8 +104,9 @@ am_jae_OBJECTS = jae-jae.$(OBJEXT) jae-credits.$(OBJEXT) \
 	jae-processor.$(OBJEXT) jae-util-strlcpy.$(OBJEXT) \
 	jae-util-strlcat.$(OBJEXT) jae-config-yaml.$(OBJEXT) \
 	jae-classifications.$(OBJEXT) jae-rules.$(OBJEXT) \
-	jae-output.$(OBJEXT) parsers/jae-json.$(OBJEXT) \
-	parsers/jae-search.$(OBJEXT) parsers/jae-pcre.$(OBJEXT) \
+	jae-output.$(OBJEXT) jae-json-output-builder.$(OBJEXT) \
+	parsers/jae-json.$(OBJEXT) parsers/jae-search.$(OBJEXT) \
+	parsers/jae-pcre.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr-hook.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr_sse2.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr_sse4_2.$(OBJEXT) \
@@ -315,6 +316,7 @@ jae_SOURCES = jae.c \
 						       classifications.c \
 						       rules.c \
 						       output.c \
+						       json-output-builder.c \
 					               parsers/json.c \
 						       parsers/search.c \
 						       parsers/pcre.c \
@@ -474,6 +476,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-credits.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-help.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-jae.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-json-output-builder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-lockfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-output.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-processor.Po@am__quote@
@@ -747,6 +750,20 @@ jae-output.obj: output.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='jae-output.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
+
+jae-json-output-builder.o: json-output-builder.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-json-output-builder.o -MD -MP -MF $(DEPDIR)/jae-json-output-builder.Tpo -c -o jae-json-output-builder.o `test -f 'json-output-builder.c' || echo '$(srcdir)/'`json-output-builder.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-json-output-builder.Tpo $(DEPDIR)/jae-json-output-builder.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='json-output-builder.c' object='jae-json-output-builder.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-json-output-builder.o `test -f 'json-output-builder.c' || echo '$(srcdir)/'`json-output-builder.c
+
+jae-json-output-builder.obj: json-output-builder.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-json-output-builder.obj -MD -MP -MF $(DEPDIR)/jae-json-output-builder.Tpo -c -o jae-json-output-builder.obj `if test -f 'json-output-builder.c'; then $(CYGPATH_W) 'json-output-builder.c'; else $(CYGPATH_W) '$(srcdir)/json-output-builder.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-json-output-builder.Tpo $(DEPDIR)/jae-json-output-builder.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='json-output-builder.c' object='jae-json-output-builder.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-json-output-builder.obj `if test -f 'json-output-builder.c'; then $(CYGPATH_W) 'json-output-builder.c'; else $(CYGPATH_W) '$(srcdir)/json-output-builder.c'; fi`
 
 parsers/jae-json.o: parsers/json.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT parsers/jae-json.o -MD -MP -MF parsers/$(DEPDIR)/jae-json.Tpo -c -o parsers/jae-json.o `test -f 'parsers/json.c' || echo '$(srcdir)/'`parsers/json.c
