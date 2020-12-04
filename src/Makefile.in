@@ -99,14 +99,15 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_jae_OBJECTS = jae-jae.$(OBJEXT) jae-credits.$(OBJEXT) \
-	jae-help.$(OBJEXT) jae-util.$(OBJEXT) jae-lockfile.$(OBJEXT) \
+	jae-help.$(OBJEXT) jae-util.$(OBJEXT) jae-util-time.$(OBJEXT) \
+	jae-util-hash.$(OBJEXT) jae-lockfile.$(OBJEXT) \
 	jae-signal-handler.$(OBJEXT) jae-batch.$(OBJEXT) \
 	jae-processor.$(OBJEXT) jae-util-strlcpy.$(OBJEXT) \
 	jae-util-strlcat.$(OBJEXT) jae-config-yaml.$(OBJEXT) \
 	jae-classifications.$(OBJEXT) jae-rules.$(OBJEXT) \
-	jae-output.$(OBJEXT) jae-json-output-builder.$(OBJEXT) \
-	parsers/jae-json.$(OBJEXT) parsers/jae-search.$(OBJEXT) \
-	parsers/jae-pcre.$(OBJEXT) \
+	jae-output.$(OBJEXT) jae-after.$(OBJEXT) \
+	jae-json-output-builder.$(OBJEXT) parsers/jae-json.$(OBJEXT) \
+	parsers/jae-search.$(OBJEXT) parsers/jae-pcre.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr-hook.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr_sse2.$(OBJEXT) \
 	parsers/strstr-asm/jae-strstr_sse4_2.$(OBJEXT) \
@@ -306,6 +307,8 @@ jae_SOURCES = jae.c \
 						       credits.c \
 						       help.c \
                                                        util.c \
+						       util-time.c \
+						       util-hash.c \
 						       lockfile.c \
 						       signal-handler.c \
 						       batch.c \
@@ -316,6 +319,7 @@ jae_SOURCES = jae.c \
 						       classifications.c \
 						       rules.c \
 						       output.c \
+						       after.c \
 						       json-output-builder.c \
 					               parsers/json.c \
 						       parsers/search.c \
@@ -470,6 +474,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-after.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-batch.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-classifications.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-config-yaml.Po@am__quote@
@@ -482,8 +487,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-processor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-rules.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-signal-handler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-hash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-strlcat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-strlcpy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util-time.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jae-util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@input-plugins/$(DEPDIR)/jae-named-pipe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@output-plugins/$(DEPDIR)/jae-file.Po@am__quote@
@@ -610,6 +617,34 @@ jae-util.obj: util.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util.c' object='jae-util.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util.obj `if test -f 'util.c'; then $(CYGPATH_W) 'util.c'; else $(CYGPATH_W) '$(srcdir)/util.c'; fi`
+
+jae-util-time.o: util-time.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-time.o -MD -MP -MF $(DEPDIR)/jae-util-time.Tpo -c -o jae-util-time.o `test -f 'util-time.c' || echo '$(srcdir)/'`util-time.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-time.Tpo $(DEPDIR)/jae-util-time.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-time.c' object='jae-util-time.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-time.o `test -f 'util-time.c' || echo '$(srcdir)/'`util-time.c
+
+jae-util-time.obj: util-time.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-time.obj -MD -MP -MF $(DEPDIR)/jae-util-time.Tpo -c -o jae-util-time.obj `if test -f 'util-time.c'; then $(CYGPATH_W) 'util-time.c'; else $(CYGPATH_W) '$(srcdir)/util-time.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-time.Tpo $(DEPDIR)/jae-util-time.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-time.c' object='jae-util-time.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-time.obj `if test -f 'util-time.c'; then $(CYGPATH_W) 'util-time.c'; else $(CYGPATH_W) '$(srcdir)/util-time.c'; fi`
+
+jae-util-hash.o: util-hash.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-hash.o -MD -MP -MF $(DEPDIR)/jae-util-hash.Tpo -c -o jae-util-hash.o `test -f 'util-hash.c' || echo '$(srcdir)/'`util-hash.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-hash.Tpo $(DEPDIR)/jae-util-hash.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-hash.c' object='jae-util-hash.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-hash.o `test -f 'util-hash.c' || echo '$(srcdir)/'`util-hash.c
+
+jae-util-hash.obj: util-hash.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-util-hash.obj -MD -MP -MF $(DEPDIR)/jae-util-hash.Tpo -c -o jae-util-hash.obj `if test -f 'util-hash.c'; then $(CYGPATH_W) 'util-hash.c'; else $(CYGPATH_W) '$(srcdir)/util-hash.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-util-hash.Tpo $(DEPDIR)/jae-util-hash.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='util-hash.c' object='jae-util-hash.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-util-hash.obj `if test -f 'util-hash.c'; then $(CYGPATH_W) 'util-hash.c'; else $(CYGPATH_W) '$(srcdir)/util-hash.c'; fi`
 
 jae-lockfile.o: lockfile.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-lockfile.o -MD -MP -MF $(DEPDIR)/jae-lockfile.Tpo -c -o jae-lockfile.o `test -f 'lockfile.c' || echo '$(srcdir)/'`lockfile.c
@@ -750,6 +785,20 @@ jae-output.obj: output.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='output.c' object='jae-output.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-output.obj `if test -f 'output.c'; then $(CYGPATH_W) 'output.c'; else $(CYGPATH_W) '$(srcdir)/output.c'; fi`
+
+jae-after.o: after.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-after.o -MD -MP -MF $(DEPDIR)/jae-after.Tpo -c -o jae-after.o `test -f 'after.c' || echo '$(srcdir)/'`after.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-after.Tpo $(DEPDIR)/jae-after.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='after.c' object='jae-after.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-after.o `test -f 'after.c' || echo '$(srcdir)/'`after.c
+
+jae-after.obj: after.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-after.obj -MD -MP -MF $(DEPDIR)/jae-after.Tpo -c -o jae-after.obj `if test -f 'after.c'; then $(CYGPATH_W) 'after.c'; else $(CYGPATH_W) '$(srcdir)/after.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/jae-after.Tpo $(DEPDIR)/jae-after.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='after.c' object='jae-after.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o jae-after.obj `if test -f 'after.c'; then $(CYGPATH_W) 'after.c'; else $(CYGPATH_W) '$(srcdir)/after.c'; fi`
 
 jae-json-output-builder.o: json-output-builder.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(jae_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT jae-json-output-builder.o -MD -MP -MF $(DEPDIR)/jae-json-output-builder.Tpo -c -o jae-json-output-builder.o `test -f 'json-output-builder.c' || echo '$(srcdir)/'`json-output-builder.c

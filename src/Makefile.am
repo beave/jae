@@ -10,6 +10,8 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 						       credits.c \
 						       help.c \
                                                        util.c \
+						       util-time.c \
+						       util-hash.c \
 						       lockfile.c \
 						       signal-handler.c \
 						       batch.c \
@@ -20,6 +22,7 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 						       classifications.c \
 						       rules.c \
 						       output.c \
+						       after.c \
 						       json-output-builder.c \
 					               parsers/json.c \
 						       parsers/search.c \

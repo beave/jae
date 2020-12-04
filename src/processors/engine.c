@@ -99,11 +99,23 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 		/* Add alert items to our array */
 
 		printf("** TRIGGER **\n");
-		
-		Output( JSON_Key_String, json_count, rule_position );
+
+		Match( JSON_Key_String, json_count, rule_position);
 
 		}
         }
 
 }
 
+
+void Match( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint32_t rule_position )
+{
+
+bool after = true; 
+
+after = After( JSON_Key_String, json_count, rule_position );
+
+Output( JSON_Key_String, json_count, rule_position );
+
+
+}

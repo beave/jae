@@ -26,6 +26,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <json.h>
+#include <sys/time.h>
+#include <time.h>
+
 
 #include "jae-defs.h"
 #include "jae-defs.h"
@@ -33,6 +36,7 @@
 #include "jae-config.h"
 
 #include "rules.h"
+#include "util-time.h"
 
 #include "parsers/json.h"
 
@@ -43,10 +47,14 @@ void Output_JSON_Builder ( struct _JSON_Key_String *JSON_Key_String, uint16_t js
 {
 
     struct json_object *jobj;
-    
-    jobj = json_object_new_object();
-    
     uint16_t i = 0;
+    struct timeval timestamp;
+    char receive_timestamp[64] = { 0 }; 
+
+    gettimeofday(&timestamp, 0);       /* Store event time as soon as we get it */
+    CreateIsoTimeString(&timestamp, receive_timestamp, sizeof(receive_timestamp));
+
+    jobj = json_object_new_object();
         
         for (i = 0; i < json_count; i++ )
             {   
@@ -57,6 +65,9 @@ void Output_JSON_Builder ( struct _JSON_Key_String *JSON_Key_String, uint16_t js
                         json_object_object_add(jobj, JSON_Key_String[i].key+1, j);
                         }
             }
+
+            json_object *jreceive_timestamp = json_object_new_string( receive_timestamp );
+            json_object_object_add(jobj, "jae.receive_timestamp", jreceive_timestamp);
 
             json_object *jsensor_name = json_object_new_string( Config->sensor_name );
             json_object_object_add(jobj, "jae.sensor_name", jsensor_name);

@@ -88,7 +88,7 @@ void Load_Ruleset( const char *ruleset )
     char tmp[MAX_SEARCH_STRING_SIZE] = { 0 };
 
     char *ptr1 = NULL;
-    uint8_t add_key_count = 0;
+    uint8_t count = 0;
 
 
 
@@ -665,7 +665,7 @@ void Load_Ruleset( const char *ruleset )
 
 		/* "add_key" */
 
-            add_key_count = 0;
+            count = 0;
 
             for ( i = 0; i < json_count; i++ )
                 {   
@@ -681,20 +681,31 @@ void Load_Ruleset( const char *ruleset )
 				JAE_Log( ERROR, "[%s, line %d] 'add_key' appears to be invalid at signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
 				}
 
-			strlcpy(Rules[Counters->rules].add_key_key[add_key_count], ptr1, MAX_ADD_KEY_SIZE);
+			strlcpy(Rules[Counters->rules].add_key_key[count], ptr1, MAX_ADD_KEY_SIZE);
 
 			/* Convert variable */
 
 			Var_To_Value( JSON_Key_String[i].json, var_to_value, sizeof(var_to_value));
-			strlcpy(Rules[Counters->rules].add_key_value[add_key_count], var_to_value, MAX_ADD_KEY_VALUE_SIZE);
+			strlcpy(Rules[Counters->rules].add_key_value[count], var_to_value, MAX_ADD_KEY_VALUE_SIZE);
 
-			add_key_count++;
+			count++;
 
-			Rules[Counters->rules].add_key_count = add_key_count;
+			Rules[Counters->rules].add_key_count = count;
 
 			}
 
 		}
+
+		/* After */
+
+	     	count = 0; 
+
+                for ( i = 0; i < json_count; i++ )
+                   {    
+
+
+		   }
+
 
             __atomic_add_fetch(&Counters->rules, 1, __ATOMIC_SEQ_CST);
 
