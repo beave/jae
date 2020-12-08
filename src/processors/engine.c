@@ -112,6 +112,19 @@ void Match( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint3
 {
 
 bool after = true; 
+uint16_t i = 0; 
+
+if (  Rules[rule_position].parse_ip_count > 0 ) 
+	{
+	json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
+	}
+
+/*
+	for ( i = 0; i < json_count; i++ )
+		{
+		printf("Key: |%s|, JSON: |%s|\n", JSON_Key_String[i].key, JSON_Key_String[i].json);
+		}
+*/
 
 after = After( JSON_Key_String, json_count, rule_position );
 

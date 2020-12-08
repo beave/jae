@@ -51,6 +51,5 @@
 #define		YAML_SUBTYPE_OUTPUT_FILE	1
 
 
-
 void Load_YAML_Config( const char * );
 

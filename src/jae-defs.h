@@ -34,7 +34,6 @@
 #define		MAX_JSON_SIZE			1048576
 #define 	MAX_BATCH			100
 
-
 #define		THREAD_NAME_LEN			16
 
 #define		MAX_PATH			255
@@ -47,6 +46,8 @@
 
 #define		MAX_HAYSTACK			32786
 #define		MAX_NEEDLE			512
+
+#define		MAX_IP_ADDRESS_SIZE		64
 
 /***************************************************************************
  * For JAE_Log()

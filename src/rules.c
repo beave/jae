@@ -51,10 +51,7 @@ struct _Counters *Counters;
 struct _Debug *Debug;
 struct _Config *Config;
 
-
 struct _Rules *Rules = NULL;
-
-
 
 void Load_Ruleset( const char *ruleset )
 {
@@ -73,7 +70,6 @@ void Load_Ruleset( const char *ruleset )
     const char *pcre_error;
     int pcre_erroffset;
 
-
     uint16_t search_string_count = 0;
     uint8_t ret = 0;
 
@@ -89,8 +85,7 @@ void Load_Ruleset( const char *ruleset )
 
     char *ptr1 = NULL;
     uint8_t count = 0;
-
-
+    bool flag = false;
 
     FILE *rulesfile;
 
@@ -158,8 +153,19 @@ void Load_Ruleset( const char *ruleset )
                     JAE_Log(ERROR, "[%s, line %d] Failed to parse rule in %s at line %d", __FILE__, __LINE__, ruleset, line_count);
                 }
 
+
+
+            /* Store a copy of the rule for reference when triggering */
+
+            unsigned long b64_len = strlen(rulebuf) * 2;
+            uint8_t b64_target[b64_len];
+
+            Base64Encode( (const unsigned char*)rulebuf, strlen(rulebuf), b64_target, &b64_len);
+
+            strlcpy(Rules[Counters->rules].b64_signature_triggered, (const char *)b64_target, sizeof(Rules[Counters->rules].b64_signature_triggered));
+
             /****************************************************************
-                 * Non-nested one off items ( .signature_id, .reference, etc
+             * Non-nested one off items ( .signature_id, .reference, etc
              ****************************************************************/
 
             for ( i = 0; i < json_count; i++ )
@@ -251,7 +257,7 @@ void Load_Ruleset( const char *ruleset )
             * Get all 'search'/'exclude' optinos
             ****************************************************************/
 
-            bool flag = 0;
+//            bool flag = 0;
 
             char *s_e = "search";
             bool not = false;
@@ -359,7 +365,6 @@ void Load_Ruleset( const char *ruleset )
 
                                             for ( k = 0; k < json_count; k++ )
                                                 {
-
                                                     /* Search for key */
 
                                                     snprintf(tmpkey, MAX_JSON_KEY, ".%s.%d.key", s_e, a);
@@ -559,10 +564,6 @@ void Load_Ruleset( const char *ruleset )
                                                             break;
                                                         }
 
-                                                    //printf("F: |%s|\n", pcre_rule);
-                                                    printf("flag: %c\n", JSON_Key_String[i].json[k+1]);
-
-
                                                 }
 
 
@@ -580,9 +581,6 @@ void Load_Ruleset( const char *ruleset )
                                     /* Clip last / from pcre string */
 
                                     pcre_rule[ strlen(pcre_rule) - 1 ] = '\0';
-
-
-                                    printf("Final: |%s|\n", pcre_rule);
 
                                     /* Compile/study and store the results */
 
@@ -641,7 +639,6 @@ void Load_Ruleset( const char *ruleset )
                                             if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
                                                 {
                                                     strlcpy(Rules[Counters->rules].pcre_key[pcre_count], JSON_Key_String[k].json, MAX_JSON_KEY);
-                                                    printf("Got key: for %s == |%s|\n", tmpkey, Rules[Counters->rules].pcre_key[pcre_count]);
                                                 }
 
 
@@ -663,48 +660,116 @@ void Load_Ruleset( const char *ruleset )
 
                 }  /* for ( i = 0; i < json_count; (PCRE) */
 
-		/* "add_key" */
+            /* "add_key" */
 
             count = 0;
 
             for ( i = 0; i < json_count; i++ )
-                {   
+                {
 
 
-		      if (JAE_strstr(JSON_Key_String[i].key, ".add_key."))
-		      	{
+                    if (JAE_strstr(JSON_Key_String[i].key, ".add_key."))
+                        {
 
-			(void)strtok_r(JSON_Key_String[i].key, ".", &ptr1);
+                            (void)strtok_r(JSON_Key_String[i].key, ".", &ptr1);
 
-			if ( ptr1 == NULL ) 
-				{
-				JAE_Log( ERROR, "[%s, line %d] 'add_key' appears to be invalid at signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
-				}
+                            if ( ptr1 == NULL )
+                                {
+                                    JAE_Log( ERROR, "[%s, line %d] 'add_key' appears to be invalid at signature id %" PRIu64 ".", __FILE__, __LINE__, Rules[check].signature_id );
+                                }
 
-			strlcpy(Rules[Counters->rules].add_key_key[count], ptr1, MAX_ADD_KEY_SIZE);
+                            strlcpy(Rules[Counters->rules].add_key_key[count], ptr1, MAX_ADD_KEY_SIZE);
 
-			/* Convert variable */
+                            /* Convert variable */
 
-			Var_To_Value( JSON_Key_String[i].json, var_to_value, sizeof(var_to_value));
-			strlcpy(Rules[Counters->rules].add_key_value[count], var_to_value, MAX_ADD_KEY_VALUE_SIZE);
+                            Var_To_Value( JSON_Key_String[i].json, var_to_value, sizeof(var_to_value));
+                            strlcpy(Rules[Counters->rules].add_key_value[count], var_to_value, MAX_ADD_KEY_VALUE_SIZE);
 
-			count++;
+                            count++;
 
-			Rules[Counters->rules].add_key_count = count;
+                            Rules[Counters->rules].add_key_count = count;
 
-			}
+                        }
 
-		}
+                }
 
-		/* After */
+            /* Parse_IP */
 
-	     	count = 0; 
+            count = 0;
+            flag = false;
 
-                for ( i = 0; i < json_count; i++ )
-                   {    
+            for ( i = 0; i < json_count; i++ )
+                {
+
+                    for ( a = 0; a < MAX_PARSE_IP; a++ )
+                        {
+                            flag = false;
+
+                            snprintf(tmpkey, MAX_JSON_KEY, ".parse_ip.%d.key", a);
+                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                            if ( !strcmp( JSON_Key_String[i].key, tmpkey ) )
+                                {
+                                    strlcpy(Rules[Counters->rules].parse_ip_key[count], JSON_Key_String[i].json, MAX_PARSE_IP_KEY_SIZE);
+                                    flag = true;
+                                }
 
 
-		   }
+                            if ( flag == true )
+                                {
+
+                                    /****************************/
+                                    /* Search for sub key vales */
+                                    /****************************/
+
+                                    for ( k = 0; k < json_count; k++ )
+                                        {
+
+                                            snprintf(tmpkey, MAX_JSON_KEY, ".parse_ip.%d.store", a);
+                                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                                            if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
+                                                {
+                                                    strlcpy(Rules[Counters->rules].parse_ip_store[count], JSON_Key_String[k].json, MAX_PARSE_IP_KEY_SIZE);
+                                                }
+
+                                            snprintf(tmpkey, MAX_JSON_KEY, ".parse_ip.%d.position", a);
+                                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                                            if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
+                                                {
+                                                    Rules[Counters->rules].parse_ip_position[count] = atoi(JSON_Key_String[k].json);
+                                                }
+                                        }
+
+                                    /* Sanity check here? */
+
+                                    if ( Rules[Counters->rules].parse_ip_position[count] == 0 )
+                                        {
+                                            JAE_Log(ERROR, "[%s, line %d] 'parse_ip' has an invalid 'position' in %s at line %d.", __FILE__, __LINE__, ruleset, line_count);
+                                        }
+
+                                    if ( Rules[Counters->rules].parse_ip_store[count][0] == '\0'  )
+                                        {
+                                            JAE_Log(ERROR, "[%s, line %d] 'parse_ip' has an invalid 'storen' option  in %s at line %d.", __FILE__, __LINE__, ruleset, line_count);
+                                        }
+
+                                    count++;
+                                    Rules[Counters->rules].parse_ip_count = count;
+
+                                }
+                        }
+                }
+
+            /* After */
+
+            count = 0;
+
+            for ( i = 0; i < json_count; i++ )
+                {
+
+
+                }
 
 
             __atomic_add_fetch(&Counters->rules, 1, __ATOMIC_SEQ_CST);

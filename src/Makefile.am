@@ -12,6 +12,7 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
                                                        util.c \
 						       util-time.c \
 						       util-hash.c \
+						       util-base64.c \
 						       lockfile.c \
 						       signal-handler.c \
 						       batch.c \
@@ -27,6 +28,7 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 					               parsers/json.c \
 						       parsers/search.c \
 						       parsers/pcre.c \
+						       parsers/ip.c \
                                                        parsers/strstr-asm/strstr-hook.c \
                                                        parsers/strstr-asm/strstr_sse2.S \
                                                        parsers/strstr-asm/strstr_sse4_2.S \

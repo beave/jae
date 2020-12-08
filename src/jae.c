@@ -217,6 +217,12 @@ int main(int argc, char **argv)
                             Debug->rules = true;
                         }
 
+                    if (JAE_strstr(optarg, "parse_ip"))
+                        {
+                            Debug->parse_ip = true;
+                        }
+
+
                     break;
 
 

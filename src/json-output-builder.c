@@ -49,78 +49,81 @@ void Output_JSON_Builder ( struct _JSON_Key_String *JSON_Key_String, uint16_t js
     struct json_object *jobj;
     uint16_t i = 0;
     struct timeval timestamp;
-    char receive_timestamp[64] = { 0 }; 
+    char receive_timestamp[64] = { 0 };
 
     gettimeofday(&timestamp, 0);       /* Store event time as soon as we get it */
     CreateIsoTimeString(&timestamp, receive_timestamp, sizeof(receive_timestamp));
 
     jobj = json_object_new_object();
-        
-        for (i = 0; i < json_count; i++ )
-            {   
-                
-                if ( JSON_Key_String[i].json[0] != '{' ) //&& JSON_Key_String[i].key[0] == '\0' )
-                        {
-                        json_object *j = json_object_new_string( JSON_Key_String[i].json );
-                        json_object_object_add(jobj, JSON_Key_String[i].key+1, j);
-                        }
-            }
 
-            json_object *jreceive_timestamp = json_object_new_string( receive_timestamp );
-            json_object_object_add(jobj, "jae.receive_timestamp", jreceive_timestamp);
+    for (i = 0; i < json_count; i++ )
+        {
 
-            json_object *jsensor_name = json_object_new_string( Config->sensor_name );
-            json_object_object_add(jobj, "jae.sensor_name", jsensor_name);
+            if ( JSON_Key_String[i].json[0] != '{' ) //&& JSON_Key_String[i].key[0] == '\0' )
+                {
+                    json_object *j = json_object_new_string( JSON_Key_String[i].json );
+                    json_object_object_add(jobj, JSON_Key_String[i].key+1, j);
+                }
+        }
 
-            json_object *jcluster_name = json_object_new_string( Config->cluster_name );
-            json_object_object_add(jobj, "jae.cluster_name", jcluster_name);
+    json_object *jreceive_timestamp = json_object_new_string( receive_timestamp );
+    json_object_object_add(jobj, "jae.receive_timestamp", jreceive_timestamp);
 
-            json_object *jsignature_id = json_object_new_int64( Rules[rule_position].signature_id );
-            json_object_object_add(jobj, "jae.signature_id", jsignature_id);
+    json_object *jsensor_name = json_object_new_string( Config->sensor_name );
+    json_object_object_add(jobj, "jae.sensor_name", jsensor_name);
 
-            json_object *jrevision = json_object_new_int( Rules[rule_position].revision );
-            json_object_object_add(jobj, "jae.revision", jrevision);
+    json_object *jcluster_name = json_object_new_string( Config->cluster_name );
+    json_object_object_add(jobj, "jae.cluster_name", jcluster_name);
 
-            json_object *jdescription = json_object_new_string( Rules[rule_position].description );
-            json_object_object_add(jobj, "jae.description", jdescription);
+    json_object *jsignature_id = json_object_new_int64( Rules[rule_position].signature_id );
+    json_object_object_add(jobj, "jae.signature_id", jsignature_id);
 
-            json_object *jclassification = json_object_new_string( Rules[rule_position].classification );
-            json_object_object_add(jobj, "jae.classification", jclassification);
+    json_object *jrevision = json_object_new_int( Rules[rule_position].revision );
+    json_object_object_add(jobj, "jae.revision", jrevision);
 
-            json_object *jclassification_desc = json_object_new_string( Rules[rule_position].classification_desc );
-            json_object_object_add(jobj, "jae.classification_desc", jclassification_desc);
+    json_object *jdescription = json_object_new_string( Rules[rule_position].description );
+    json_object_object_add(jobj, "jae.description", jdescription);
 
-	    if ( Rules[rule_position].add_key_count > 0 ) 
-	    	{
+    json_object *jclassification = json_object_new_string( Rules[rule_position].classification );
+    json_object_object_add(jobj, "jae.classification", jclassification);
 
-		char add_key_key_tmp[MAX_ADD_KEY_SIZE] = { 0 };
-		char add_key_value_tmp[MAX_ADD_KEY_VALUE_SIZE] = { 0 }; 
+    json_object *jclassification_desc = json_object_new_string( Rules[rule_position].classification_desc );
+    json_object_object_add(jobj, "jae.classification_desc", jclassification_desc);
 
-		for ( i = 0; i < Rules[rule_position].add_key_count; i++ )
-			{
+    json_object *jsignature = json_object_new_string( Rules[rule_position].b64_signature_triggered );
+    json_object_object_add(jobj, "jae.signature", jsignature);
 
-			/* Assign key to our nest */
+    if ( Rules[rule_position].add_key_count > 0 )
+        {
 
-			snprintf(add_key_key_tmp, MAX_ADD_KEY_SIZE, "jae.%s", Rules[rule_position].add_key_key[i]);
+            char add_key_key_tmp[MAX_ADD_KEY_SIZE] = { 0 };
+            char add_key_value_tmp[MAX_ADD_KEY_VALUE_SIZE] = { 0 };
 
-                        json_object *j = json_object_new_string( Rules[rule_position].add_key_value[i] );
-                        json_object_object_add(jobj, add_key_key_tmp, j);
+            for ( i = 0; i < Rules[rule_position].add_key_count; i++ )
+                {
 
-			}
+                    /* Assign key to our nest */
 
+                    snprintf(add_key_key_tmp, MAX_ADD_KEY_SIZE, "jae.%s", Rules[rule_position].add_key_key[i]);
 
+                    json_object *j = json_object_new_string( Rules[rule_position].add_key_value[i] );
+                    json_object_object_add(jobj, add_key_key_tmp, j);
 
-		}
-
+                }
 
 
 
+        }
 
 
 
-	    snprintf( str, size, "%s", json_object_to_json_string(jobj) );
 
-json_object_put(jobj);
+
+
+
+    snprintf( str, size, "%s", json_object_to_json_string(jobj) );
+
+    json_object_put(jobj);
 
 }
 

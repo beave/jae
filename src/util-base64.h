@@ -18,32 +18,5 @@
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
-/* util-hash.c
- */
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"             /* From autoconf */
-#endif
-
-#include <stdio.h>
-#include <stdint.h>
-
-
-
-/***************************************************************************
- * Djd2_Hash - creates a hash based off a string.  This code is from Dan
- * Bernstein.  See http://www.cse.yorku.ca/~oz/hash.html.
- ***************************************************************************/
-
-uint32_t Djb2_Hash( const char *str )
-{
-
-    uint32_t hash = 5381;
-    int32_t c;
-
-    while ( (c = *str++ ) )
-        hash = ((hash << 5) + hash) + c;
-
-    return(hash);
-}
+int Base64Encode(const unsigned char *,  unsigned long, unsigned char *, unsigned long *);
 

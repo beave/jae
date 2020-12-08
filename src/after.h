@@ -5,18 +5,18 @@ typedef struct _After _After;
 struct _After
 {
 
-uint32_t hash;
+    uint32_t hash;
 
-char key[MAX_JSON_KEY];
-char json[MAX_JSON_VALUE];
+    char key[MAX_JSON_KEY];
+    char json[MAX_JSON_VALUE];
 
-uint64_t timestamp;
-uint16_t expire;
+    uint64_t timestamp;
+    uint16_t expire;
 
-uint64_t signature_id;
-char signature_desc[MAX_JSON_VALUE];
+    uint64_t signature_id;
+    char signature_desc[MAX_JSON_VALUE];
 
-uint32_t revision;
+    uint32_t revision;
 
 
 };

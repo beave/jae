@@ -28,6 +28,8 @@
 
 #include "jae-defs.h"
 
+#define 	MAX_IP_SIZE			64
+
 //#define         VALID_RULE_OPTIONS "signature_id"
 
 #define         MAX_RULE_SIZE                   4096	/* Largest size a signature can be */
@@ -35,7 +37,6 @@
 #define		MAX_RULE_CLASSIFICATION		32	/* Max short "classification" size */
 #define         MAX_RULE_CLASSIFICATION_DESC    96	/* Max long "classification size */
 #define		MAX_RULE_REFERENCE		2048	/* Make URL length for a reference */
-
 
 /* "search" and "exclude" definitions */
 
@@ -53,9 +54,15 @@
 
 /* "add_key" definitions */
 
-#define		MAX_ADD_KEY			10
-#define		MAX_ADD_KEY_SIZE		32
-#define		MAX_ADD_KEY_VALUE_SIZE		1024
+#define		MAX_ADD_KEY			20
+#define		MAX_ADD_KEY_SIZE		MAX_JSON_KEY		/* This should be JSON_MAX_KEY */
+#define		MAX_ADD_KEY_VALUE_SIZE		MAX_JSON_VALUE		/* Same ^^^^ */
+
+/* "parse_ip" definitions */
+
+#define		MAX_PARSE_IP			5
+#define		MAX_PARSE_IP_KEY_SIZE		MAX_JSON_KEY
+#define		MAX_PARSE_IP_VALUE_SIZE		MAX_JSON_VALUE
 
 
 typedef struct _Rules _Rules;
@@ -69,6 +76,8 @@ struct _Rules
     char classification_desc[MAX_RULE_CLASSIFICATION_DESC];
     char normalize[MAX_JSON_KEY];
     char reference[MAX_RULE_REFERENCE];
+
+    char b64_signature_triggered[10240];
 
     /* "search" and "exclude" specific options */
 
@@ -87,7 +96,6 @@ struct _Rules
     uint8_t search_string_count;			/* Number of "search" requests. "search":
     							   { "0": { ... }, "1": { ... }} would be 2. */
 
-
     /* "pcre" (regular expression) options */
 
     uint8_t pcre_count;
@@ -101,6 +109,12 @@ struct _Rules
     char add_key_key[MAX_ADD_KEY][MAX_ADD_KEY_SIZE];
     char add_key_value[MAX_ADD_KEY][MAX_ADD_KEY_VALUE_SIZE];
 
+    /* "parse_ip */
+
+    uint8_t parse_ip_count;
+    char parse_ip_key[MAX_PARSE_IP][MAX_PARSE_IP_KEY_SIZE];
+    char parse_ip_store[MAX_PARSE_IP][MAX_PARSE_IP_VALUE_SIZE];
+    uint8_t parse_ip_position[MAX_PARSE_IP];
 
 };
 
