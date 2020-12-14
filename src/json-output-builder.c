@@ -104,7 +104,7 @@ void Output_JSON_Builder ( struct _JSON_Key_String *JSON_Key_String, uint16_t js
 
                     /* Assign key to our nest */
 
-                    snprintf(add_key_key_tmp, MAX_ADD_KEY_SIZE, "jae.%s", Rules[rule_position].add_key_key[i]);
+                    snprintf(add_key_key_tmp, MAX_ADD_KEY_SIZE, "%s", Rules[rule_position].add_key_key[i]);
 
                     json_object *j = json_object_new_string( Rules[rule_position].add_key_value[i] );
                     json_object_object_add(jobj, add_key_key_tmp, j);

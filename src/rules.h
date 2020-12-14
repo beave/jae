@@ -29,6 +29,7 @@
 #include "jae-defs.h"
 
 #define 	MAX_IP_SIZE			64
+#define		MAX_B64_SIG_SIZE		10240
 
 //#define         VALID_RULE_OPTIONS "signature_id"
 
@@ -64,6 +65,16 @@
 #define		MAX_PARSE_IP_KEY_SIZE		MAX_JSON_KEY
 #define		MAX_PARSE_IP_VALUE_SIZE		MAX_JSON_VALUE
 
+/* "normalize" definitions */
+
+#define		MAX_NORMALIZE			5
+#define		MAX_NORMALIZE_KEY_SIZE		MAX_JSON_KEY
+
+/* "bluedot" definitions */
+
+#define		MAX_BLUEDOT			5
+#define		MAX_BLUEDOT_KEY_SIZE		MAX_JSON_KEY
+
 
 typedef struct _Rules _Rules;
 struct _Rules
@@ -74,10 +85,9 @@ struct _Rules
     char description[MAX_RULE_DESCRIPTION];
     char classification[MAX_RULE_CLASSIFICATION];
     char classification_desc[MAX_RULE_CLASSIFICATION_DESC];
-    char normalize[MAX_JSON_KEY];
     char reference[MAX_RULE_REFERENCE];
 
-    char b64_signature_triggered[10240];
+    char b64_signature_triggered[MAX_B64_SIG_SIZE];
 
     /* "search" and "exclude" specific options */
 
@@ -115,6 +125,21 @@ struct _Rules
     char parse_ip_key[MAX_PARSE_IP][MAX_PARSE_IP_KEY_SIZE];
     char parse_ip_store[MAX_PARSE_IP][MAX_PARSE_IP_VALUE_SIZE];
     uint8_t parse_ip_position[MAX_PARSE_IP];
+
+    /* normalize */
+
+    uint8_t normalize_count;
+    char normalize_key[MAX_NORMALIZE][MAX_NORMALIZE_KEY_SIZE];
+
+    /* bluedot */
+
+    uint8_t bluedot_count;
+    char bluedot_key[MAX_BLUEDOT][MAX_BLUEDOT_KEY_SIZE];
+    uint8_t bluedot_type[MAX_BLUEDOT];
+    bool bluedot_alert[MAX_BLUEDOT];
+    uint8_t bluedot_match_count; 
+
+
 
 };
 

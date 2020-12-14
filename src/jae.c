@@ -65,7 +65,9 @@ for "champtest" will get a hit.  But "this is a champtest" still won't
 #include "classifications.h"
 #include "config-yaml.h"
 
+
 #include "parsers/json.h"
+#include "parsers/normalize.h"
 #include "parsers/strstr-asm/strstr-hook.h"
 
 #include "input-plugins/named-pipe.h"
@@ -341,8 +343,10 @@ int main(int argc, char **argv)
 
 
     Load_YAML_Config( Config->config_yaml );
+    Load_Normalize();
 
     CheckLockFile();
+
 
     /* Init _Output_ */
 
@@ -413,6 +417,7 @@ int main(int argc, char **argv)
 
     Droppriv();
 
+    //Load_Normalize();
     Init_Output();
 
     while( Global_Death == false)

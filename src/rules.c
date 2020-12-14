@@ -47,6 +47,8 @@
 
 #include "parsers/json.h"
 
+#include "processors/bluedot.h"
+
 struct _Counters *Counters;
 struct _Debug *Debug;
 struct _Config *Config;
@@ -222,11 +224,6 @@ void Load_Ruleset( const char *ruleset )
                                 }
 
 
-                        }
-
-                    else if ( !strcmp( JSON_Key_String[i].key, ".normalize" ) )
-                        {
-                            strlcpy( Rules[Counters->rules].normalize, JSON_Key_String[i].json, MAX_JSON_KEY);
                         }
 
                     else if ( !strcmp( JSON_Key_String[i].key, ".reference" ) )
@@ -442,7 +439,6 @@ void Load_Ruleset( const char *ruleset )
                                 }
                         }
                 }
-
 
             /* Sanity Check! */
 
@@ -760,6 +756,112 @@ void Load_Ruleset( const char *ruleset )
                                 }
                         }
                 }
+
+            /* normalize */
+
+            count = 0;
+
+            for ( i = 0; i < json_count; i++ )
+                {
+
+                    for ( a = 0; a < MAX_NORMALIZE; a++ )
+                        {
+
+                            snprintf(tmpkey, MAX_JSON_KEY, ".normalize.%d.key", a);
+                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                            if ( !strcmp( JSON_Key_String[i].key, tmpkey ) )
+                                {
+                                    strlcpy(Rules[Counters->rules].normalize_key[count], JSON_Key_String[i].json, MAX_PARSE_IP_KEY_SIZE);
+                                    count++;
+
+                                }
+                        }
+
+                    Rules[Counters->rules].normalize_count = count;
+                }
+
+            /* bluedot */
+
+            count = 0;
+            flag = false;
+
+            for ( i = 0; i < json_count; i++ )
+                {
+
+                    for ( a = 0; a < MAX_PARSE_IP; a++ )
+                        {
+                            flag = false;
+
+                            snprintf(tmpkey, MAX_JSON_KEY, ".bluedot.%d.key", a);
+                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                            if ( !strcmp( JSON_Key_String[i].key, tmpkey ) )
+                                {
+                                    strlcpy(Rules[Counters->rules].bluedot_key[count], JSON_Key_String[i].json, MAX_BLUEDOT_KEY_SIZE);
+                                    flag = true;
+                                }
+
+
+                            if ( flag == true )
+                                {
+
+                                    /****************************/
+                                    /* Search for sub key vales */
+                                    /****************************/
+
+                                    for ( k = 0; k < json_count; k++ )
+                                        {
+                                            snprintf(tmpkey, MAX_JSON_KEY, ".bluedot.%d.type", a);
+                                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                                            if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
+                                                {
+
+                                                    if ( !strcmp(JSON_Key_String[k].json, "ip" ) )
+                                                        {
+                                                            Rules[Counters->rules].bluedot_type[count] = BLUEDOT_TYPE_IP;
+                                                        }
+
+                                                    else if ( !strcmp(JSON_Key_String[k].json, "hash" ) )
+                                                        {
+                                                            Rules[Counters->rules].bluedot_type[count] = BLUEDOT_TYPE_HASH;
+                                                        }
+
+                                                }
+
+                                            snprintf(tmpkey, MAX_JSON_KEY, ".bluedot.%d.alert", a);
+                                            tmpkey[ sizeof(tmpkey) - 1] = '\0';
+
+                                            if ( !strcmp( JSON_Key_String[k].key, tmpkey ) )
+                                                {
+
+
+                                                    if ( !strcmp(JSON_Key_String[k].json, "true" ) )
+                                                        {
+                                                            Rules[Counters->rules].bluedot_alert[count] = BLUEDOT_ALERT_ALERT;
+							    __atomic_add_fetch(&Rules[Counters->rules].bluedot_match_count, 1, __ATOMIC_SEQ_CST);
+                                                        }
+
+                                                    else if ( !strcmp(JSON_Key_String[k].json, "report" ) )
+                                                        {
+                                                            Rules[Counters->rules].bluedot_alert[count] = BLUEDOT_ALERT_REPORT;
+                                                        }
+                                                }
+                                        }
+
+                                    /* Sanity check */
+
+                                    count++;
+                                    Rules[Counters->rules].bluedot_count = count;
+
+                                }
+
+                        }
+
+                }
+
+
 
             /* After */
 

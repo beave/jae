@@ -57,6 +57,7 @@ struct _Config
     unsigned char	batch_size;
     char	        classifications_file[MAX_PATH];
     char		reference_file[MAX_PATH];
+    char		normalize_file[MAX_PATH];
     char		lock_file[MAX_PATH];
     char		lock_file_path[MAX_PATH];
 

@@ -448,6 +448,13 @@ void Load_YAML_Config( const char *yaml_file )
                                     Remove_Return(Config->reference_file);
                                 }
 
+                            else if ( !strcmp(last_pass, "normalize" ) )
+                                {
+                                    strlcpy(Config->normalize_file, var_to_value, sizeof(Config->normalize_file));
+                                    Remove_Return(Config->normalize_file);
+                                }
+
+
                             else if ( !strcmp(last_pass, "lockfile" ) )
                                 {
                                     strlcpy(Config->lock_file, var_to_value, sizeof(Config->lock_file));

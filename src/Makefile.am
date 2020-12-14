@@ -13,12 +13,12 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 						       util-time.c \
 						       util-hash.c \
 						       util-base64.c \
+						       util-strlcpy.c \
+						       util-strlcat.c \
 						       lockfile.c \
 						       signal-handler.c \
 						       batch.c \
 						       processor.c \
-                                                       util-strlcpy.c \
-                                                       util-strlcat.c \
                                                        config-yaml.c \
 						       classifications.c \
 						       rules.c \
@@ -29,12 +29,14 @@ AUTOMAKE_OPIONS=foreign no-dependencies subdir-objects
 						       parsers/search.c \
 						       parsers/pcre.c \
 						       parsers/ip.c \
+						       parsers/normalize.c \
                                                        parsers/strstr-asm/strstr-hook.c \
                                                        parsers/strstr-asm/strstr_sse2.S \
                                                        parsers/strstr-asm/strstr_sse4_2.S \
 						       input-plugins/named-pipe.c \
 						       output-plugins/file.c \
-						       processors/engine.c
+						       processors/engine.c \
+						       processors/bluedot.c
 
                                                        install-data-local:
 
