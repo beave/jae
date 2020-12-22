@@ -498,6 +498,15 @@ void Load_YAML_Config( const char *yaml_file )
 
                         }
 
+                    else if ( type == YAML_TYPE_PROCESSORS )
+                        {
+
+                            if ( !strcmp(value, "bluedot" ) )
+                                {
+                                    sub_type = YAML_SUBTYPE_BLUEDOT;
+                                }
+                        }
+
                     /* Types with sub-types */
 
                     else if ( type == YAML_TYPE_INPUT )
@@ -619,6 +628,21 @@ void Load_YAML_Config( const char *yaml_file )
 
                         }
 
+                    /* Sub processor type ! - Bluedot */
+
+                    if ( sub_type == YAML_SUBTYPE_BLUEDOT && type == YAML_TYPE_PROCESSORS )
+                        {
+
+                            if ( !strcmp(last_pass, "enabled" ))
+                                {
+                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                        {
+                                            Config->processor_bluedot_flag = true;
+                                        }
+                                }
+
+                        }
+
 
                     else if ( type == YAML_TYPE_RULES )
                         {
@@ -698,6 +722,20 @@ void Load_YAML_Config( const char *yaml_file )
                             toggle = 0;
 
                         }
+
+                    else if ( !strcmp(value, "processors" ))
+                        {
+
+                            if ( Debug->config )
+                                {
+                                    JAE_Log(DEBUG, "[%s, line %d] CONFIG: **** Found \"processors\" ****", __FILE__, __LINE__);
+                                }
+
+                            type = YAML_TYPE_PROCESSORS;
+                            toggle = 0;
+
+                        }
+
 
                 } /* End of "while */
 

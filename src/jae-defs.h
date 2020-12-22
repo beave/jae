@@ -48,6 +48,7 @@
 #define		MAX_NEEDLE			512
 
 #define		MAX_IP_ADDRESS_SIZE		64
+#define		MAX_IP_BIT_SIZE			16
 
 /***************************************************************************
  * For JAE_Log()

@@ -29,17 +29,59 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "jae.h"
+#include "jae-defs.h"
+#include "rules.h"
+#include "debug.h"
+
+#include "processors/bluedot.h"
+
+struct _Rules *Rules;
+struct _Debug *Debug;
+
+
 
 bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
 {
 
-/* If we have "NOT_FOUND", we can skip this */
+    unsigned char ip_convert[MAX_IP_BIT_SIZE] = { 0 };
 
-if ( json[0] == 'N' )
-	{
-	return(false);
-	}
+    /* If we have "NOT_FOUND", we can skip this */
 
-printf("In BLUEDOT: %s\n", json);
+    if ( json[0] == 'N' )
+        {
+            return(false);
+        }
+
+    /* Check IP TTL for Bluedot */
+
+    if ( Rules[rule_position].bluedot_type[s_position] == BLUEDOT_TYPE_IP )
+        {
+
+            IP_2_Bit(json, ip_convert);
+
+            if ( Is_Not_Routable(ip_convert) || !strcmp(json, "0.0.0.0" ) )
+                {
+
+                    if ( Debug->bluedot )
+                        {
+                            JAE_Log(DEBUG, "[%s, line %d] %s is RFC1918, link local or invalid.", __FILE__, __LINE__, json);
+                        }
+
+                    return(false);
+                }
+
+            /* Is it in skiplist? */
+
+            printf("Would lookup %s\n", json);
+        }
+
+    /* Do cache lookup */
+
+    /* Add IP to "queue" */
+
+
+
+//printf("In BLUEDOT: %s\n", json);
 
 }

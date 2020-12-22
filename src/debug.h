@@ -25,4 +25,7 @@ struct _Debug
     bool config;
     bool rules;
     bool parse_ip;
+
+    bool bluedot;
+
 };

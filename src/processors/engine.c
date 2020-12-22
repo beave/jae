@@ -61,12 +61,14 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
     for ( rule_position = 0; rule_position < Counters->rules; rule_position++ )
         {
 
-	/* Parse data that needs to be parsed _before_ rule check */
+            /* Parse data that needs to be parsed _before_ rule check */
+
 
             if (  Rules[rule_position].parse_ip_count > 0 )
                 {
                     json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
                 }
+
 
             if ( Rules[rule_position].normalize_count > 0 )
                 {
@@ -107,28 +109,27 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 
                         }
 
-                    /* bluedot - alert only */
-
-                    /* So,  it wouldnt be normnalized yet.. move to after normalization?!?! See rule */
+                    /* bluedot - alert only - should we verify pcre/string are successful?  */
 
                     for ( s_position = 0; s_position < Rules[rule_position].bluedot_count; s_position++ )
                         {
 
-			if ( Rules[rule_position].bluedot_alert[s_position] == BLUEDOT_ALERT_ALERT )
-				{
-
-
-                            if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].bluedot_key[s_position] ) )
+                            if ( Rules[rule_position].bluedot_alert[s_position] == BLUEDOT_ALERT_ALERT )
                                 {
 
-                                    if ( Bluedot( rule_position, s_position, JSON_Key_String[a].json ) == true )
-                                        {
-//					     match++;
-                                        }
-                                }
 
+                                    if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].bluedot_key[s_position] ) )
+                                        {
+
+
+                                            if ( Bluedot( rule_position, s_position, JSON_Key_String[a].json ) == true )
+                                                {
+//					     match++;
+                                                }
+                                        }
+
+                                }
                         }
-			}
 
                 }
 
@@ -157,6 +158,13 @@ void Match( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint3
 
     bool after = true;
     uint16_t i = 0;
+
+    /*
+        if (  Rules[rule_position].parse_ip_count > 0 )
+                    {
+                        json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
+                    }
+    		*/
 
     /* xbit "local" or "redis" in the rule? */
 

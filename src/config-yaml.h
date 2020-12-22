@@ -44,6 +44,8 @@
 
 #define		YAML_SUBTYPE_INPUT_PIPE		1
 
+#define		YAML_SUBTYPE_BLUEDOT		10
+
 /**********************/
 /* Sub type - outputs */
 /**********************/

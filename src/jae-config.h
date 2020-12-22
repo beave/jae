@@ -83,6 +83,27 @@ struct _Config
     bool output_file_append_alert_data;
 //    FILE *output_file_stream;
 
+    /***********************************************************************/
+    /* Bluedot                                                             */
+    /***********************************************************************/
+
+    bool processor_bluedot_flag;
+    char processor_bluedot_device_id[64];
+    uint32_t processor_bluedot_timeout;
+    char processor_bluedot_host[255];
+    uint32_t processor_bluedot_dns_ttl;
+    char processor_bluedot_uri[1024];
+
+    uint16_t processor_bluedot_ip_queue;
+    uint16_t processor_bluedot_hash_queue;
+    uint16_t processor_bluedot_url_queue;
+    uint16_t processor_bluedot_filename_queue;
+    uint16_t processor_bluedot_ja3_queue;
+
+
+
+
+
 
 
 };

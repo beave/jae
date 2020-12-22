@@ -224,6 +224,11 @@ int main(int argc, char **argv)
                             Debug->parse_ip = true;
                         }
 
+                    if (JAE_strstr(optarg, "bluedot"))
+                        {
+                            Debug->bluedot = true;
+                        }
+
 
                     break;
 
