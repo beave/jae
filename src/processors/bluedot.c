@@ -33,6 +33,13 @@
 bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
 {
 
-printf("In BLUEDOT\n");
+/* If we have "NOT_FOUND", we can skip this */
+
+if ( json[0] == 'N' )
+	{
+	return(false);
+	}
+
+printf("In BLUEDOT: %s\n", json);
 
 }

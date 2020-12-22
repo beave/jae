@@ -137,7 +137,7 @@ struct _Rules
     char bluedot_key[MAX_BLUEDOT][MAX_BLUEDOT_KEY_SIZE];
     uint8_t bluedot_type[MAX_BLUEDOT];
     bool bluedot_alert[MAX_BLUEDOT];
-    uint8_t bluedot_match_count; 
+    uint8_t bluedot_match_count;
 
 
 

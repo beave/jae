@@ -840,7 +840,7 @@ void Load_Ruleset( const char *ruleset )
                                                     if ( !strcmp(JSON_Key_String[k].json, "true" ) )
                                                         {
                                                             Rules[Counters->rules].bluedot_alert[count] = BLUEDOT_ALERT_ALERT;
-							    __atomic_add_fetch(&Rules[Counters->rules].bluedot_match_count, 1, __ATOMIC_SEQ_CST);
+                                                            __atomic_add_fetch(&Rules[Counters->rules].bluedot_match_count, 1, __ATOMIC_SEQ_CST);
                                                         }
 
                                                     else if ( !strcmp(JSON_Key_String[k].json, "report" ) )
