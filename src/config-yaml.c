@@ -540,7 +540,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "enabled" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->input_named_pipe_flag = true;
                                         }
@@ -548,7 +548,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "chown" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->input_named_pipe_chown = true;
                                         }
@@ -599,7 +599,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "enabled" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->output_file_flag = true;
                                         }
@@ -612,7 +612,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "flatten-json" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->output_file_flatten_json = true;
                                         }
@@ -620,7 +620,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "append-alert-data" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->output_file_append_alert_data = true;
                                         }
@@ -635,10 +635,26 @@ void Load_YAML_Config( const char *yaml_file )
 
                             if ( !strcmp(last_pass, "enabled" ))
                                 {
-                                    if (!strcasecmp(value, "yes") || !strcasecmp(value, "true") || !strcasecmp(value, "enabled") )
+                                    if (!strcasecmp(var_to_value, "yes") || !strcasecmp(var_to_value, "true") || !strcasecmp(var_to_value, "enabled") )
                                         {
                                             Config->processor_bluedot_flag = true;
                                         }
+                                }
+
+                            if ( !strcmp(last_pass, "dns-ttl" ) )
+                                {
+
+                                    Config->processor_bluedot_dns_ttl = atoi( var_to_value );
+
+                                    if ( Config->processor_bluedot_dns_ttl == 0 )
+                                        {
+                                            JAE_Log(ERROR, "[%s, line %d] The 'bluedot' configuration 'dns-ttl' is set to \"%s\" which is invalid. Abort", __FILE__, __LINE__, var_to_value);
+                                        }
+                                }
+
+                            if ( !strcmp(last_pass, "host" ) )
+                                {
+                                    strlcpy(Config->processor_bluedot_host, var_to_value, sizeof(Config->processor_bluedot_host));
                                 }
 
                         }

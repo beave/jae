@@ -93,6 +93,8 @@ struct _Config
     char processor_bluedot_host[255];
     uint32_t processor_bluedot_dns_ttl;
     char processor_bluedot_uri[1024];
+    uint64_t processor_bluedot_dns_last_lookup;
+    char processor_bluedot_ip[64];
 
     uint16_t processor_bluedot_ip_queue;
     uint16_t processor_bluedot_hash_queue;

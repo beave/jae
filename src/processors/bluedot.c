@@ -28,9 +28,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
+#include <pthread.h>
 
 #include "jae.h"
 #include "jae-defs.h"
+#include "jae-config.h"
 #include "rules.h"
 #include "debug.h"
 
@@ -38,13 +41,25 @@
 
 struct _Rules *Rules;
 struct _Debug *Debug;
+struct _Config *Config;
 
+pthread_mutex_t JAE_DNS_Mutex=PTHREAD_MUTEX_INITIALIZER;
+
+bool bluedot_dns_global = 0;
 
 
 bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
 {
 
-    unsigned char ip_convert[MAX_IP_BIT_SIZE] = { 0 };
+    char timet[20] = { 0 };
+    time_t t;
+    struct tm *now=NULL;
+
+    t = time(NULL);
+    now=localtime(&t);
+    strftime(timet, sizeof(timet), "%s",  now);
+
+    uint64_t epoch_time = atol(timet);
 
     /* If we have "NOT_FOUND", we can skip this */
 
@@ -57,6 +72,8 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
 
     if ( Rules[rule_position].bluedot_type[s_position] == BLUEDOT_TYPE_IP )
         {
+
+            unsigned char ip_convert[MAX_IP_BIT_SIZE] = { 0 };
 
             IP_2_Bit(json, ip_convert);
 
@@ -72,6 +89,51 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
                 }
 
             /* Is it in skiplist? */
+
+            if ( bluedot_dns_global == 0 && epoch_time - Config->processor_bluedot_dns_last_lookup > Config->processor_bluedot_dns_ttl )
+                {
+
+                    if ( Debug->bluedot )
+                        {
+                            JAE_Log(DEBUG, "[%s, line %d] Bluedot host TTL of %d seconds reached.  Doing new lookup for '%s'.", __FILE__, __LINE__, Config->processor_bluedot_dns_ttl, Config->processor_bluedot_host);
+                        }
+
+                    char tmp_host[255] = { 0 };
+
+                    pthread_mutex_lock(&JAE_DNS_Mutex);
+                    bluedot_dns_global = true;
+
+                    bool results = false;
+
+                    results = DNS_Lookup(Config->processor_bluedot_host, tmp_host, sizeof(tmp_host));
+
+                    if ( results == false && Config->processor_bluedot_ip[0] == '\0' )
+                        {
+                            JAE_Log(ERROR, "[%s, line %d] Cannot lookup DNS for '%s'. Abort!", __FILE__, __LINE__, Config->processor_bluedot_host, Config->processor_bluedot_ip);
+                        }
+
+                    if ( results == false && Config->processor_bluedot_ip[0] != '\0')
+                        {
+                            JAE_Log(WARN, "[%s, line %d] Cannot lookup DNS for '%s'. Using old value of %s.", __FILE__, __LINE__, Config->processor_bluedot_host, Config->processor_bluedot_ip);
+
+                        }
+                    else
+                        {
+
+                            strlcpy(Config->processor_bluedot_ip, tmp_host, sizeof(Config->processor_bluedot_ip));
+
+                            if ( Debug->bluedot )
+                                {
+                                    JAE_Log(DEBUG, "[%s, line %d] Bluedot host IP is now: %s", __FILE__, __LINE__, Config->processor_bluedot_ip);
+                                }
+
+                        }
+
+                    Config->processor_bluedot_dns_last_lookup = epoch_time;
+                    bluedot_dns_global = false;
+                    pthread_mutex_unlock(&JAE_DNS_Mutex);
+
+                }
 
             printf("Would lookup %s\n", json);
         }

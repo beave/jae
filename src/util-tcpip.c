@@ -280,3 +280,51 @@ bool IP_2_Bit( char *ipaddr, unsigned char *out )
     return ret;
 }
 
+/********************************************************************
+ * DNS lookup of hostnames.  Wired for IPv4 and IPv6.  Code largely
+ * based on Beej's showip.c
+ ********************************************************************/
+
+bool DNS_Lookup( char *host, char *str, size_t size )
+{
+
+    char ipstr[INET6_ADDRSTRLEN] = { 0 };
+
+    struct addrinfo hints = {0}, *res = NULL;
+    int status;
+    void *addr;
+
+    memset(&hints, 0, sizeof hints);
+    hints.ai_family = AF_UNSPEC;     /* AF_INET or AF_INET6 to force version */
+    hints.ai_socktype = SOCK_STREAM;
+
+    if ((status = getaddrinfo(host, NULL, &hints, &res)) != 0)
+        {
+
+            JAE_Log(WARN, "%s: %s", gai_strerror(status), host);
+            return(false);
+
+        }
+
+    if (res->ai_family == AF_INET)   /* IPv4 */
+        {
+
+            struct sockaddr_in *ipv4 = (struct sockaddr_in *)res->ai_addr;
+            addr = &(ipv4->sin_addr);
+
+        }
+    else     /* IPv6 */
+        {
+
+            struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)res->ai_addr;
+            addr = &(ipv6->sin6_addr);
+
+        }
+
+    inet_ntop(res->ai_family, addr, ipstr, sizeof ipstr);
+    freeaddrinfo(res);
+
+    snprintf(str, size, "%s", ipstr);
+    return(true);
+}
+
