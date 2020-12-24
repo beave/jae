@@ -36,12 +36,15 @@
 #include "jae-config.h"
 #include "rules.h"
 #include "debug.h"
+#include "counters.h"
 
 #include "processors/bluedot.h"
 
 struct _Rules *Rules;
 struct _Debug *Debug;
 struct _Config *Config;
+struct _Counters *Counters;
+struct _Bluedot_Skip *Bluedot_Skip;
 
 pthread_mutex_t JAE_DNS_Mutex=PTHREAD_MUTEX_INITIALIZER;
 
@@ -82,6 +85,8 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
     strftime(timet, sizeof(timet), "%s",  now);
 
     uint64_t epoch_time = atol(timet);
+
+    uint64_t i = 0;
 
     /* If we have "NOT_FOUND", we can skip this */
 
@@ -140,6 +145,8 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
 
             IP_2_Bit(json, ip_convert);
 
+            /* Don't look up non-routed stuff */
+
             if ( Is_Not_Routable(ip_convert) || !strcmp(json, "0.0.0.0" ) )
                 {
 
@@ -151,7 +158,26 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
                     return(false);
                 }
 
-            /* DEBUG: Skip here */
+            /* Skip anything in skip network array */
+
+            for ( i = 0; i < Counters->processor_bluedot_skip; i++ )
+                {
+
+                    if ( Is_In_Range(ip_convert, (unsigned char *)&Bluedot_Skip[i].range, 1) )
+                        {
+
+                            if ( Debug->bluedot )
+                                {
+                                    JAE_Log(DEBUG, "[%s, line %d] IP address %s is in Bluedot 'skip_networks'. Skipping lookup.", __FILE__, __LINE__, json);
+                                }
+
+                            return(false);
+                        }
+
+                }
+
+            printf("Would add %s to queue\n", json);
+
             /* DEBUG: Add to queue */
             /* DEBUG: Setup "lookup" */
 

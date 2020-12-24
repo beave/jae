@@ -129,10 +129,10 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
         }
 
-        if ( Debug->parse_ip )
-            {
-                JAE_Log(DEBUG, "[%s:%lu] Modified string: %s", __FUNCTION__, pthread_self(), mod_json);
-            }
+    if ( Debug->parse_ip )
+        {
+            JAE_Log(DEBUG, "[%s:%lu] Modified string: %s", __FUNCTION__, pthread_self(), mod_json);
+        }
 
     ptr1 = strtok_r(mod_json, " ", &ptr2);
 
@@ -169,7 +169,7 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                     if ( Debug->parse_ip )
                         {
-                    JAE_Log(DEBUG, "[%s:%lu] '%s' can't be an IPv4 or IPv6.", __FUNCTION__, pthread_self(), ptr1 );
+                            JAE_Log(DEBUG, "[%s:%lu] '%s' can't be an IPv4 or IPv6.", __FUNCTION__, pthread_self(), ptr1 );
                         }
 
                     ptr1 = strtok_r(NULL, " ", &ptr2);          /* move to next token */
@@ -191,7 +191,7 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             if ( Debug->parse_ip )
                                 {
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv4 address '%s' position %d **", __FUNCTION__, pthread_self(), ptr1, current_position );
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv4 address '%s' position %d **", __FUNCTION__, pthread_self(), ptr1, current_position );
                                 }
 
                             if ( parse_ip_position == current_position )
@@ -226,7 +226,7 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             if ( Debug->parse_ip )
                                 {
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv4 address '%s' with trailing period. **", __FUNCTION__, pthread_self(), ptr1 );
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv4 address '%s' with trailing period. **", __FUNCTION__, pthread_self(), ptr1 );
                                 }
 
 
@@ -266,7 +266,7 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             if ( Debug->parse_ip )
                                 {
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified IPv4:PORT address '%s'  **", __FUNCTION__, pthread_self(), ip_1 );
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified IPv4:PORT address '%s'  **", __FUNCTION__, pthread_self(), ip_1 );
                                 }
 
 
@@ -295,7 +295,7 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             if ( Debug->parse_ip )
                                 {
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified INTERFACE:IPv4 address '%s'  **", __FUNCTION__, pthread_self(), ip_2 );
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified INTERFACE:IPv4 address '%s'  **", __FUNCTION__, pthread_self(), ip_2 );
                                 }
 
 
@@ -324,10 +324,10 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             current_position++;
 
-                         if ( Debug->parse_ip )
-                           {
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv6 address '%s' **", __FUNCTION__, pthread_self(), ptr1 );
-                             }
+                            if ( Debug->parse_ip )
+                                {
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv6 address '%s' **", __FUNCTION__, pthread_self(), ptr1 );
+                                }
 
                             if ( parse_ip_position == current_position )
                                 {
@@ -359,11 +359,11 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             current_position++;
 
-                         if ( Debug->parse_ip )
-                           {
+                            if ( Debug->parse_ip )
+                                {
 
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv6 '%s' with trailing period. **", __FUNCTION__, pthread_self(), ptr1 );
-                             }
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified stand alone IPv6 '%s' with trailing period. **", __FUNCTION__, pthread_self(), ptr1 );
+                                }
 
                             if ( parse_ip_position == current_position )
                                 {
@@ -400,11 +400,11 @@ void Parse_IP_JSON(char *json_string, uint8_t parse_ip_position, char *str, size
 
                             current_position++;
 
-                         if ( Debug->parse_ip )
-                           {
+                            if ( Debug->parse_ip )
+                                {
 
-                            JAE_Log(DEBUG, "[%s:%lu] ** Identified IPv6 with IPv4 mapping '%s' with trailing period. **", __FUNCTION__, pthread_self(), tmp_ip );
-                             }
+                                    JAE_Log(DEBUG, "[%s:%lu] ** Identified IPv6 with IPv4 mapping '%s' with trailing period. **", __FUNCTION__, pthread_self(), tmp_ip );
+                                }
 
                             if ( parse_ip_position == current_position )
                                 {

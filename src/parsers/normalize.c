@@ -57,24 +57,25 @@ struct _Config *Config;
 struct _Rules *Rules;
 
 
-void Load_Normalize( void ) 
+void Load_Normalize( void )
 {
 
-    if((ctx = ln_initCtx()) == NULL)                                                                         
-        {   
+    if((ctx = ln_initCtx()) == NULL)
+        {
             JAE_Log(ERROR, "[%s, line %d] Cannot initialize liblognorm context.", __FILE__, __LINE__);
         }
-    
+
     JAE_Log(NORMAL, "Loading %s for normalization.", Config->normalize_file);
 
-    /* Remember - On reload,  file access will be by the "jae" user! */                                    
-                                                                                                             
-    if (stat(Config->normalize_file, &liblognorm_fileinfo))                                                                  
-        {                                                                                                                JAE_Log(ERROR, "[%s, line %d] Error accessing '%s'. Abort.", __FILE__, __LINE__, Config->normalize_file);
+    /* Remember - On reload,  file access will be by the "jae" user! */
+
+    if (stat(Config->normalize_file, &liblognorm_fileinfo))
+        {
+            JAE_Log(ERROR, "[%s, line %d] Error accessing '%s'. Abort.", __FILE__, __LINE__, Config->normalize_file);
         }
 
     ln_loadSamples(ctx, Config->normalize_file);
-        
+
 }
 
 
@@ -83,96 +84,93 @@ uint16_t Normalize( struct _JSON_Key_String *JSON_Key_String, uint16_t json_coun
 
     uint8_t i = 0;
     uint16_t a = 0;
-    uint16_t b = 0; 
+    uint16_t b = 0;
     uint16_t count = 0;
 
-    uint16_t new_json_count = 0; 
-    char tmp[MAX_JSON_SIZE] = { 0 }; 
+    uint16_t new_json_count = 0;
+    char tmp[MAX_JSON_SIZE] = { 0 };
 
     struct _JSON_Key_String *JSON_Key_String_Normalize;
 
     JSON_Key_String_Normalize = malloc(sizeof(_JSON_Key_String) * MAX_JSON_NEST );
 
     if ( JSON_Key_String == NULL )
-          {   
-             JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
-           }
+        {
+            JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
+        }
 
 
     for ( i = 0; i < Rules[rule_position].normalize_count; i++ )
-            {
+        {
 
-	                for ( a = 0; a < json_count; a++ )
-			                {
+            for ( a = 0; a < json_count; a++ )
+                {
 
-					if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].normalize_key[i]) )
-			                        {
+                    if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].normalize_key[i]) )
+                        {
 
-						struct json_object *json = NULL;
+                            struct json_object *json = NULL;
 
-						int rc_normalize = ln_normalize(ctx, JSON_Key_String[a].json, strlen(JSON_Key_String[a].json), &json);
+                            int rc_normalize = ln_normalize(ctx, JSON_Key_String[a].json, strlen(JSON_Key_String[a].json), &json);
 
-						if ( json == NULL ) 
-							{
-							return( json_count );
-							}
+                            if ( json == NULL )
+                                {
+                                    return( json_count );
+                                }
 
-						snprintf(tmp, MAX_JSON_SIZE, "%s", json_object_to_json_string(json) );
+                            snprintf(tmp, MAX_JSON_SIZE, "%s", json_object_to_json_string(json) );
 
-						/* Parse liblognorm JSON and get new count */
+                            /* Parse liblognorm JSON and get new count */
 
-						new_json_count = Parse_JSON( tmp, JSON_Key_String_Normalize);
+                            new_json_count = Parse_JSON( tmp, JSON_Key_String_Normalize);
 
-						count = json_count; 
+                            count = json_count;
 
-						/* Add JSON to the "alert" array */
+                            /* Add JSON to the "alert" array */
 
-						for ( b = 0; b < new_json_count; b++ )
-							{
+                            for ( b = 0; b < new_json_count; b++ )
+                                {
 
-							if ( JSON_Key_String_Normalize[b].json[0] != '{' ) 
-							{
+                                    if ( JSON_Key_String_Normalize[b].json[0] != '{' )
+                                        {
 
-							strlcpy(JSON_Key_String[count].key, JSON_Key_String_Normalize[b].key, MAX_JSON_KEY);
-							strlcpy(JSON_Key_String[count].json, JSON_Key_String_Normalize[b].json, MAX_JSON_VALUE);
+                                            strlcpy(JSON_Key_String[count].key, JSON_Key_String_Normalize[b].key, MAX_JSON_KEY);
+                                            strlcpy(JSON_Key_String[count].json, JSON_Key_String_Normalize[b].json, MAX_JSON_VALUE);
 
-							count++;
+                                            count++;
 
-							}
+                                        }
 
-							}
+                                }
 
-                                                for ( b = 0; b < new_json_count; b++ )
-                                                        {
+                            for ( b = 0; b < new_json_count; b++ )
+                                {
 
-                                                        if ( JSON_Key_String_Normalize[b].json[0] != '{' )
-                                                        {
+                                    if ( JSON_Key_String_Normalize[b].json[0] != '{' )
+                                        {
 
-							snprintf(JSON_Key_String[count].key, MAX_JSON_KEY, ".normalize%s", JSON_Key_String_Normalize[b].key);
-							strlcpy(JSON_Key_String[count].json, JSON_Key_String_Normalize[b].json, MAX_JSON_VALUE); 
+                                            snprintf(JSON_Key_String[count].key, MAX_JSON_KEY, ".normalize%s", JSON_Key_String_Normalize[b].key);
+                                            strlcpy(JSON_Key_String[count].json, JSON_Key_String_Normalize[b].json, MAX_JSON_VALUE);
 
-							count++; 
-
-
-							}
-
-							}
+                                            count++;
 
 
-							json_count = count;
+                                        }
 
-						}
-
-
-					}
-
-	}
-	
+                                }
 
 
-return(json_count);
+                            json_count = count;
+
+                        }
+
+                }
+
+        }
+
+
+
+    return(json_count);
 }
-
-
 
 #endif

@@ -56,6 +56,7 @@ struct _Config
     char		normalize_file[MAX_PATH];
     char		lock_file[MAX_PATH];
     char		lock_file_path[MAX_PATH];
+    bool		parse_ip;
 
     /***********************************************************************/
     /* Input								   */

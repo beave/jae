@@ -506,7 +506,24 @@ void Load_YAML_Config( const char *yaml_file )
                                     Remove_Return(Config->cluster_name);
                                 }
 
+                            else if ( !strcmp(last_pass, "parse-ip" ) )
+                                {
+                                    if ( !strcmp( var_to_value, "pre" ))
+                                        {
+                                            Config->parse_ip = PARSE_IP_PRE;
+                                        }
+                                    else
+                                        {
+                                            Config->parse_ip = PARSE_IP_POST;
+                                        }
 
+                                    if ( strcmp( var_to_value, "pre" ) && strcmp( var_to_value, "post" ) )
+                                        {
+                                            JAE_Log(ERROR, "[%s, line %d] config -> 'parse-ip' needs to be 'pre' or 'post' but found '%s'. Abort!",  __FILE__, __LINE__, var_to_value);
+
+                                        }
+
+                                }
 
 
                         }
@@ -744,8 +761,6 @@ void Load_YAML_Config( const char *yaml_file )
                                                 }
 
                                             memset(&Bluedot_Skip[Counters->processor_bluedot_skip], 0, sizeof(_Bluedot_Skip));
-
-                                            printf("%s\n", mask_tmp);
 
                                             mask = atoi(mask_tmp);
 

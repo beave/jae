@@ -31,10 +31,13 @@
 #include <sys/prctl.h>
 #endif
 
+#include "jae.h"
 #include "jae-defs.h"
+#include "jae-config.h"
 #include "util.h"
 #include "rules.h"
 #include "counters.h"
+#include "debug.h"
 
 #include "parsers/json.h"
 #include "parsers/search.h"
@@ -46,7 +49,8 @@
 
 struct _Rules *Rules;
 struct _Counters *Counters;
-
+struct _Config *Config;
+struct _Debug *Debug;
 
 
 void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
@@ -64,9 +68,18 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
             /* Parse data that needs to be parsed _before_ rule check */
 
 
-            if (  Rules[rule_position].parse_ip_count > 0 )
+            if ( Config->parse_ip == PARSE_IP_PRE )
                 {
-                    json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
+
+                    if ( Debug->parse_ip )
+                        {
+                            JAE_Log(DEBUG, "[%s:%lu] Parse_IP working in 'PRE' mode.", __FUNCTION__, pthread_self());
+                        }
+
+                    if (  Rules[rule_position].parse_ip_count > 0 )
+                        {
+                            json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
+                        }
                 }
 
 
@@ -159,12 +172,20 @@ void Match( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count, uint3
     bool after = true;
     uint16_t i = 0;
 
-    /*
-        if (  Rules[rule_position].parse_ip_count > 0 )
-                    {
-                        json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
-                    }
-    		*/
+    if ( Config->parse_ip == PARSE_IP_POST )
+        {
+
+            if ( Debug->parse_ip )
+                {
+                    JAE_Log(DEBUG, "[%s:%lu] Parse_IP working in 'POST' mode.", __FUNCTION__, pthread_self());
+                }
+
+            if (  Rules[rule_position].parse_ip_count > 0 )
+                {
+                    json_count = Parse_IP( JSON_Key_String, json_count, rule_position );
+                }
+
+        }
 
     /* xbit "local" or "redis" in the rule? */
 
