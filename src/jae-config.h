@@ -33,22 +33,18 @@ struct _Config
     /* Non-dependent var's                                                 */
     /***********************************************************************/
 
-//    bool         jaen_reload;
     bool         daemonize;
     bool         quiet;
     bool	 pcre_jit;
 
     char 	 config_yaml[MAX_PATH];
+    uint64_t	 jae_start_time;
 
     /***********************************************************************/
     /* Configuration 							   */
     /***********************************************************************/
 
     char		runas[32];
-//    char		ip[46];
-//    char		proto[5];
-//    unsigned char	proto_int;
-//    uint32_t            port;
 
     char		sensor_name[MAX_SENSOR_NAME];
     char		cluster_name[MAX_CLUSTER_NAME];

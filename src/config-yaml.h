@@ -54,4 +54,6 @@
 
 
 void Load_YAML_Config( const char * );
+struct _Simple_Array *Comma_Delimited_Simple ( char *string );
+
 

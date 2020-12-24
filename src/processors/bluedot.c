@@ -45,7 +45,29 @@ struct _Config *Config;
 
 pthread_mutex_t JAE_DNS_Mutex=PTHREAD_MUTEX_INITIALIZER;
 
+struct _Bluedot_IP_Queue *BluedotIPQueue = NULL;
+
 bool bluedot_dns_global = 0;
+
+void Bluedot_Init( void )
+{
+
+    /* IP Queue */
+
+    if ( Config->processor_bluedot_ip_queue > 0 )
+        {
+
+            BluedotIPQueue = malloc(Config->processor_bluedot_ip_queue * sizeof(struct _Bluedot_IP_Queue));
+
+            if ( BluedotIPQueue == NULL )
+                {
+                    JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _Bluedot_IP_Queue. Abort!", __FILE__, __LINE__);
+                }
+
+            memset(BluedotIPQueue, 0, Config->processor_bluedot_ip_queue * sizeof(_Bluedot_IP_Queue));
+        }
+
+}
 
 
 bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
@@ -68,7 +90,48 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
             return(false);
         }
 
-    /* Check IP TTL for Bluedot */
+    /* Check DNS TTL,  do lookup if nessesary */
+    /* DO LOOKUP in jae-config.c ( at start up !) */
+
+    if ( bluedot_dns_global == 0 && epoch_time - Config->processor_bluedot_dns_last_lookup > Config->processor_bluedot_dns_ttl )
+        {
+
+            if ( Debug->bluedot )
+                {
+                    JAE_Log(DEBUG, "[%s, line %d] Bluedot host TTL of %d seconds reached.  Doing new lookup for '%s'.", __FILE__, __LINE__, Config->processor_bluedot_dns_ttl, Config->processor_bluedot_host);
+                }
+
+            char tmp_host[255] = { 0 };
+
+            pthread_mutex_lock(&JAE_DNS_Mutex);
+            bluedot_dns_global = true;
+
+            bool results = false;
+
+            results = DNS_Lookup(Config->processor_bluedot_host, tmp_host, sizeof(tmp_host));
+
+            if ( results == false && Config->processor_bluedot_ip[0] != '\0')
+                {
+                    JAE_Log(WARN, "[%s, line %d] Cannot lookup DNS for '%s'. Using old value of %s.", __FILE__, __LINE__, Config->processor_bluedot_host, Config->processor_bluedot_ip);
+
+                }
+            else
+                {
+
+                    strlcpy(Config->processor_bluedot_ip, tmp_host, sizeof(Config->processor_bluedot_ip));
+
+                    if ( Debug->bluedot )
+                        {
+                            JAE_Log(DEBUG, "[%s, line %d] Bluedot host IP is now: %s", __FILE__, __LINE__, Config->processor_bluedot_ip);
+                        }
+
+                }
+
+            Config->processor_bluedot_dns_last_lookup = epoch_time;
+            bluedot_dns_global = false;
+            pthread_mutex_unlock(&JAE_DNS_Mutex);
+
+        } /* end of DNS lookup */
 
     if ( Rules[rule_position].bluedot_type[s_position] == BLUEDOT_TYPE_IP )
         {
@@ -88,62 +151,11 @@ bool Bluedot( uint32_t rule_position, uint8_t s_position, char *json )
                     return(false);
                 }
 
-            /* Is it in skiplist? */
+            /* DEBUG: Skip here */
+            /* DEBUG: Add to queue */
+            /* DEBUG: Setup "lookup" */
 
-            if ( bluedot_dns_global == 0 && epoch_time - Config->processor_bluedot_dns_last_lookup > Config->processor_bluedot_dns_ttl )
-                {
-
-                    if ( Debug->bluedot )
-                        {
-                            JAE_Log(DEBUG, "[%s, line %d] Bluedot host TTL of %d seconds reached.  Doing new lookup for '%s'.", __FILE__, __LINE__, Config->processor_bluedot_dns_ttl, Config->processor_bluedot_host);
-                        }
-
-                    char tmp_host[255] = { 0 };
-
-                    pthread_mutex_lock(&JAE_DNS_Mutex);
-                    bluedot_dns_global = true;
-
-                    bool results = false;
-
-                    results = DNS_Lookup(Config->processor_bluedot_host, tmp_host, sizeof(tmp_host));
-
-                    if ( results == false && Config->processor_bluedot_ip[0] == '\0' )
-                        {
-                            JAE_Log(ERROR, "[%s, line %d] Cannot lookup DNS for '%s'. Abort!", __FILE__, __LINE__, Config->processor_bluedot_host, Config->processor_bluedot_ip);
-                        }
-
-                    if ( results == false && Config->processor_bluedot_ip[0] != '\0')
-                        {
-                            JAE_Log(WARN, "[%s, line %d] Cannot lookup DNS for '%s'. Using old value of %s.", __FILE__, __LINE__, Config->processor_bluedot_host, Config->processor_bluedot_ip);
-
-                        }
-                    else
-                        {
-
-                            strlcpy(Config->processor_bluedot_ip, tmp_host, sizeof(Config->processor_bluedot_ip));
-
-                            if ( Debug->bluedot )
-                                {
-                                    JAE_Log(DEBUG, "[%s, line %d] Bluedot host IP is now: %s", __FILE__, __LINE__, Config->processor_bluedot_ip);
-                                }
-
-                        }
-
-                    Config->processor_bluedot_dns_last_lookup = epoch_time;
-                    bluedot_dns_global = false;
-                    pthread_mutex_unlock(&JAE_DNS_Mutex);
-
-                }
-
-            printf("Would lookup %s\n", json);
         }
 
-    /* Do cache lookup */
-
-    /* Add IP to "queue" */
-
-
-
-//printf("In BLUEDOT: %s\n", json);
 
 }

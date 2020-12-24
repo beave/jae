@@ -45,11 +45,14 @@
 #include "jae-config.h"
 #include "config-yaml.h"
 #include "util.h"
+#include "util-file.h"
 #include "var.h"
 #include "counters.h"
 #include "debug.h"
 #include "rules.h"
 #include "classifications.h"
+
+#include "processors/bluedot.h"
 
 #include "parsers/strstr-asm/strstr-hook.h"
 
@@ -67,6 +70,7 @@ struct _Debug *Debug;
 
 struct _Var *Var = NULL;
 
+struct _Bluedot_Skip *Bluedot_Skip;
 
 void Load_YAML_Config( const char *yaml_file )
 {
@@ -81,6 +85,16 @@ void Load_YAML_Config( const char *yaml_file )
     unsigned char sub_type = 0;
     unsigned char toggle = 0;
 
+    uint64_t count = 0;
+    uint64_t i = 0;
+
+    char *ip_range = NULL;
+    char *mask_tmp = NULL;
+    uint32_t mask = 0;
+
+    unsigned char ip_bits[MAX_IP_BIT_SIZE] = { 0 };
+    unsigned char mask_bits[MAX_IP_BIT_SIZE]= { 0 };
+
     char *tok = NULL;
 
     char last_pass[128] = { 0 };
@@ -94,7 +108,6 @@ void Load_YAML_Config( const char *yaml_file )
     char *lf2 = NULL;
     char *dir = NULL;
     char *filename = NULL;
-
 
     if (stat(yaml_file, &filecheck) != false )
         {
@@ -641,7 +654,7 @@ void Load_YAML_Config( const char *yaml_file )
                                         }
                                 }
 
-                            if ( !strcmp(last_pass, "dns-ttl" ) )
+                            if ( !strcmp(last_pass, "dns-ttl" ) && Config->processor_bluedot_flag == true )
                                 {
 
                                     Config->processor_bluedot_dns_ttl = atoi( var_to_value );
@@ -652,9 +665,102 @@ void Load_YAML_Config( const char *yaml_file )
                                         }
                                 }
 
-                            if ( !strcmp(last_pass, "host" ) )
+                            if ( !strcmp(last_pass, "ip-queue" ) && Config->processor_bluedot_flag == true )
+                                {
+
+                                    Config->processor_bluedot_ip_queue = atoi( var_to_value );
+
+                                    if ( Config->processor_bluedot_ip_queue == 0 )
+                                        {
+                                            JAE_Log(ERROR, "[%s, line %d] The 'bluedot' configuration 'ip_queue' is set to \"%s\" which is invalid. Abort", __FILE__, __LINE__, var_to_value);
+                                        }
+
+                                }
+
+
+                            if ( !strcmp(last_pass, "host" ) && Config->processor_bluedot_flag == true )
                                 {
                                     strlcpy(Config->processor_bluedot_host, var_to_value, sizeof(Config->processor_bluedot_host));
+                                }
+
+                            if ( !strcmp(last_pass, "skip-networks" ) && Config->processor_bluedot_flag == true )
+                                {
+
+
+                                    /* Load from file */
+
+                                    struct _Simple_Array *Simple_Array;
+
+                                    if ( var_to_value[0] == 'f' && var_to_value[1] == 'i' && var_to_value[2] == 'l' &&
+                                            var_to_value[3] == 'e' && var_to_value[4] == ':' && var_to_value[5] == '/' )
+                                        {
+
+                                            char tmp_file[255] = { 0 };
+
+                                            /* Grab only the file path + name */
+
+                                            strlcpy(tmp_file, var_to_value+6, sizeof(tmp_file));
+
+                                            Simple_Array = Load_Simple_File ( (const char *)tmp_file);
+
+                                        }
+                                    else
+                                        {
+
+                                            Simple_Array = Comma_Delimited_Simple ( (char *)var_to_value);
+                                        }
+
+//                                    count = 0;
+
+                                    while ( Simple_Array[Counters->processor_bluedot_skip].item[0] != '\0' )
+                                        {
+
+                                            ip_range = strtok_r( Simple_Array[Counters->processor_bluedot_skip].item, "/", &tok );
+
+                                            if ( ip_range == NULL )
+                                                {
+                                                    JAE_Log(ERROR, "[%s, line %d] processor 'bluedot' has a invalid 'skip_networks' entry of '%s'. Abort!", __FILE__, __LINE__, var_to_value);
+                                                }
+
+                                            if (!IP_2_Bit(ip_range, ip_bits))
+                                                {
+                                                    JAE_Log(ERROR, "[%s, line %d] processor 'bluedot' has a invalid 'skip_networks' entry of '%s'. Abort!", __FILE__, __LINE__, var_to_value);
+                                                }
+
+                                            mask_tmp = strtok_r(NULL, "/", &tok);
+
+                                            /* Default to /32 if NULL */
+
+                                            if ( mask_tmp == NULL )
+                                                {
+                                                    mask = 32;
+                                                }
+
+                                            Bluedot_Skip = (_Bluedot_Skip *) realloc(Bluedot_Skip, (Counters->processor_bluedot_skip+1) * sizeof(_Bluedot_Skip));
+
+                                            if ( Bluedot_Skip == NULL )
+                                                {
+                                                    JAE_Log(ERROR, "[%s, line %d] processor 'bluedot' failed to allocate memory for _Bluedot_Skip. Abort!", __FILE__, __LINE__);
+                                                }
+
+                                            memset(&Bluedot_Skip[Counters->processor_bluedot_skip], 0, sizeof(_Bluedot_Skip));
+
+                                            printf("%s\n", mask_tmp);
+
+                                            mask = atoi(mask_tmp);
+
+                                            if ( mask == 0 || !Mask_2_Bit(mask, mask_bits) )
+                                                {
+                                                    JAE_Log(ERROR, "[%s, line %d] processor 'bluedot' - Invalid mask for 'skip_networks'. Abort!", __FILE__, __LINE__);
+                                                }
+
+                                            memcpy(Bluedot_Skip[Counters->processor_bluedot_skip].range.ipbits, ip_bits, MAX_IP_BIT_SIZE);
+                                            memcpy(Bluedot_Skip[Counters->processor_bluedot_skip].range.maskbits, mask_bits, MAX_IP_BIT_SIZE);
+
+                                            __atomic_add_fetch(&Counters->processor_bluedot_skip, 1, __ATOMIC_SEQ_CST);
+
+                                        }
+
                                 }
 
                         }
@@ -760,5 +866,47 @@ void Load_YAML_Config( const char *yaml_file )
     yaml_parser_delete(&parser);
     fclose(fh);
 
+}
+
+
+struct _Simple_Array *Comma_Delimited_Simple ( char *string )
+{
+
+    char *ptr1 = NULL;
+    char *ptr2 = NULL;
+
+    uint64_t count = 0;
+
+    struct _Simple_Array *Simple_Array = NULL;
+
+
+    Remove_Spaces(string);
+
+    ptr1 = strtok_r(string, ",", &ptr2);
+
+    while ( ptr1 != NULL )
+        {
+
+            Simple_Array = (_Simple_Array *) realloc(Simple_Array, (count+1) * sizeof(_Simple_Array));
+
+            if ( Simple_Array == NULL )
+                {
+                    Remove_Lock_File();
+                    JAE_Log(ERROR, "[%s, line %d] Failed to reallocate memory for _Simple_Array.  Abort!", __FILE__, __LINE__);
+                }
+
+            memset(&Simple_Array[count], 0, sizeof(struct _Simple_Array));
+
+            strlcpy(Simple_Array[count].item, ptr1, MAX_ITEM_SIZE);
+
+            count++;
+            ptr1 = strtok_r(NULL, ",", &ptr2);
+
+        }
+
+
+    return( Simple_Array );
 
 }
+
+

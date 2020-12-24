@@ -28,8 +28,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-
-
 /***************************************************************************
  * Djd2_Hash - creates a hash based off a string.  This code is from Dan
  * Bernstein.  See http://www.cse.yorku.ca/~oz/hash.html.

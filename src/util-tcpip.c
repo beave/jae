@@ -328,3 +328,24 @@ bool DNS_Lookup( char *host, char *str, size_t size )
     return(true);
 }
 
+bool Mask_2_Bit( int mask, unsigned char *out )
+{
+    int i;
+    bool ret = false;
+
+    if (mask < 1 || mask > 128)
+        {
+            return false;
+        }
+
+    ret = true;
+
+    for (i=0; i<mask; i+=8)
+        {
+            out[i/8] = i+8 <= mask ? 0xff : ~((1 << (8 - mask%8)) - 1);
+        }
+    return ret;
+
+}
+
+

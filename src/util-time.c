@@ -40,8 +40,6 @@ struct tm *JAE_LocalTime(time_t timep, struct tm *result)
     return localtime_r(&timep, result);
 }
 
-
-
 /***************************************************************************
  * CreateIsoTimeString - Used in EVE & alert output.  Based off Suricata
  * source.

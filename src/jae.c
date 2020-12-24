@@ -46,6 +46,7 @@ for "champtest" will get a hit.  But "this is a champtest" still won't
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
 
 #ifdef HAVE_SYS_PRCTL_H
 #include <sys/prctl.h>
@@ -94,6 +95,11 @@ int main(int argc, char **argv)
     uint8_t rc = 0;
     uint16_t i = 0;
 
+    time_t t;
+    struct tm *run;
+
+    char tmp_time[16] = { 0 };
+
     /* Allocate memory for global struct _Config */
 
     Config = malloc(sizeof(_Config));
@@ -104,6 +110,14 @@ int main(int argc, char **argv)
         }
 
     memset(Config, 0, sizeof(_Config));
+
+    /* Record the startup time */
+
+    t = time(NULL);
+    run=localtime(&t);
+    strftime(tmp_time, sizeof(tmp_time), "%s",  run);
+
+    Config->jae_start_time = atol( tmp_time );
 
     /* Allocate memory for global struct _Counters */
 
@@ -346,11 +360,29 @@ int main(int argc, char **argv)
 #endif
 
 
-
     Load_YAML_Config( Config->config_yaml );
     Load_Normalize();
 
     CheckLockFile();
+
+    if ( Config->processor_bluedot_flag == true )
+        {
+
+            Bluedot_Init();
+
+            bool res = DNS_Lookup( Config->processor_bluedot_host, Config->processor_bluedot_ip, sizeof(Config->processor_bluedot_ip) );
+
+            if ( res == false )
+                {
+                    Remove_Lock_File();
+                    JAE_Log(ERROR, "[%s, line %d] DNS lookup failure for host \"%s\". Abort!", __FILE__, __LINE__, Config->processor_bluedot_host );
+                }
+
+            Config->processor_bluedot_dns_last_lookup = Config->jae_start_time;
+
+            JAE_Log(NORMAL, "Bluedot host \"%s\" is at %s", Config->processor_bluedot_host, Config->processor_bluedot_ip );
+
+        }
 
 
     /* Init _Output_ */
@@ -375,7 +407,6 @@ int main(int argc, char **argv)
     /* Init batch queue */
 
     Batch_Init();
-
 
     /* Main processor! */
 

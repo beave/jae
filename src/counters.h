@@ -29,9 +29,10 @@ struct _Counters
 
     uint64_t	input_received;
 
-
     uint16_t	classifications;
     uint32_t	rules;
+
+    uint32_t	processor_bluedot_skip;
 
 
 };
