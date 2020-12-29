@@ -694,11 +694,23 @@ void Load_YAML_Config( const char *yaml_file )
 
                                 }
 
-
                             if ( !strcmp(last_pass, "host" ) && Config->processor_bluedot_flag == true )
                                 {
                                     strlcpy(Config->processor_bluedot_host, var_to_value, sizeof(Config->processor_bluedot_host));
                                 }
+
+                            if ( !strcmp(last_pass, "uri" ) && Config->processor_bluedot_flag == true )
+                                {
+                                    strlcpy(Config->processor_bluedot_uri, var_to_value, sizeof(Config->processor_bluedot_uri));
+                                }
+
+                            if ( !strcmp(last_pass, "device-id" ) && Config->processor_bluedot_flag == true )
+                                {
+                                    strlcpy(Config->processor_bluedot_device_id, var_to_value, sizeof(Config->processor_bluedot_device_id));
+                                }
+
+
+
 
                             if ( !strcmp(last_pass, "skip-networks" ) && Config->processor_bluedot_flag == true )
                                 {
@@ -776,6 +788,7 @@ void Load_YAML_Config( const char *yaml_file )
 
                                         }
 
+					free(Simple_Array);
                                 }
 
                         }

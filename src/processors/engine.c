@@ -134,10 +134,16 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
                                     if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].bluedot_key[s_position] ) )
                                         {
 
+					/* DONT LIKE THIS AT ALL - If bluedot is enabled,  add query 
+					   data to the JSON_Key_String.  Then _check_ the data here
+					   for a match.  THat way,  its always added to JSON reguardles
+					   of results */
+
 
                                             if ( Bluedot( rule_position, s_position, JSON_Key_String[a].json ) == true )
                                                 {
-//					     match++;
+						printf("BLUEDOT MATCH\n");
+					     match++;
                                                 }
                                         }
 
@@ -146,12 +152,13 @@ void Engine( struct _JSON_Key_String *JSON_Key_String, uint16_t json_count )
 
                 }
 
-            printf("search_count = %d + pcre_count = %d,  match = %d\n", Rules[rule_position].search_string_count, Rules[rule_position].pcre_count, match);
+            printf("search_count = %d + pcre_count = %d,  bluedot_count = %d,  match = %d\n", Rules[rule_position].search_string_count, Rules[rule_position].pcre_count, Rules[rule_position].bluedot_count, match);
 
 
             /* Was "Search" / "Pcre" successful? */
 
-            if ( match == Rules[rule_position].search_string_count + Rules[rule_position].pcre_count )
+            if ( match == Rules[rule_position].search_string_count + Rules[rule_position].pcre_count +
+	                  Rules[rule_position].bluedot_count )
                 {
 
                     /* Add alert items to our array */

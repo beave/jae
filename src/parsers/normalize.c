@@ -50,7 +50,7 @@
 /**************************/
 
 static ln_ctx ctx;
-struct stat liblognorm_fileinfo;
+//struct stat liblognorm_fileinfo;
 
 
 struct _Config *Config;
@@ -59,6 +59,8 @@ struct _Rules *Rules;
 
 void Load_Normalize( void )
 {
+
+    struct stat liblognorm_fileinfo;
 
     if((ctx = ln_initCtx()) == NULL)
         {
@@ -91,6 +93,7 @@ uint16_t Normalize( struct _JSON_Key_String *JSON_Key_String, uint16_t json_coun
     char tmp[MAX_JSON_SIZE] = { 0 };
 
     struct _JSON_Key_String *JSON_Key_String_Normalize;
+    struct json_object *json = NULL;
 
     JSON_Key_String_Normalize = malloc(sizeof(_JSON_Key_String) * MAX_JSON_NEST );
 
@@ -109,12 +112,12 @@ uint16_t Normalize( struct _JSON_Key_String *JSON_Key_String, uint16_t json_coun
                     if ( !strcmp(JSON_Key_String[a].key, Rules[rule_position].normalize_key[i]) )
                         {
 
-                            struct json_object *json = NULL;
-
-                            int rc_normalize = ln_normalize(ctx, JSON_Key_String[a].json, strlen(JSON_Key_String[a].json), &json);
+			    (void)ln_normalize(ctx, JSON_Key_String[a].json, strlen(JSON_Key_String[a].json), &json);
 
                             if ( json == NULL )
                                 {
+				    free(JSON_Key_String_Normalize);
+				    json_object_put(json);
                                     return( json_count );
                                 }
 
@@ -169,6 +172,8 @@ uint16_t Normalize( struct _JSON_Key_String *JSON_Key_String, uint16_t json_coun
         }
 
 
+    free(JSON_Key_String_Normalize);
+    json_object_put(json);
 
     return(json_count);
 }

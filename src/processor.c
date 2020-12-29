@@ -71,7 +71,6 @@ void Processor (void)
             JAE_Log(ERROR, "[%s, line %d] Failed to allocate memory for _JSON_Key_String", __FILE__, __LINE__);
         }
 
-
     struct _Input_Batch *Input_Batch_LOCAL;
 
     Input_Batch_LOCAL = malloc(Config->max_threads * sizeof(_Input_Batch));
@@ -144,5 +143,6 @@ void Processor (void)
             processor_running_threads--;
         }
 
+free(JSON_Key_String);
 
 }
